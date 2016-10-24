@@ -1,4 +1,5 @@
 ﻿using GoogleCloudPrintApi.Models.Printer;
+using GoogleCloudPrintApi.Models.Share;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +13,7 @@ namespace GoogleCloudPrintApi.Infrastructures
     {
         Task<DeleteResponse> DeletePrinterAsync(DeleteRequest request);
 
-        Task<ControlResponse> UpdatePrintJobStatusAsync(ControlRequest request);
+        Task<ControlResponse> UpdateJobStatusAsync(ControlRequest request);
 
         Task<ListResponse> ListPrinterAsync(ListRequest request);
 
@@ -30,6 +31,10 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         Task<byte[]> GetDocumentv2Async(string fileUrl);
 
-        // TODO: GetPrinterAsync, SharePrinterAsync, UnsharePrinterAsync
+        Task<PrinterResponse> GetPrinterAsync(PrinterRequest request);
+
+        Task<ShareResponse> SharePrinterAsync(ShareRequest request);
+
+        Task<UnshareResponse> UnsharePrinterAsync(UnshareRequest request);
     }
 }

@@ -5,6 +5,7 @@ using GoogleCloudPrintApi.Models.Printer;
 using System.Threading.Tasks;
 using System;
 using System.Xml.Linq;
+using GoogleCloudPrintApi.Models.Share;
 
 namespace GoogleCloudPrintApi
 {
@@ -22,7 +23,7 @@ namespace GoogleCloudPrintApi
         /// </summary>
         /// <param name="request">Parameters for /control interface</param>
         /// <returns>Result for /control interface</returns>
-        public async Task<ControlResponse> UpdatePrintJobStatusAsync(ControlRequest request)
+        public async Task<ControlResponse> UpdateJobStatusAsync(ControlRequest request)
         {
             await UpdateToken();
 
@@ -215,6 +216,58 @@ namespace GoogleCloudPrintApi
             throw new NotImplementedException("Use GCP 1.0 instead since GCP 2.0 requires CDD document for the printer");
         }
 
-        // TODO: GetPrinterAsync, SharePrinterAsync, UnsharePrinterAsync
+        /// <summary>
+        /// Get printer detail
+        /// reference: https://developers.google.com/cloud-print/docs/appInterfaces#printer
+        /// </summary>
+        /// <param name="request">Parameters for /printer interface</param>
+        /// <returns>Response from google cloud</returns>
+        public async Task<PrinterResponse> GetPrinterAsync(PrinterRequest request)
+        {
+            await UpdateToken();
+
+            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
+                .Auth(_token.AccessToken)
+                .Param("printerid", request.PrinterId)
+                .Param("use_cdd", request.UseCdd.ToString())
+                .Param("extra_fields", request.ExtraFields)
+                .PostAsync<PrinterResponse>("printer"));
+        }
+
+        /// <summary>
+        /// Share google cloud printer to other google user
+        /// reference: https://developers.google.com/cloud-print/docs/shareApi#share
+        /// </summary>
+        /// <param name="request">Parameters for /share interface</param>
+        /// <returns>Response from google cloud</returns>
+        public async Task<ShareResponse> SharePrinterAsync(ShareRequest request)
+        {
+            await UpdateToken();
+
+            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
+                .Auth(_token.AccessToken)
+                .Param("printerid", request.PrinterId)
+                .Param("scope", request.Scope)
+                .Param("role", request.Role.ToString().ToUpper())
+                .ParamIf("skip_notification", request.SkipNotification.ToString(), request.SkipNotification)
+                .PostAsync<ShareResponse>("share"));
+        }
+
+        /// <summary>
+        /// Unshare google cloud printer from other google user
+        /// reference: https://developers.google.com/cloud-print/docs/shareApi#unshare
+        /// </summary>
+        /// <param name="request">Parameters for /unshare interface</param>
+        /// <returns>Response from google cloud</returns>
+        public async Task<UnshareResponse> UnsharePrinterAsync(UnshareRequest request)
+        {
+            await UpdateToken();
+
+            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
+                .Auth(_token.AccessToken)
+                .Param("printerid", request.PrinterId)
+                .Param("scope", request.Scope)
+                .PostAsync<UnshareResponse>("unshare"));
+        }
     }
 }
