@@ -1,0 +1,5 @@
+Y:\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\bin\Debug\GoogleCloudPrintApi.dll
+Y:\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\bin\Debug\GoogleCloudPrintApi.pdb
+Y:\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.dll
+Y:\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.pdb
+Y:\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.csprojResolveAssemblyReference.cache
