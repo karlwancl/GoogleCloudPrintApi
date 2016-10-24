@@ -1,0 +1,8 @@
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.Test.exe.config
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.Test.exe
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.Test.pdb
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.dll
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.pdb
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\obj\Debug\GoogleCloudPrintApi.Test.csprojResolveAssemblyReference.cache
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\obj\Debug\GoogleCloudPrintApi.Test.exe
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\obj\Debug\GoogleCloudPrintApi.Test.pdb
