@@ -32,7 +32,7 @@ namespace GoogleCloudPrintApi.Helpers
 
         public EasyRestClient Auth(string accessToken)
         {
-            _headers.Add("Authorization", $"Bearer {accessToken}");
+            _headers.Add("Authorization", $"OAuth {accessToken}");
             return this;
         }
 

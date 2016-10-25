@@ -48,6 +48,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Program - DeletePrinter.cs" />
+    <Compile Include="Program - UpdatePrinter.cs" />
+    <Compile Include="Program - ListPrinter.cs" />
+    <Compile Include="Program -RegisterPrinter.cs" />
+    <Compile Include="Program - OAuth.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
