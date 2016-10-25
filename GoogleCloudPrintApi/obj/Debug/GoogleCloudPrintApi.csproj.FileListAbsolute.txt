@@ -5,6 +5,6 @@ Y:\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\Go
 Y:\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.csprojResolveAssemblyReference.cache
 \\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\bin\Debug\GoogleCloudPrintApi.dll
 \\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\bin\Debug\GoogleCloudPrintApi.pdb
-\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.csprojResolveAssemblyReference.cache
 \\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.dll
 \\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.pdb
+\\Mac\Home\Development\fc886\Source\GoogleCloudPrintApi\GoogleCloudPrintApi\obj\Debug\GoogleCloudPrintApi.csprojResolveAssemblyReference.cache

@@ -9,6 +9,8 @@ using GoogleCloudPrintApi.Models.Share;
 
 namespace GoogleCloudPrintApi
 {
+    // For use in server application only
+    // TODO: Support other different platforms
     public class GoogleCloudPrintClient : GoogleClientBase, IGoogleCloudPrintService
     {
         protected const string GoogleCloudPrintBaseUrl = "https://www.google.com/cloudprint/";

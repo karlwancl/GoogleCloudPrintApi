@@ -95,11 +95,8 @@ namespace GoogleCloudPrintApi.Helpers
             {
                 var content = new FormUrlEncodedContent(_parameters);
                 var response = method == Method.Get ? client.GetAsync(requestUri).Result : client.PostAsync(requestUri, content).Result;
-                using (response)
-                {
-                    response.EnsureSuccessStatusCode();
-                    return response.Content;
-                }
+                response.EnsureSuccessStatusCode();
+                return response.Content;
             }
         }
 
@@ -130,11 +127,8 @@ namespace GoogleCloudPrintApi.Helpers
             {
                 var content = new FormUrlEncodedContent(_parameters);
                 var response = method == Method.Get ? await client.GetAsync(requestUri) : await client.PostAsync(requestUri, content);
-                using (response)
-                {
-                    response.EnsureSuccessStatusCode();
-                    return response.Content;
-                }
+                response.EnsureSuccessStatusCode();
+                return response.Content;
             }
         }
 
@@ -170,7 +164,7 @@ namespace GoogleCloudPrintApi.Helpers
                 client.DefaultRequestHeaders.Add(authHeader.Key, authHeader.Value);
 
             var acceptHeaders = _headers.Where(kvp => kvp.Key.Equals("Accept", StringComparison.OrdinalIgnoreCase));
-            if (acceptHeaders != null)
+            if (acceptHeaders != null && acceptHeaders.Any())
             {
                 string key = acceptHeaders.First().Key;
                 string value = string.Join(",", acceptHeaders.Select(kvp => kvp.Value));

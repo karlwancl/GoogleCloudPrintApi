@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
-using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Infrastructures
@@ -54,11 +53,11 @@ namespace GoogleCloudPrintApi.Infrastructures
         public string BuildAuthorizationUrl()
         {
             return (new UrlBuilder(GoogleOAuth2Uri))
-                .Param("redirect", GoogleOAuth2Uri)
+                .Param("redirect_uri", OAuth2RedirectUri)
                 .Param("response_type", OAuth2ResponseType)
                 .Param("client_id", _clientId)
                 .Param("scope", Scope)
-                .Param("approval_propmpt", OAuth2ApprovalPromptForce)
+                .Param("approval_prompt", OAuth2ApprovalPromptForce)
                 .Param("access_type", OAuth2AccessTypeOffline)
                 .Build();
         }
