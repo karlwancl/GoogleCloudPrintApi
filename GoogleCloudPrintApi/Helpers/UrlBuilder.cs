@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Text.Encodings.Web;
+using System.Net;
 
 namespace GoogleCloudPrintApi.Helpers
 {
@@ -35,7 +35,7 @@ namespace GoogleCloudPrintApi.Helpers
             builder.Append($"{_baseAddress.TrimEnd('/')}?");
             foreach (var kvp in _parameters)
             {
-                builder.Append($"{kvp.Key}={UrlEncoder.Default.Encode(kvp.Value)}&");
+                builder.Append($"{kvp.Key}={WebUtility.UrlEncode(kvp.Value)}&");
             }
             return builder.ToString().TrimEnd('&').TrimEnd('?');
         }

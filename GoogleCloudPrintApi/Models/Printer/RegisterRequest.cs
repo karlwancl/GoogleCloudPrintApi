@@ -95,6 +95,7 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// <summary>
         /// Printer capabilities (XPS, PPD or CDD). (required)
         /// </summary>
+        [Required]
         public string Capabilities { get; set; }
 
         /// <summary>
