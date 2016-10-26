@@ -77,12 +77,14 @@ namespace GoogleCloudPrintApi.Test
         {
             try
             {
-                var documentStream = client.GetDocumentAsync(printJob.FileUrl, proxy).Result;
-                Directory.CreateDirectory(DocumentFolderPath);
-                string path = $"{Path.Combine(DocumentFolderPath, Path.GetFileNameWithoutExtension(printJob.Title))}.pdf";
-                using (var fs = File.Create(path))
+                using (var documentStream = client.GetDocumentAsync(printJob.FileUrl, proxy).Result)
                 {
-                    documentStream.CopyTo(fs);
+                    Directory.CreateDirectory(DocumentFolderPath);
+                    string path = $"{Path.Combine(DocumentFolderPath, Path.GetFileNameWithoutExtension(printJob.Title))}.pdf";
+                    using (var fs = File.Create(path))
+                    {
+                        documentStream.CopyTo(fs);
+                    }
                 }
                 Console.WriteLine($"Document {printJob.Title} is saved.");
             }
