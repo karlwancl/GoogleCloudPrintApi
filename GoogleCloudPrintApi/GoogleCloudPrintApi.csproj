@@ -50,8 +50,6 @@
     <Compile Include="GoogleCloudPrintClient.cs" />
     <Compile Include="Infrastructures\GoogleOAuth2ProviderBase.cs" />
     <Compile Include="Infrastructures\GoogleClientBase.cs" />
-    <Compile Include="Helpers\EasyRestClient.cs" />
-    <Compile Include="Helpers\UrlBuilder.cs" />
     <Compile Include="Infrastructures\IGoogleCloudPrintService.cs" />
     <Compile Include="Infrastructures\IJsonSerializable.cs" />
     <Compile Include="Models\Job\Job.cs" />

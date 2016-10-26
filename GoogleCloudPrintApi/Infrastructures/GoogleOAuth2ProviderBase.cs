@@ -1,27 +1,23 @@
-﻿using GoogleCloudPrintApi.Helpers;
+﻿using Flurl.Http;
 using GoogleCloudPrintApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
+using Flurl;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
     public abstract class GoogleOAuth2ProviderBase : IOAuth2Provider
     {
-        const string GoogleOAuth2Uri = "https://accounts.google.com/o/oauth2/auth";
-        const string OAuth2RedirectUri = "urn:ietf:wg:oauth:2.0:oob";
-        const string OAuth2ResponseType = "code";
-        const string OAuth2ApprovalPromptForce = "force";
-        const string OAuth2AccessTypeOffline = "offline";
+        private const string GoogleOAuth2Uri = "https://accounts.google.com/o/oauth2/auth";
+        private const string OAuth2RedirectUri = "urn:ietf:wg:oauth:2.0:oob";
+        private const string OAuth2ResponseType = "code";
+        private const string OAuth2ApprovalPromptForce = "force";
+        private const string OAuth2AccessTypeOffline = "offline";
 
-        const string GoogleAccountOAuth2TokenUri = "https://accounts.google.com/o/oauth2/token";
-        const string OAuth2GrantTypeAuthCode = "authorization_code";
+        private const string GoogleAccountOAuth2TokenUri = "https://accounts.google.com/o/oauth2/token";
+        private const string OAuth2GrantTypeAuthCode = "authorization_code";
 
-        const string GoogleApiOAuth2TokenUri = "https://www.googleapis.com/oauth2/v3/token";
-        const string OAuth2GrantTypeRefreshToken = "refresh_token";
+        private const string GoogleApiOAuth2TokenUri = "https://www.googleapis.com/oauth2/v3/token";
+        private const string OAuth2GrantTypeRefreshToken = "refresh_token";
 
         public GoogleOAuth2ProviderBase(string clientId, string clientSecret)
         {
@@ -29,12 +25,12 @@ namespace GoogleCloudPrintApi.Infrastructures
             _clientSecret = clientSecret;
         }
 
-        string _clientId, _clientSecret;
+        private string _clientId, _clientSecret;
 
         /// <summary>
         /// Client Id for oAuth2
         /// </summary>
-        public string ClientId =>  _clientId;
+        public string ClientId => _clientId;
 
         /// <summary>
         /// Client secret for oAuth2
@@ -52,14 +48,14 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// <returns>Authorization url</returns>
         public string BuildAuthorizationUrl()
         {
-            return (new UrlBuilder(GoogleOAuth2Uri))
-                .Param("redirect_uri", OAuth2RedirectUri)
-                .Param("response_type", OAuth2ResponseType)
-                .Param("client_id", _clientId)
-                .Param("scope", Scope)
-                .Param("approval_prompt", OAuth2ApprovalPromptForce)
-                .Param("access_type", OAuth2AccessTypeOffline)
-                .Build();
+            return GoogleOAuth2Uri
+                .SetQueryParam("redirect_uri", OAuth2RedirectUri)
+                .SetQueryParam("response_type", OAuth2ResponseType)
+                .SetQueryParam("client_id", _clientId)
+                .SetQueryParam("scope", Scope)
+                .SetQueryParam("approval_prompt", OAuth2ApprovalPromptForce)
+                .SetQueryParam("access_type", OAuth2AccessTypeOffline)
+                .ToString();
         }
 
         /// <summary>
@@ -69,13 +65,16 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// <returns>Refresh token & access token</returns>
         public async Task<Token> GenerateRefreshTokenAsync(string authorizationCode)
         {
-            return await (new EasyRestClient(GoogleAccountOAuth2TokenUri))
-                .Param("code", authorizationCode)
-                .Param("client_id", _clientId)
-                .Param("client_secret", _clientSecret)
-                .Param("redirect_uri", OAuth2RedirectUri)
-                .Param("grant_type", OAuth2GrantTypeAuthCode)
-                .PostAsync<Token>();
+            return await GoogleAccountOAuth2TokenUri
+                .PostUrlEncodedAsync(new
+                {
+                    code = authorizationCode,
+                    client_id = _clientId,
+                    client_secret = _clientSecret,
+                    redirect_uri = OAuth2RedirectUri,
+                    grant_type = OAuth2GrantTypeAuthCode
+                })
+                .ReceiveJson<Token>();
         }
 
         /// <summary>
@@ -85,12 +84,15 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// <returns>Refresh token & access token</returns>
         public async Task<Token> GenerateAccessTokenAsync(string refreshToken)
         {
-            return await (new EasyRestClient(GoogleApiOAuth2TokenUri))
-                .Param("client_id", _clientId)
-                .Param("client_secret", _clientSecret)
-                .Param("refresh_token", refreshToken)
-                .Param("grant_type", OAuth2GrantTypeRefreshToken)
-                .PostAsync<Token>();
+            return await GoogleApiOAuth2TokenUri
+                .PostUrlEncodedAsync( new
+                {
+                    client_id = _clientId,
+                    client_secret = _clientSecret,
+                    refresh_token = refreshToken,
+                    grant_type = OAuth2GrantTypeRefreshToken
+                })
+                .ReceiveJson<Token>();
         }
     }
 }

@@ -1,12 +1,14 @@
-﻿using GoogleCloudPrintApi.Helpers;
+﻿using Flurl;
+using Flurl.Http;
 using GoogleCloudPrintApi.Infrastructures;
 using GoogleCloudPrintApi.Models;
 using GoogleCloudPrintApi.Models.Printer;
-using System.Threading.Tasks;
-using System;
-using System.Xml.Linq;
 using GoogleCloudPrintApi.Models.Share;
+using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace GoogleCloudPrintApi
 {
@@ -30,14 +32,22 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                 .Auth(_token.AccessToken)
-                 .Param("jobid", request.JobId)
-                 .ParamIfNotNull("semantic_state_diff", request.SemanticStateDiff)
-                 .ParamIf("status", request.Status.ToString(), request.SemanticStateDiff == null)
-                 .ParamIf("code", request.Code, request.SemanticStateDiff == null)
-                 .ParamIf("message", request.Message, request.SemanticStateDiff == null)
-                 .PostAsync<ControlResponse>("control"));
+            var form = new Dictionary<string, string>();
+            form.Add("jobid", request.JobId);
+            if (request.SemanticStateDiff == null)
+            {
+                form.Add("status", request.Status.ToString());
+                form.Add("code", request.Code);
+                form.Add("message", request.Message);
+            }
+            else
+                form.Add("semantic_state_diff", request.SemanticStateDiff.ToJson());
+
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("control")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostUrlEncodedAsync(form)
+                .ReceiveJson<ControlResponse>();
         }
 
         /// <summary>
@@ -50,10 +60,11 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl))
-                .Auth(_token.AccessToken)
-                .Param("printerid", request.PrinterId)
-                .PostAsync<DeleteResponse>("delete");
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("delete")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostUrlEncodedAsync(new { printerid = request.PrinterId })
+                .ReceiveJson<DeleteResponse>();
         }
 
         /// <summary>
@@ -66,11 +77,15 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                .Auth(_token.AccessToken)
-                .Param("proxy", request.Proxy)
-                .ParamIfNotNullOrEmpty("extra_fields", request.ExtraFields)
-                .PostAsync<ListResponse>("list"));
+            var form = new Dictionary<string, string>();
+            form.Add("proxy", request.Proxy);
+            if (!string.IsNullOrEmpty(request.ExtraFields)) form.Add("extra_fields", request.ExtraFields);
+
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("list")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostUrlEncodedAsync(form)
+                .ReceiveJson<ListResponse>();
         }
 
         /// <summary>
@@ -85,27 +100,40 @@ namespace GoogleCloudPrintApi
 
             bool isGoogleCloudPrint20 = request.GCPVersion == "2.0";
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                .Auth(_token.AccessToken)
-                .Param("name", request.Name)
-                .ParamIfNotNullOrEmpty("default_display_name", request.DefaultDisplayName)
-                .Param("proxy", request.Proxy)
-                .ParamIf("uuid", request.Uuid, isGoogleCloudPrint20)
-                .ParamIf("manufacturer", request.Manufacturer, isGoogleCloudPrint20)
-                .ParamIf("model", request.Model, isGoogleCloudPrint20)
-                .ParamIf("gcp_version", request.GCPVersion, isGoogleCloudPrint20)
-                .ParamIf("setup_url", request.SetupUrl, isGoogleCloudPrint20)
-                .ParamIf("support_url", request.SupportUrl, isGoogleCloudPrint20)
-                .ParamIf("update_url", request.UpdateUrl, isGoogleCloudPrint20)
-                .ParamIf("firmware", request.Firmware, isGoogleCloudPrint20)
-                .ParamIfNotNull("local_settings", request.LocalSettings)
-                .ParamIff("use_cdd", bool.TrueString, request.UseCdd.ToString(), isGoogleCloudPrint20)
-                .Param("capabilities", request.Capabilities)
-                .ParamIfNotNullOrEmpty("defaults", request.Defaults)
-                .ParamIfNotNullOrEmpty("capsHash", request.CapsHash)
-                .ParamForEach("tag", request.Tag)
-                .ParamForEach("data", request.Data)
-                .PostMultipartAsync<RegisterResponse>("register"));
+            var form = new Dictionary<string, string>();
+            form.Add("name", request.Name);
+            if (!string.IsNullOrEmpty(request.DefaultDisplayName)) form.Add("default_display_name", request.DefaultDisplayName);
+            form.Add("proxy", request.Proxy);
+            if (isGoogleCloudPrint20)
+            {
+                form.Add("uuid", request.Uuid);
+                form.Add("manufacturer", request.Manufacturer);
+                form.Add("model", request.Model);
+                form.Add("gcp_version", request.GCPVersion);
+                form.Add("setup_url", request.SetupUrl);
+                form.Add("support_url", request.SupportUrl);
+                form.Add("update_url", request.UpdateUrl);
+                form.Add("firmware", request.Firmware);
+                form.Add("use_cdd", true.ToString());
+            }
+            else
+                form.Add("use_cdd", request.UseCdd.ToString());
+            if (request.LocalSettings != null) form.Add("local_settings", request.LocalSettings.ToJson());
+            form.Add("capabilities", request.Capabilities);
+            if (!string.IsNullOrEmpty(request.Defaults)) form.Add("defaults", request.Defaults);
+            if (!string.IsNullOrEmpty(request.CapsHash)) form.Add("capsHash", request.CapsHash);
+            if (request.Tag != null)
+                foreach (var tag in request.Tag)
+                    form.Add("tag", tag);
+            if (request.Data != null)
+                foreach (var data in request.Data)
+                    form.Add("data", data);
+
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("register")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostMultipartAsync(multipart => multipart.AddStringParts(form))
+                .ReceiveJson<RegisterResponse>();
         }
 
         /// <summary>
@@ -120,31 +148,43 @@ namespace GoogleCloudPrintApi
 
             bool isGoogleCloudPrint20 = request.GCPVersion == "2.0";
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                .Auth(_token.AccessToken)
-                .Param("printerid", request.PrinterId)
-                .ParamIfNotNullOrEmpty("name", request.Name)
-                .ParamIfNotNullOrEmpty("default_display_name", request.DefaultDisplayName)
-                .ParamIfNotNullOrEmpty("display_name", request.DisplayName)
-                .ParamIfNotNullOrEmpty("proxy", request.Proxy)
-                .ParamIfNotNullOrEmpty("uuid", request.Uuid)
-                .ParamIfNotNullOrEmpty("manufacturer", request.Manufacturer)
-                .ParamIfNotNullOrEmpty("model", request.Model)
-                .ParamIfNotNullOrEmpty("gcp_version", request.GCPVersion)
-                .ParamIfNotNullOrEmpty("setup_url", request.SetupUrl)
-                .ParamIfNotNullOrEmpty("support_url", request.SupportUrl)
-                .ParamIfNotNullOrEmpty("update_url", request.UpdateUrl)
-                .ParamIfNotNullOrEmpty("firmware", request.Firmware)
-                .ParamIfNotNull("local_settings", request.LocalSettings)
-                .ParamIff("use_cdd", bool.TrueString, request.UseCdd.ToString(), isGoogleCloudPrint20)
-                .ParamIfNotNullOrEmpty("capabilities", request.Capabilities)
-                .ParamIfNotNullOrEmpty("defaults", request.Defaults)
-                .ParamIfNotNullOrEmpty("capsHash", request.CapsHash)
-                .ParamForEach("tag", request.Tag)
-                .ParamForEach("remove_tag", request.RemoveTag)
-                .ParamForEach("data", request.Data)
-                .ParamForEach("remove_data", request.RemoveData)
-                .PostMultipartAsync<UpdateResponse>("update"));
+            var form = new Dictionary<string, string>();
+            form.Add("printerid", request.PrinterId);
+            if (!string.IsNullOrEmpty(request.Name)) form.Add("name", request.Name);
+            if (!string.IsNullOrEmpty(request.DefaultDisplayName)) form.Add("default_display_name", request.DefaultDisplayName);
+            if (!string.IsNullOrEmpty(request.DisplayName)) form.Add("display_name", request.DisplayName);
+            if (!string.IsNullOrEmpty(request.Proxy)) form.Add("proxy", request.Proxy);
+            if (!string.IsNullOrEmpty(request.Uuid)) form.Add("uuid", request.Uuid);
+            if (!string.IsNullOrEmpty(request.Manufacturer)) form.Add("manufacturer", request.Manufacturer);
+            if (!string.IsNullOrEmpty(request.Model)) form.Add("model", request.Model);
+            if (!string.IsNullOrEmpty(request.GCPVersion)) form.Add("gcp_version", request.GCPVersion);
+            if (!string.IsNullOrEmpty(request.SetupUrl)) form.Add("setup_url", request.SetupUrl);
+            if (!string.IsNullOrEmpty(request.SupportUrl)) form.Add("support_url", request.SupportUrl);
+            if (!string.IsNullOrEmpty(request.UpdateUrl)) form.Add("update_url", request.UpdateUrl);
+            if (!string.IsNullOrEmpty(request.Firmware)) form.Add("firmware", request.Firmware);
+            if (request.LocalSettings != null) form.Add("local_settings", request.LocalSettings.ToJson());
+            form.Add("use_cdd", isGoogleCloudPrint20 ? true.ToString() : request.UseCdd.ToString());
+            if (!string.IsNullOrEmpty(request.Capabilities)) form.Add("capabilities", request.Capabilities);
+            if (!string.IsNullOrEmpty(request.Defaults)) form.Add("defaults", request.Defaults);
+            if (!string.IsNullOrEmpty(request.CapsHash)) form.Add("capsHash", request.CapsHash);
+            if (request.Tag != null)
+                foreach (var tag in request.Tag)
+                    form.Add("tag", tag);
+            if (request.RemoveTag != null)
+                foreach (var removeTag in request.RemoveTag)
+                    form.Add("remove_tag", removeTag);
+            if (request.Data != null)
+                foreach (var data in request.Data)
+                    form.Add("data", data);
+            if (request.RemoveData != null)
+                foreach (var removeData in request.RemoveData)
+                    form.Add("remove_data", removeData);
+
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("update")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostMultipartAsync(multipart => multipart.AddStringParts(form))
+                .ReceiveJson<UpdateResponse>();
         }
 
         /// <summary>
@@ -157,10 +197,11 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                .Auth(_token.AccessToken)
-                .Param("printerid", request.PrinterId)
-                .PostAsync<FetchResponse>("fetch"));
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("fetch")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostUrlEncodedAsync(new { printerid = request.PrinterId })
+                .ReceiveJson<FetchResponse>();
         }
 
         /// <summary>
@@ -174,10 +215,10 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            string ticket = await (new EasyRestClient(ticketUrl)
-                .Auth(_token.AccessToken)
-                .Header("X-CloudPrint-Proxy", proxy)
-                .GetAsync());
+            string ticket = await ticketUrl
+                .WithOAuthBearerToken(_token.AccessToken)
+                .WithHeader("X-CloudPrint-Proxy", proxy)
+                .GetStringAsync();
 
             return XDocument.Parse(ticket);
         }
@@ -204,11 +245,11 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(fileUrl)
-                .Auth(_token.AccessToken)
-                .Accept("application/pdf")
-                .Header("X-CloudPrint-Proxy", proxy)
-                .ExecuteStreamAsync());
+            return await fileUrl
+                .WithOAuthBearerToken(_token.AccessToken)
+                .WithHeader("X-CloudPrint-Proxy", proxy)
+                .WithHeader("Accept", "application/pdf")
+                .GetStreamAsync();
         }
 
         /// <summary>
@@ -232,14 +273,18 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                .Auth(_token.AccessToken)
-                .Param("printerid", request.PrinterId)
-                .ParamIfNotNullOrEmpty("client", request.Client)
-                .ParamIfNotNullOrEmpty("extra_fields", request.ExtraFields)
-                .Param("use_cdd", request.UseCdd.ToString())
-                .ParamIf("printer_connection_status", request.PrinterConnectionStatus.ToString(), request.PrinterConnectionStatus)
-                .PostAsync<PrinterResponse>("printer"));
+            var form = new Dictionary<string, string>();
+            form.Add("printerid", request.PrinterId);
+            if (!string.IsNullOrEmpty(request.Client)) form.Add("client", request.Client);
+            if (!string.IsNullOrEmpty(request.ExtraFields)) form.Add("extra_fields", request.ExtraFields);
+            form.Add("use_cdd", request.UseCdd.ToString());
+            if (request.PrinterConnectionStatus) form.Add("printer_connection_status", request.PrinterConnectionStatus.ToString());
+
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("printer")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostUrlEncodedAsync(form)
+                .ReceiveJson<PrinterResponse>();
         }
 
         /// <summary>
@@ -252,13 +297,17 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                .Auth(_token.AccessToken)
-                .Param("printerid", request.PrinterId)
-                .Param("scope", request.Scope)
-                .Param("role", request.Role.ToString().ToUpper())
-                .ParamIf("skip_notification", request.SkipNotification.ToString(), request.SkipNotification)
-                .PostAsync<ShareResponse>("share"));
+            var form = new Dictionary<string, string>();
+            form.Add("printerid", request.PrinterId);
+            form.Add("scope", request.Scope);
+            form.Add("role", request.Role.ToString().ToUpper());
+            if (request.SkipNotification) form.Add("skip_notification", request.SkipNotification.ToString());
+
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("share")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostUrlEncodedAsync(form)
+                .ReceiveJson<ShareResponse>();
         }
 
         /// <summary>
@@ -271,11 +320,15 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
-                .Auth(_token.AccessToken)
-                .Param("printerid", request.PrinterId)
-                .Param("scope", request.Scope)
-                .PostAsync<UnshareResponse>("unshare"));
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("unshare")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostUrlEncodedAsync(new
+                {
+                    printerid = request.PrinterId,
+                    scope = request.Scope
+                })
+                .ReceiveJson<UnshareResponse>();
         }
     }
 }
