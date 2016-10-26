@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System;
 using System.Xml.Linq;
 using GoogleCloudPrintApi.Models.Share;
+using System.IO;
 
 namespace GoogleCloudPrintApi
 {
@@ -33,6 +34,9 @@ namespace GoogleCloudPrintApi
                  .Auth(_token.AccessToken)
                  .Param("jobid", request.JobId)
                  .ParamIfNotNull("semantic_state_diff", request.SemanticStateDiff)
+                 .ParamIf("status", request.Status.ToString(), request.SemanticStateDiff == null)
+                 .ParamIf("code", request.Code, request.SemanticStateDiff == null)
+                 .ParamIf("message", request.Message, request.SemanticStateDiff == null)
                  .PostAsync<ControlResponse>("control"));
         }
 
@@ -170,7 +174,7 @@ namespace GoogleCloudPrintApi
         {
             await UpdateToken();
 
-            string ticket = await (new EasyRestClient(GoogleCloudPrintBaseUrl)
+            string ticket = await (new EasyRestClient(ticketUrl)
                 .Auth(_token.AccessToken)
                 .Header("X-CloudPrint-Proxy", proxy)
                 .GetAsync());
@@ -196,15 +200,15 @@ namespace GoogleCloudPrintApi
         /// <param name="fileUrl">The URL of the file</param>
         /// <param name="proxy">The print proxy id</param>
         /// <returns>The downloaded file</returns>
-        public async Task<byte[]> GetDocumentAsync(string fileUrl, string proxy)
+        public async Task<Stream> GetDocumentAsync(string fileUrl, string proxy)
         {
             await UpdateToken();
 
-            return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
+            return await (new EasyRestClient(fileUrl)
                 .Auth(_token.AccessToken)
                 .Accept("application/pdf")
                 .Header("X-CloudPrint-Proxy", proxy)
-                .ExecuteBytesAsync());
+                .ExecuteStreamAsync());
         }
 
         /// <summary>
@@ -213,7 +217,7 @@ namespace GoogleCloudPrintApi
         /// </summary>
         /// <param name="fileUrl">The URL of the file</param>
         /// <returns>The downloaded file</returns>
-        public Task<byte[]> GetDocumentv2Async(string fileUrl)
+        public Task<Stream> GetDocumentv2Async(string fileUrl)
         {
             throw new NotImplementedException("Use GCP 1.0 instead since GCP 2.0 requires CDD document for the printer");
         }
@@ -231,8 +235,10 @@ namespace GoogleCloudPrintApi
             return await (new EasyRestClient(GoogleCloudPrintBaseUrl)
                 .Auth(_token.AccessToken)
                 .Param("printerid", request.PrinterId)
+                .ParamIfNotNullOrEmpty("client", request.Client)
+                .ParamIfNotNullOrEmpty("extra_fields", request.ExtraFields)
                 .Param("use_cdd", request.UseCdd.ToString())
-                .Param("extra_fields", request.ExtraFields)
+                .ParamIf("printer_connection_status", request.PrinterConnectionStatus.ToString(), request.PrinterConnectionStatus)
                 .PostAsync<PrinterResponse>("printer"));
         }
 
