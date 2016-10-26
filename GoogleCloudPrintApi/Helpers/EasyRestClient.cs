@@ -2,6 +2,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -119,7 +120,10 @@ namespace GoogleCloudPrintApi.Helpers
 
         public async Task<string> ExecuteAsync(string requestUri = "", Method method = Method.Get) => await (await GetContentAsync(requestUri, method)).ReadAsStringAsync();
 
+        [Obsolete("Please use ExecuteStreamAsync instead")]
         public async Task<byte[]> ExecuteBytesAsync(string requestUri = "", Method method = Method.Get) => await (await GetContentAsync(requestUri, method)).ReadAsByteArrayAsync();
+
+        public async Task<Stream> ExecuteStreamAsync(string requestUri = "", Method method = Method.Get) => await (await GetContentAsync(requestUri, method)).ReadAsStreamAsync();
 
         private async Task<HttpContent> GetContentAsync(string requestUri = "", Method method = Method.Get)
         {

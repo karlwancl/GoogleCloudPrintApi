@@ -2,6 +2,7 @@
 using GoogleCloudPrintApi.Models.Share;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -27,9 +28,9 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         Task<dynamic> GetTicketv2Async(string jobId);
 
-        Task<byte[]> GetDocumentAsync(string fileUrl, string proxy);
+        Task<Stream> GetDocumentAsync(string fileUrl, string proxy);
 
-        Task<byte[]> GetDocumentv2Async(string fileUrl);
+        Task<Stream> GetDocumentv2Async(string fileUrl);
 
         Task<PrinterResponse> GetPrinterAsync(PrinterRequest request);
 

@@ -14,6 +14,8 @@ namespace GoogleCloudPrintApi.Test
         private const string ClientSecret = "NSdjucZucgNdLl9eANIswkXJ";
         private const string TokenPath = "token.txt";
         private const string ProxyPath = "proxy.txt";
+        private const string TicketFolderPath = "ticket";
+        private const string DocumentFolderPath = "document";
         private static readonly GoogleCloudPrintOAuth2Provider provider = new GoogleCloudPrintOAuth2Provider(ClientId, ClientSecret);
         static Models.Token token = null;
         static string proxy = null;
@@ -28,9 +30,12 @@ namespace GoogleCloudPrintApi.Test
             while (option != -1)
             {
                 Console.WriteLine("0. Register Printer");
-                Console.WriteLine("1. List Printers");
+                Console.WriteLine("1. Get Printer");
                 Console.WriteLine("2. Update Printers");
                 Console.WriteLine("3. Delete Printer");
+                Console.WriteLine("4. Fetch and download print job");
+                Console.WriteLine("5. Share Printer");
+                Console.WriteLine("6. Unshare Printer");
                 Console.Write("Select an operation: ");
                 if (int.TryParse(Console.ReadLine(), out option))
                 {
@@ -40,7 +45,7 @@ namespace GoogleCloudPrintApi.Test
                             RegisterPrinter();
                             break;
                         case 1:
-                            ListPrinter();
+                            ListAndGetPrinter();
                             break;
                         case 2:
                             UpdatePrinter();
@@ -48,11 +53,22 @@ namespace GoogleCloudPrintApi.Test
                         case 3:
                             DeletePrinter();
                             break;
+                        case 4:
+                            FetchJob();
+                            break;
+                        case 5:
+                            SharePrinter();
+                            break;
+                        case 6:
+                            UnsharePrinter();
+                            break;
                     }
-                    Console.ReadLine();
                 }
                 else
                     Console.WriteLine("Please input a number!");
+                Console.WriteLine("Press \"Enter\" to continue...");
+                Console.ReadLine();
+                Console.Clear();
             }
             Console.ReadLine();
         }
