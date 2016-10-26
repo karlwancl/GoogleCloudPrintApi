@@ -8,9 +8,12 @@
 --suppress-warning:CS1705
 --optimize:False
 --output-name:GoogleCloudPrintApi
---file-version:1.0.0.0
---version:1.0.0.0
---informational-version:1.0.0
+--title:GoogleCloudPrintApi
+--description:A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4
+--copyright:Copyright (c) 2016 SalmonThinLion
+--file-version:1.0.1.0
+--version:1.0.1.0
+--informational-version:1.0.1
 --target-framework:.NETStandard,Version=v1.4
 --reference:C:\Users\karlwan\.nuget\packages\Flurl\2.2.1\lib\netstandard1.4\Flurl.dll
 --reference:C:\Users\karlwan\.nuget\packages\Flurl.Http\1.0.3\lib\netstandard1.4\Flurl.Http.dll

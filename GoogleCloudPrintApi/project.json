@@ -1,4 +1,18 @@
 ﻿{
+  "name": "GoogleCloudPrintApi",
+  "version": "1.0.1",
+  "description": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
+  "copyright": "Copyright (c) 2016 SalmonThinLion",
+  "title": "GoogleCloudPrintApi",
+  "authors": [ "SalmonThinLion" ],
+  "packOptions": {
+    "summary": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
+    "tags": [ "Google", "Cloud", "Print", "API" ],
+    "owners": [ "SalmonThinLion" ],
+    "releaseNotes": "First release of a merely functional library",
+    "projectUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi",
+    "licenseUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE"
+  },
   "supports": {},
   "dependencies": {
     "Flurl": "2.2.1",
