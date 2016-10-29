@@ -14,6 +14,11 @@ A .NET wrapper for Google Cloud Print API, used for server application, currentl
 * Xamarin.Android
 * Universal Windows Platform
 
+### How To Install
+You can find the package through Nuget
+
+	PM> Install-Package GoogleCloudPrintApi
+
 ### How To Use
 
 #### First-time token generation
@@ -100,6 +105,9 @@ A .NET wrapper for Google Cloud Print API, used for server application, currentl
 		Scope = /* Google account you want to unshare from */
 	};
 	var response = await client.UnsharePrinterAsync(request);
+
+### Powered by
+* [Flurl](https://github.com/tmenier/Flurl) ([@tmenier](https://github.com/tmenier)) - A very nice fluent-style rest api library
 
 ### License
 This library is under [MIT License](https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE)
