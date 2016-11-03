@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
@@ -12,30 +13,30 @@ namespace GoogleCloudPrintApi.Infrastructures
 {
     interface IGoogleCloudPrintService
     {
-        Task<DeleteResponse> DeletePrinterAsync(DeleteRequest request);
+        Task<DeleteResponse> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<ControlResponse> UpdateJobStatusAsync(ControlRequest request);
+        Task<ControlResponse> UpdateJobStatusAsync(ControlRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<ListResponse> ListPrinterAsync(ListRequest request);
+        Task<ListResponse> ListPrinterAsync(ListRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<RegisterResponse> RegisterPrinterAsync(RegisterRequest request);
+        Task<RegisterResponse> RegisterPrinterAsync(RegisterRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<UpdateResponse> UpdatePrinterAsync(UpdateRequest request);
+        Task<UpdateResponse> UpdatePrinterAsync(UpdateRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<FetchResponse> FetchJobAsync(FetchRequest request);
+        Task<FetchResponse> FetchJobAsync(FetchRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<XDocument> GetTicketAsync(string ticketUrl, string proxy);
+        Task<XDocument> GetTicketAsync(string ticketUrl, string proxy, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<dynamic> GetTicketv2Async(string jobId);
+        Task<dynamic> GetTicketv2Async(string jobId, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<Stream> GetDocumentAsync(string fileUrl, string proxy);
+        Task<Stream> GetDocumentAsync(string fileUrl, string proxy, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<Stream> GetDocumentv2Async(string fileUrl);
+        Task<Stream> GetDocumentv2Async(string fileUrl, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<PrinterResponse> GetPrinterAsync(PrinterRequest request);
+        Task<PrinterResponse> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<ShareResponse> SharePrinterAsync(ShareRequest request);
+        Task<ShareResponse> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<UnshareResponse> UnsharePrinterAsync(UnshareRequest request);
+        Task<UnshareResponse> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

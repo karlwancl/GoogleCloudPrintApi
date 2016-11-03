@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Infrastructures
@@ -15,8 +16,8 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         string BuildAuthorizationUrl();
 
-        Task<Token> GenerateRefreshTokenAsync(string authorizationCode);
+        Task<Token> GenerateRefreshTokenAsync(string authorizationCode, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<Token> GenerateAccessTokenAsync(string refreshToken);
+        Task<Token> GenerateAccessTokenAsync(string refreshToken, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

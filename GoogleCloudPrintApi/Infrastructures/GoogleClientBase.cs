@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using GoogleCloudPrintApi.Models;
+using System.Threading;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
@@ -27,13 +28,14 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// <summary>
         /// Update access token if it is expired
         /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Access token</returns>
-        protected async Task UpdateToken()
+        protected async Task UpdateToken(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (_token.ExpireDateTime > DateTime.Now)
                 return;
 
-            _token = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken).ConfigureAwait(false);
+            _token = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken, cancellationToken).ConfigureAwait(false);
         }
     }
 }
