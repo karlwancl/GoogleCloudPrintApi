@@ -9,7 +9,7 @@
     "summary": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
     "tags": [ "Google", "Cloud", "Print", "API" ],
     "owners": [ "SalmonThinLion" ],
-    "releaseNotes": "First release of a merely functional library",
+    "releaseNotes": "[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks",
     "projectUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi",
     "licenseUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE"
   },
