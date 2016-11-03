@@ -7,7 +7,7 @@
   "targets": {
     ".NETStandard,Version=v1.4": {},
     ".NETStandard,Version=v1.4/": {
-      "GoogleCloudPrintApi/1.0.1": {
+      "GoogleCloudPrintApi/1.0.2": {
         "dependencies": {
           "Flurl": "2.2.1",
           "Flurl.Http": "1.0.3",
@@ -722,7 +722,7 @@
     }
   },
   "libraries": {
-    "GoogleCloudPrintApi/1.0.1": {
+    "GoogleCloudPrintApi/1.0.2": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
