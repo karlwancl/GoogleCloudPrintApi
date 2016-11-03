@@ -74,7 +74,8 @@ namespace GoogleCloudPrintApi.Infrastructures
                     redirect_uri = OAuth2RedirectUri,
                     grant_type = OAuth2GrantTypeAuthCode
                 })
-                .ReceiveJson<Token>();
+                .ReceiveJson<Token>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -92,7 +93,8 @@ namespace GoogleCloudPrintApi.Infrastructures
                     refresh_token = refreshToken,
                     grant_type = OAuth2GrantTypeRefreshToken
                 })
-                .ReceiveJson<Token>();
+                .ReceiveJson<Token>()
+                .ConfigureAwait(false);
         }
     }
 }

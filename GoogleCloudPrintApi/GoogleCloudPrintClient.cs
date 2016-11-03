@@ -47,7 +47,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("control")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form)
-                .ReceiveJson<ControlResponse>();
+                .ReceiveJson<ControlResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -64,7 +65,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("delete")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(new { printerid = request.PrinterId })
-                .ReceiveJson<DeleteResponse>();
+                .ReceiveJson<DeleteResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -85,7 +87,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("list")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form)
-                .ReceiveJson<ListResponse>();
+                .ReceiveJson<ListResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -133,7 +136,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("register")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostMultipartAsync(multipart => multipart.AddStringParts(form))
-                .ReceiveJson<RegisterResponse>();
+                .ReceiveJson<RegisterResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -184,7 +188,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("update")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostMultipartAsync(multipart => multipart.AddStringParts(form))
-                .ReceiveJson<UpdateResponse>();
+                .ReceiveJson<UpdateResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -201,7 +206,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("fetch")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(new { printerid = request.PrinterId })
-                .ReceiveJson<FetchResponse>();
+                .ReceiveJson<FetchResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -218,7 +224,8 @@ namespace GoogleCloudPrintApi
             string ticket = await ticketUrl
                 .WithOAuthBearerToken(_token.AccessToken)
                 .WithHeader("X-CloudPrint-Proxy", proxy)
-                .GetStringAsync();
+                .GetStringAsync()
+                .ConfigureAwait(false);
 
             return XDocument.Parse(ticket);
         }
@@ -249,7 +256,8 @@ namespace GoogleCloudPrintApi
                 .WithOAuthBearerToken(_token.AccessToken)
                 .WithHeader("X-CloudPrint-Proxy", proxy)
                 .WithHeader("Accept", "application/pdf")
-                .GetStreamAsync();
+                .GetStreamAsync()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -284,7 +292,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("printer")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form)
-                .ReceiveJson<PrinterResponse>();
+                .ReceiveJson<PrinterResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -307,7 +316,8 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("share")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form)
-                .ReceiveJson<ShareResponse>();
+                .ReceiveJson<ShareResponse>()
+                .ConfigureAwait(false);
         }
 
         /// <summary>
@@ -328,7 +338,8 @@ namespace GoogleCloudPrintApi
                     printerid = request.PrinterId,
                     scope = request.Scope
                 })
-                .ReceiveJson<UnshareResponse>();
+                .ReceiveJson<UnshareResponse>()
+                .ConfigureAwait(false);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿{
   "name": "GoogleCloudPrintApi",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
   "copyright": "Copyright (c) 2016 SalmonThinLion",
   "title": "GoogleCloudPrintApi",

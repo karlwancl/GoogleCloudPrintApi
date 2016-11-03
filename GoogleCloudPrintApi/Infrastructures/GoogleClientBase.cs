@@ -33,7 +33,7 @@ namespace GoogleCloudPrintApi.Infrastructures
             if (_token.ExpireDateTime > DateTime.Now)
                 return;
 
-            _token = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken);
+            _token = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken).ConfigureAwait(false);
         }
     }
 }
