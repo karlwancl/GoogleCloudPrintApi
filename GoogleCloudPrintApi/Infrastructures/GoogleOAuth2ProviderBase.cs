@@ -2,6 +2,7 @@
 using GoogleCloudPrintApi.Models;
 using System.Threading.Tasks;
 using Flurl;
+using System.Threading;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
@@ -62,8 +63,9 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// Get refresh token from authorization code
         /// </summary>
         /// <param name="authorizationCode">Authorization code</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Refresh token & access token</returns>
-        public async Task<Token> GenerateRefreshTokenAsync(string authorizationCode)
+        public async Task<Token> GenerateRefreshTokenAsync(string authorizationCode, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await GoogleAccountOAuth2TokenUri
                 .PostUrlEncodedAsync(new
@@ -73,7 +75,7 @@ namespace GoogleCloudPrintApi.Infrastructures
                     client_secret = _clientSecret,
                     redirect_uri = OAuth2RedirectUri,
                     grant_type = OAuth2GrantTypeAuthCode
-                })
+                }, cancellationToken)
                 .ReceiveJson<Token>()
                 .ConfigureAwait(false);
         }
@@ -82,8 +84,9 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// Get access token from refresh token
         /// </summary>
         /// <param name="refreshToken">Refresh token</param>
+        /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Refresh token & access token</returns>
-        public async Task<Token> GenerateAccessTokenAsync(string refreshToken)
+        public async Task<Token> GenerateAccessTokenAsync(string refreshToken, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await GoogleApiOAuth2TokenUri
                 .PostUrlEncodedAsync( new
@@ -92,7 +95,7 @@ namespace GoogleCloudPrintApi.Infrastructures
                     client_secret = _clientSecret,
                     refresh_token = refreshToken,
                     grant_type = OAuth2GrantTypeRefreshToken
-                })
+                }, cancellationToken)
                 .ReceiveJson<Token>()
                 .ConfigureAwait(false);
         }
