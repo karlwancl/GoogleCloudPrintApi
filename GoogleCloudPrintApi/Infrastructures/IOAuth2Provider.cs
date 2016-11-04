@@ -14,7 +14,7 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         string ClientSecret { get; }
 
-        string BuildAuthorizationUrl();
+        string BuildAuthorizationUrl(string redirectUri = null);
 
         Task<Token> GenerateRefreshTokenAsync(string authorizationCode, CancellationToken cancellationToken = default(CancellationToken));
 
