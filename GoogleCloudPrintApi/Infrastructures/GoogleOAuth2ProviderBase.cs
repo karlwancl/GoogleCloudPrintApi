@@ -6,6 +6,7 @@ using System.Threading;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
+    // Reference: https://developers.google.com/identity/protocols/OAuth2WebServer
     public abstract class GoogleOAuth2ProviderBase : IOAuth2Provider
     {
         private const string GoogleOAuth2Uri = "https://accounts.google.com/o/oauth2/auth";
@@ -46,11 +47,12 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// <summary>
         /// Get authorization url for google cloud print
         /// </summary>
+        /// <param name="redirectUri">Redirect uri after authorization</param>
         /// <returns>Authorization url</returns>
-        public string BuildAuthorizationUrl()
+        public string BuildAuthorizationUrl(string redirectUri = null)
         {
             return GoogleOAuth2Uri
-                .SetQueryParam("redirect_uri", OAuth2RedirectUri)
+                .SetQueryParam("redirect_uri", redirectUri ?? OAuth2RedirectUri)
                 .SetQueryParam("response_type", OAuth2ResponseType)
                 .SetQueryParam("client_id", _clientId)
                 .SetQueryParam("scope", Scope)
