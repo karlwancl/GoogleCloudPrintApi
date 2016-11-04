@@ -23,7 +23,7 @@ You can find the package through Nuget
 
 #### First-time token generation
 	var provider = new GoogleCloudPrintOAuth2Provider(clientId, clientSecret);
-	var url = provider.BuildAuthorizationUrl();
+	var url = provider.BuildAuthorizationUrl( /* Optional redirect uri */ );
 	/* Your method to retrieve authorization code from the above url */
 	var token = await provider.GenerateRefreshTokenAsync(authorizationCode);
 	
