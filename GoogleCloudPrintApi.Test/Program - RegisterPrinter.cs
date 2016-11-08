@@ -15,20 +15,28 @@ namespace GoogleCloudPrintApi.Test
     {
         static void RegisterPrinter()
         {
-            var client = new GoogleCloudPrintClient(provider, token);
-            var pq = GetSelectedQueue();
-            if (pq != null)
+            try
             {
-                string capabilities = GetCapabilitiesFromPrintQueue(pq);
-                var request = new RegisterRequest
+                var client = new GoogleCloudPrintClient(provider, token);
+                var pq = GetSelectedQueue();
+                if (pq != null)
                 {
-                    Name = pq.FullName,
-                    DefaultDisplayName = pq.FullName,
-                    Proxy = proxy,
-                    Capabilities = capabilities
-                };
-                var googlePrinter = client.RegisterPrinterAsync(request).Result;
-                Console.WriteLine($"Success: {googlePrinter.Success}");
+                    string capabilities = GetCapabilitiesFromPrintQueue(pq);
+                    var request = new RegisterRequest
+                    {
+                        Name = pq.FullName,
+                        DefaultDisplayName = pq.FullName,
+                        Proxy = proxy,
+                        Capabilities = null
+                    };
+                    var googlePrinter = client.RegisterPrinterAsync(request).Result;
+                    Console.WriteLine($"Success: {googlePrinter.Success}");
+                }
+            }
+            catch (System.AggregateException ex)
+            {
+                if (ex.InnerExceptions.Any())
+                    Console.WriteLine(ex.InnerExceptions.First().Message);
             }
         }
 
