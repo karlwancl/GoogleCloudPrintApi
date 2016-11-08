@@ -46,10 +46,12 @@
     <Compile Include="Attributes\MutuallyExclusiveToAttribute.cs" />
     <Compile Include="Attributes\RequiredForXpsAttribute.cs" />
     <Compile Include="Attributes\RequiredFor20Attribute.cs" />
+    <Compile Include="Exception\GoogleCloudPrintException.cs" />
     <Compile Include="GoogleCloudPrintOAuth2Provider.cs" />
     <Compile Include="GoogleCloudPrintClient.cs" />
     <Compile Include="Infrastructures\GoogleOAuth2ProviderBase.cs" />
     <Compile Include="Infrastructures\GoogleClientBase.cs" />
+    <Compile Include="Infrastructures\HttpExtension.cs" />
     <Compile Include="Infrastructures\IGoogleCloudPrintService.cs" />
     <Compile Include="Infrastructures\IJsonSerializable.cs" />
     <Compile Include="Models\Job\Job.cs" />

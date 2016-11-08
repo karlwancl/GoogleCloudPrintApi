@@ -28,7 +28,7 @@ namespace GoogleCloudPrintApi.Test
 
         private static Models.Token GenerateAndSaveToken()
         {
-            var url = provider.BuildAuthorizationUrl("http://localhost:1234");
+            var url = provider.BuildAuthorizationUrl();
             Console.WriteLine($"{url} will be opened");
 
             var process = Process.Start("chrome.exe", url);

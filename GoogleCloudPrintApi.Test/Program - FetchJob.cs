@@ -88,7 +88,7 @@ namespace GoogleCloudPrintApi.Test
                 }
                 Console.WriteLine($"Document {printJob.Title} is saved.");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return false;
@@ -106,7 +106,7 @@ namespace GoogleCloudPrintApi.Test
                 ticket.Save(path);
                 Console.WriteLine($"Ticket {printJob.Title} is saved.");
             }
-            catch (Exception ex)
+            catch (System.Exception ex)
             {
                 Console.WriteLine(ex.ToString());
                 return false;

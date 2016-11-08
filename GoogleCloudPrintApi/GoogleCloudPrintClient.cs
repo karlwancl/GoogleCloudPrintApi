@@ -1,9 +1,11 @@
 ﻿using Flurl;
 using Flurl.Http;
+using GoogleCloudPrintApi.Exception;
 using GoogleCloudPrintApi.Infrastructures;
 using GoogleCloudPrintApi.Models;
 using GoogleCloudPrintApi.Models.Printer;
 using GoogleCloudPrintApi.Models.Share;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -49,7 +51,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("control")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJson<ControlResponse>()
+                .ReceiveJsonButThrowIfFails<ControlResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -68,7 +70,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("delete")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(new { printerid = request.PrinterId }, cancellationToken)
-                .ReceiveJson<DeleteResponse>()
+                .ReceiveJsonButThrowIfFails<DeleteResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -91,7 +93,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("list")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJson<ListResponse>()
+                .ReceiveJsonButThrowIfFails<ListResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -141,7 +143,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("register")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostMultipartAsync(multipart => multipart.AddStringParts(form), cancellationToken)
-                .ReceiveJson<RegisterResponse>()
+                .ReceiveJsonButThrowIfFails<RegisterResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -194,7 +196,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("update")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostMultipartAsync(multipart => multipart.AddStringParts(form), cancellationToken)
-                .ReceiveJson<UpdateResponse>()
+                .ReceiveJsonButThrowIfFails<UpdateResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -213,7 +215,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("fetch")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(new { printerid = request.PrinterId }, cancellationToken)
-                .ReceiveJson<FetchResponse>()
+                .ReceiveJsonButThrowIfFails<FetchResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -304,7 +306,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("printer")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJson<PrinterResponse>()
+                .ReceiveJsonButThrowIfFails<PrinterResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -329,7 +331,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("share")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJson<ShareResponse>()
+                .ReceiveJsonButThrowIfFails<ShareResponse>()
                 .ConfigureAwait(false);
         }
 
@@ -352,7 +354,7 @@ namespace GoogleCloudPrintApi
                     printerid = request.PrinterId,
                     scope = request.Scope
                 }, cancellationToken)
-                .ReceiveJson<UnshareResponse>()
+                .ReceiveJsonButThrowIfFails<UnshareResponse>()
                 .ConfigureAwait(false);
         }
     }
