@@ -4,6 +4,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Printing;
 
 namespace GoogleCloudPrintApi.Test
@@ -36,6 +37,7 @@ namespace GoogleCloudPrintApi.Test
                 Console.WriteLine("4. Fetch and download print job");
                 Console.WriteLine("5. Share Printer");
                 Console.WriteLine("6. Unshare Printer");
+                Console.WriteLine("7. Test Only");
                 Console.Write("Select an operation: ");
                 if (int.TryParse(Console.ReadLine(), out option))
                 {
@@ -62,6 +64,9 @@ namespace GoogleCloudPrintApi.Test
                         case 6:
                             UnsharePrinter();
                             break;
+                        case 7:
+                            Test();
+                            break;
                     }
                 }
                 else
@@ -82,6 +87,21 @@ namespace GoogleCloudPrintApi.Test
                 File.WriteAllText(ProxyPath, proxy);
             Console.WriteLine($"Proxy: {proxy}");
             return proxy;
+        }
+
+        private static void Test()
+        {
+            var googClient = new GoogleCloudPrintClient(provider, token);
+
+            using (var client = new WebClient())
+            {
+                client.Headers.Add("X-CloudPrint-Proxy", proxy);
+                var authToken = googClient.GetTokenAsync().Result.AccessToken;
+                client.Headers.Add("Authorization", string.Format("Bearer {0}", authToken));
+                client.OpenRead("https://www.google.com/cloudprint/download?id=71a1c2f9-62a8-884a-a673-114db79b87bf");
+                var bytes_total = Convert.ToInt64(client.ResponseHeaders["Content-Length"]);
+                Console.WriteLine(bytes_total.ToString() + " Bytes");
+            }
         }
     }
 }

@@ -26,6 +26,17 @@ namespace GoogleCloudPrintApi
         }
 
         /// <summary>
+        /// Expose internal token for external web call
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Get internal token</returns>
+        public async Task<Token> GetTokenAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await UpdateToken(cancellationToken);
+            return _token;
+        }
+
+        /// <summary>
         /// Update status for the google print job
         /// reference: https://developers.google.com/cloud-print/docs/proxyinterfaces#control
         /// </summary>
