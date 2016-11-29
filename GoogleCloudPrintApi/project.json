@@ -1,6 +1,6 @@
 ﻿{
   "name": "GoogleCloudPrintApi",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
   "copyright": "Copyright (c) 2016 SalmonThinLion",
   "title": "GoogleCloudPrintApi",
@@ -9,7 +9,7 @@
     "summary": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
     "tags": [ "Google", "Cloud", "Print", "API" ],
     "owners": [ "SalmonThinLion" ],
-    "releaseNotes": "[9/11/2016] Expose exception information from Google if the request fails.\n[4/11/2016] Added redirect uri for authorization\n[3/11/2016] Added CancellationToken for cancelling request.\n[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks",
+    "releaseNotes": "[23/11/2016]Expose access token for external web call.\n[9/11/2016] Expose exception information from Google if the request fails.\n[4/11/2016] Added redirect uri for authorization\n[3/11/2016] Added CancellationToken for cancelling request.\n[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks",
     "projectUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi",
     "licenseUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE"
   },
