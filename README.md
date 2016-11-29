@@ -105,6 +105,18 @@ You can find the package through Nuget
 		Scope = /* Google account you want to unshare from */
 	};
 	var response = await client.UnsharePrinterAsync(request);
+	
+#### Customized Web Call Using the Internal Access Token
+	var ggClient = new GoogleCloudPrintClient(provider, token);
+	using (var client = new WebClient())
+	{
+		client.Headers.Add("X-CloudPrint-Proxy", proxy);
+		var accessToken = (await ggClient.GetTokenAsync()).AccessToken;
+		client.Headers.Add("Authorization", string.Format("Bearer {0}", accessToken));
+		client.OpenRead(<some-site>);
+		/* Do what you want here for the response */
+	}
+
 
 ### Powered by
 * [Flurl](https://github.com/tmenier/Flurl) ([@tmenier](https://github.com/tmenier)) - A very nice fluent-style rest api library
