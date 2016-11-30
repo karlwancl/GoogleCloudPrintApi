@@ -1,4 +1,4 @@
-# GoogleCloudPrintApi (Beta)
+# GoogleCloudPrintApi
 A .NET wrapper for Google Cloud Print API, used for server application, currently supports only Google Cloud Print 1.0. This library is based on .NET standard 1.4, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
 
 ### Features
