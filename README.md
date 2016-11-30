@@ -107,14 +107,16 @@ You can find the package through Nuget
 	var response = await client.UnsharePrinterAsync(request);
 	
 #### Customized Web Call Using the Internal Access Token
-	var ggClient = new GoogleCloudPrintClient(provider, token);
-	using (var client = new WebClient())
+	var googClient = new GoogleCloudPrintClient(provider, token);
+	using (var client = new HttpClient())
 	{
-		client.Headers.Add("X-CloudPrint-Proxy", proxy);
-		var accessToken = (await ggClient.GetTokenAsync()).AccessToken;
-		client.Headers.Add("Authorization", string.Format("Bearer {0}", accessToken));
-		client.OpenRead(<some-site>);
-		/* Do what you want here for the response */
+		client.DefaultRequestHeaders.Add("X-CloudPrint-Proxy", proxy);
+		var accessToken = (await googClient.GetTokenAsync()).AccessToken;
+		client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
+		using (var response = await client.GetAsync(/* some uri */))
+		{
+			/* Do what you want here for the response */		
+		}
 	}
 
 
