@@ -1,0 +1,14 @@
+﻿<Properties StartupConfiguration="{5078816B-4BE6-4774-80E0-545D7C3799E8}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GoogleCloudPrintApi.Test/Program.cs">
+    <Files>
+      <File FileName="GoogleCloudPrintApi.Test/Program.cs" Line="107" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.GoogleCloudPrintApi.Test PreferredExecutionTarget="MonoDevelop.Default" />
+  <MultiItemStartupConfigurations />
+</Properties>

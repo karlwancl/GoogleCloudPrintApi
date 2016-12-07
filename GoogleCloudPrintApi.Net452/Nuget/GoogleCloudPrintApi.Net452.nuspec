@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
+    <metadata minClientVersion="3.2">
+        <id>GoogleCloudPrintApi.Net452</id>
+        <version>1.0.6</version>
+        <authors>SalmonThinLion</authors>
+        <description>A .NET wrapper for Google Cloud Print API</description>
+        <dependencies>
+            <dependency id="Flurl" version="2.2.1.0" />
+            <dependency id="Flurl.Http" version="1.1.1.0" />
+            <dependency id="Newtonsoft.Json" version="9.0.0.0" />
+        </dependencies>
+    </metadata>
+    <files>
+        <file src="..\bin\Release\GoogleCloudPrintApi.Net452.*" target="lib\net452" />
+    </files>
+</package>
