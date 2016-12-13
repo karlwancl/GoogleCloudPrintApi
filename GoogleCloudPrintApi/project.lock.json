@@ -4281,9 +4281,47 @@
     ],
     ".NETStandard,Version=v1.4": []
   },
-  "tools": {},
-  "projectFileToolGroups": {},
   "packageFolders": {
-    "C:\\Users\\karlwan\\.nuget\\packages\\": {}
+    "/Users/karlwan/.nuget/packages/": {}
+  },
+  "project": {
+    "title": "GoogleCloudPrintApi",
+    "version": "1.0.6",
+    "description": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
+    "authors": [
+      "SalmonThinLion"
+    ],
+    "copyright": "Copyright (c) 2016 SalmonThinLion",
+    "packOptions": {
+      "owners": [
+        "SalmonThinLion"
+      ],
+      "tags": [
+        "Google",
+        "Cloud",
+        "Print",
+        "API"
+      ],
+      "projectUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi",
+      "summary": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
+      "releaseNotes": "[23/11/2016]Expose access token for external web call.\n[9/11/2016] Expose exception information from Google if the request fails.\n[4/11/2016] Added redirect uri for authorization\n[3/11/2016] Added CancellationToken for cancelling request.\n[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks",
+      "licenseUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE"
+    },
+    "restore": {
+      "projectUniqueName": "/Users/karlwan/Development/SG/Source/GoogleCloudPrintApi/GoogleCloudPrintApi/GoogleCloudPrintApi.csproj",
+      "projectName": "GoogleCloudPrintApi",
+      "projectPath": "/Users/karlwan/Development/SG/Source/GoogleCloudPrintApi/GoogleCloudPrintApi/GoogleCloudPrintApi.csproj",
+      "projectJsonPath": "/Users/karlwan/Development/SG/Source/GoogleCloudPrintApi/GoogleCloudPrintApi/project.json",
+      "outputType": "UAP"
+    },
+    "dependencies": {
+      "Flurl": "2.2.1",
+      "Flurl.Http": "1.0.3",
+      "Microsoft.NETCore.Portable.Compatibility": "1.0.1",
+      "NETStandard.Library": "1.6.0"
+    },
+    "frameworks": {
+      "netstandard1.4": {}
+    }
   }
 }
