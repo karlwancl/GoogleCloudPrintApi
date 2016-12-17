@@ -220,14 +220,28 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<FetchResponse> FetchJobAsync(FetchRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
+            // Check if printer exists before fetch jobs from it, throws appropriate exception when printer does not exist
+            var printerRequest = new PrinterRequest { PrinterId = request.PrinterId };
+            await GetPrinterAsync(printerRequest, cancellationToken).ConfigureAwait(false);
+
             await UpdateToken(cancellationToken);
 
-            return await GoogleCloudPrintBaseUrl
-                .AppendPathSegment("fetch")
-                .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(new { printerid = request.PrinterId }, cancellationToken)
-                .ReceiveJsonButThrowIfFails<FetchResponse>()
-                .ConfigureAwait(false);
+            try
+            {
+                return await GoogleCloudPrintBaseUrl
+                    .AppendPathSegment("fetch")
+                    .WithOAuthBearerToken(_token.AccessToken)
+                    .PostUrlEncodedAsync(new { printerid = request.PrinterId }, cancellationToken)
+                    .ReceiveJsonButThrowIfFails<FetchResponse>()
+                    .ConfigureAwait(false);
+            }
+            catch (GoogleCloudPrintException ex)
+            {
+                // Return empty job list if error code is 413
+                if (ex.ErrorCode == "413")
+                    return new FetchResponse(false, ex.Request, null, new List<Models.Job.Job>());
+                throw;
+            }
         }
 
         /// <summary>
