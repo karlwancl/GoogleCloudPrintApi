@@ -4282,11 +4282,11 @@
     ".NETStandard,Version=v1.4": []
   },
   "packageFolders": {
-    "/Users/karlwan/.nuget/packages/": {}
+    "C:\\Users\\karlwan\\.nuget\\packages\\": {}
   },
   "project": {
     "title": "GoogleCloudPrintApi",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
     "authors": [
       "SalmonThinLion"
@@ -4304,14 +4304,14 @@
       ],
       "projectUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi",
       "summary": "A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4",
-      "releaseNotes": "[23/11/2016]Expose access token for external web call.\n[9/11/2016] Expose exception information from Google if the request fails.\n[4/11/2016] Added redirect uri for authorization\n[3/11/2016] Added CancellationToken for cancelling request.\n[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks",
+      "releaseNotes": "[17/12/2016]Returns appropriate response from fetch jobs request\n[23/11/2016]Expose access token for external web call.\n[9/11/2016] Expose exception information from Google if the request fails.\n[4/11/2016] Added redirect uri for authorization\n[3/11/2016] Added CancellationToken for cancelling request.\n[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks",
       "licenseUrl": "https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE"
     },
     "restore": {
-      "projectUniqueName": "/Users/karlwan/Development/SG/Source/GoogleCloudPrintApi/GoogleCloudPrintApi/GoogleCloudPrintApi.csproj",
+      "projectUniqueName": "Z:\\Development\\Personal\\Source\\GoogleCloudPrintApi\\GoogleCloudPrintApi\\GoogleCloudPrintApi.csproj",
       "projectName": "GoogleCloudPrintApi",
-      "projectPath": "/Users/karlwan/Development/SG/Source/GoogleCloudPrintApi/GoogleCloudPrintApi/GoogleCloudPrintApi.csproj",
-      "projectJsonPath": "/Users/karlwan/Development/SG/Source/GoogleCloudPrintApi/GoogleCloudPrintApi/project.json",
+      "projectPath": "Z:\\Development\\Personal\\Source\\GoogleCloudPrintApi\\GoogleCloudPrintApi\\GoogleCloudPrintApi.csproj",
+      "projectJsonPath": "Z:\\Development\\Personal\\Source\\GoogleCloudPrintApi\\GoogleCloudPrintApi\\project.json",
       "outputType": "UAP"
     },
     "dependencies": {
