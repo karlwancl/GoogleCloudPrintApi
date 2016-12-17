@@ -1,103 +1,57 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
+
   <PropertyGroup>
-    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{D7084B23-3C4D-472A-BA03-856B7AD0B018}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>GoogleCloudPrintApi</RootNamespace>
+    <Description>A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4</Description>
+    <Copyright>Copyright (c) 2016 SalmonThinLion</Copyright>
+    <AssemblyTitle>GoogleCloudPrintApi</AssemblyTitle>
+    <VersionPrefix>1.0.7</VersionPrefix>
+    <Authors>SalmonThinLion</Authors>
+    <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>GoogleCloudPrintApi</AssemblyName>
-    <DefaultLanguage>en-US</DefaultLanguage>
-    <FileAlignment>512</FileAlignment>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
-    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
+    <PackageId>GoogleCloudPrintApi</PackageId>
+    <PackageTags>Google;Cloud;Print;API</PackageTags>
+    <PackageReleaseNotes>[17/12/2016]Returns appropriate response from fetch jobs request
+[23/11/2016]Expose access token for external web call.
+[9/11/2016] Expose exception information from Google if the request fails.
+[4/11/2016] Added redirect uri for authorization
+[3/11/2016] Added CancellationToken for cancelling request.
+[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/salmonthinlion/GoogleCloudPrintApi</PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE</PackageLicenseUrl>
+    <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
+    <GenerateAssemblyDescriptionAttribute>false</GenerateAssemblyDescriptionAttribute>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+    <GenerateAssemblyCopyrightAttribute>false</GenerateAssemblyCopyrightAttribute>
+    <GenerateNeutralResourcesLanguageAttribute>false</GenerateNeutralResourcesLanguageAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-  </PropertyGroup>
+
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="project.json" />
+    <Compile Include="**\*.cs" />
+    <EmbeddedResource Include="**\*.resx" Exclude="@(EmbeddedResource)" />
+    <EmbeddedResource Include="compiler\resources\**\*" Exclude="@(EmbeddedResource)" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Attributes\PartiallySupportedAttribute.cs" />
-    <Compile Include="Attributes\RequiredAttribute.cs" />
-    <Compile Include="Attributes\RecommendedFor20Attribute.cs" />
-    <Compile Include="Attributes\RequiredForAnonymousRegistrationAttribute.cs" />
-    <Compile Include="Attributes\MutuallyExclusiveToAttribute.cs" />
-    <Compile Include="Attributes\RequiredForXpsAttribute.cs" />
-    <Compile Include="Attributes\RequiredFor20Attribute.cs" />
-    <Compile Include="Exception\GoogleCloudPrintException.cs" />
-    <Compile Include="GoogleCloudPrintOAuth2Provider.cs" />
-    <Compile Include="GoogleCloudPrintClient.cs" />
-    <Compile Include="Infrastructures\GoogleOAuth2ProviderBase.cs" />
-    <Compile Include="Infrastructures\GoogleClientBase.cs" />
-    <Compile Include="Infrastructures\HttpExtension.cs" />
-    <Compile Include="Infrastructures\IGoogleCloudPrintService.cs" />
-    <Compile Include="Infrastructures\IJsonSerializable.cs" />
-    <Compile Include="Models\Job\Job.cs" />
-    <Compile Include="Models\Job\LegacyJobStatus.cs" />
-    <Compile Include="Models\Job\PrintJobState.cs" />
-    <Compile Include="Models\Job\PrintJobUiState.cs" />
-    <Compile Include="Models\Printer\CapabilitiesFormat.cs" />
-    <Compile Include="Models\Printer\ConnectionStatusType.cs" />
-    <Compile Include="Models\Printer\ControlRequest.cs" />
-    <Compile Include="Models\Job\JobState.cs" />
-    <Compile Include="Models\Printer\ControlResponse.cs" />
-    <Compile Include="Models\Printer\DeleteRequest.cs" />
-    <Compile Include="Models\Printer\DeleteResponse.cs" />
-    <Compile Include="Models\Printer\FetchRequest.cs" />
-    <Compile Include="Models\Printer\FetchResponse.cs" />
-    <Compile Include="Models\Printer\ListRequest.cs" />
-    <Compile Include="Models\Printer\ListResponse.cs" />
-    <Compile Include="Models\Printer\LocalSettings.cs" />
-    <Compile Include="Models\Printer\Printer.cs" />
-    <Compile Include="Models\Printer\PrinterAcl.cs" />
-    <Compile Include="Models\Printer\PrinterRequest.cs" />
-    <Compile Include="Models\Printer\PrinterResponse.cs" />
-    <Compile Include="Models\Printer\PrinterType.cs" />
-    <Compile Include="Models\Printer\PrintJobStateDiff.cs" />
-    <Compile Include="Models\Printer\RegisterRequest.cs" />
-    <Compile Include="Models\Printer\RegisterResponse.cs" />
-    <Compile Include="Models\Share\ShareRequest.cs" />
-    <Compile Include="Models\Share\ShareResponse.cs" />
-    <Compile Include="Models\Printer\UpdateRequest.cs" />
-    <Compile Include="Models\Printer\UpdateResponse.cs" />
-    <Compile Include="Models\Share\EntryType.cs" />
-    <Compile Include="Models\Share\MembershipType.cs" />
-    <Compile Include="Models\Share\Role.cs" />
-    <Compile Include="Models\Share\UnshareRequest.cs" />
-    <Compile Include="Models\Share\UnshareResponse.cs" />
-    <Compile Include="Models\Token.cs" />
-    <Compile Include="Infrastructures\IOAuth2Provider.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <PackageReference Include="Flurl">
+      <Version>2.2.1</Version>
+    </PackageReference>
+    <PackageReference Include="Flurl.Http">
+      <Version>1.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.Portable.Compatibility">
+      <Version>1.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="NETStandard.Library">
+      <Version>1.6.0</Version>
+    </PackageReference>
   </ItemGroup>
-  <ItemGroup />
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
+  </PropertyGroup>
+
 </Project>
