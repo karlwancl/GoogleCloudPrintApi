@@ -91,7 +91,9 @@ You can find the package through Nuget
 	/* Please notice that the FetchJobAsync call will behave as follows:
 	1. If the printer does not exist in Google Cloud, throws "No print job available on specified printer." exception
 	2. If there is no print job in the queue, throws "No print job available on specified printer." exception
-	3. If there is job available in the queue, returns the job list. */
+	3. If there is job available in the queue, returns the job list. 
+	
+	If you'd like to distinguish the difference between case 1 & 2, you'd be better off calling GetPrinterAsync before this method. It will throw you "The printer is not found" exception if the printer does not exist.*/
 
 #### Share printer to Google User
 	var request = new ShareRequest
