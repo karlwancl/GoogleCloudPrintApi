@@ -60,7 +60,7 @@ You can find the package through Nuget
 	var request = new DeleteRequest { PrinterId = printerId };
 	var response = await client.DeletePrinterAsync(request);
 	
-#### Download printed job
+#### Download printed job (*)
 	// Retrieve printed job list
 	var fetchRequest = new FetchRequest { PrinterId = printerId };
 	var fetchResponse = await client.FetchJobAsync(fetchRequest);
@@ -88,6 +88,11 @@ You can find the package through Nuget
 	};
 	var controlResponse = await client.UpdateJobStatusAsync(controlRequest);
 	
+(*) Please notice that the FetchJobAsync call will behave as follows:
+1. If the printer does not exist in Google Cloud, throws "No print job available on specified printer." exception
+2. If there is no print job in the queue, throws "No print job available on specified printer." exception
+3. If there is job available in the queue, returns the job list.
+
 
 #### Share printer to Google User
 	var request = new ShareRequest
