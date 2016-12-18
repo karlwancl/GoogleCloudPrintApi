@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">
     <metadata minClientVersion="3.2">
         <id>GoogleCloudPrintApi.Net452</id>
-        <version>1.0.7</version>
+        <version>1.0.6</version>
         <authors>SalmonThinLion</authors>
         <description>A .NET wrapper for Google Cloud Print API, it is the backward compatible version of GoogleCloudPrintApi. For newer development, please use GoogleCloudPrintApi instead.</description>
         <dependencies>

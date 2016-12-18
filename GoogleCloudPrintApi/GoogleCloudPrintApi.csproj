@@ -1,17 +1,15 @@
-﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
-
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <Description>A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4</Description>
     <Copyright>Copyright (c) 2016 SalmonThinLion</Copyright>
     <AssemblyTitle>GoogleCloudPrintApi</AssemblyTitle>
-    <VersionPrefix>1.0.7</VersionPrefix>
+    <VersionPrefix>1.0.6</VersionPrefix>
     <Authors>SalmonThinLion</Authors>
     <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>GoogleCloudPrintApi</AssemblyName>
     <PackageId>GoogleCloudPrintApi</PackageId>
     <PackageTags>Google;Cloud;Print;API</PackageTags>
-    <PackageReleaseNotes>[17/12/2016]Returns appropriate response from fetch jobs request
-[23/11/2016]Expose access token for external web call.
+    <PackageReleaseNotes>[23/11/2016]Expose access token for external web call.
 [9/11/2016] Expose exception information from Google if the request fails.
 [4/11/2016] Added redirect uri for authorization
 [3/11/2016] Added CancellationToken for cancelling request.
@@ -28,13 +26,11 @@
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
   </PropertyGroup>
-
   <ItemGroup>
     <Compile Include="**\*.cs" />
     <EmbeddedResource Include="**\*.resx" Exclude="@(EmbeddedResource)" />
     <EmbeddedResource Include="compiler\resources\**\*" Exclude="@(EmbeddedResource)" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="Flurl">
       <Version>2.2.1</Version>
@@ -49,9 +45,7 @@
       <Version>1.6.0</Version>
     </PackageReference>
   </ItemGroup>
-
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>
   </PropertyGroup>
-
 </Project>
