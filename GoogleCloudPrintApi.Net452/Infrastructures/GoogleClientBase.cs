@@ -30,7 +30,7 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// </summary>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Access token</returns>
-        protected async Task UpdateToken(CancellationToken cancellationToken = default(CancellationToken))
+        protected async Task UpdateTokenAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
             if (_token.ExpireDateTime > DateTime.Now)
                 return;

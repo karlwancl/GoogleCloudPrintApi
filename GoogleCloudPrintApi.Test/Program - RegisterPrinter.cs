@@ -21,13 +21,15 @@ namespace GoogleCloudPrintApi.Test
                 var pq = GetSelectedQueue();
                 if (pq != null)
                 {
-                    string capabilities = GetCapabilitiesFromPrintQueue(pq);
+                    //string capabilities = GetCapabilitiesFromPrintQueue(pq);
+                    string capabilities = File.ReadAllText("cdd.txt");
                     var request = new RegisterRequest
                     {
                         Name = pq.FullName,
                         DefaultDisplayName = pq.FullName,
                         Proxy = proxy,
-                        Capabilities = null
+                        Capabilities = capabilities,
+                        UseCdd = true
                     };
                     var googlePrinter = client.RegisterPrinterAsync(request).Result;
                     Console.WriteLine($"Success: {googlePrinter.Success}");

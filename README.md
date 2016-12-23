@@ -70,7 +70,17 @@ You can find the package through Nuget
 	var printJob = printJobs.ElementAt(i);
 	
 	// Download and process ticket for the printed job
+
+	// For printer with XPS capabilities
 	var ticket = await client.GetTicketAsync(printJob.TicketUrl, proxy);
+
+	// For printer with CDD capabilities
+	var request = new TicketRequest
+	{
+		JobId = printJob.Id
+	};
+	var ticket = await client.GetCloudJobTicketAsync(request);
+
 	/* Your method to process the ticket */
 	
 	// Download and save the document (in pdf format) for the printed job
