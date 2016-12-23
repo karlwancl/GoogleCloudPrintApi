@@ -27,7 +27,7 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         Task<XDocument> GetTicketAsync(string ticketUrl, string proxy, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<dynamic> GetTicketv2Async(string jobId, CancellationToken cancellationToken = default(CancellationToken));
+        Task<CloudJobTicket> GetCloudJobTicketAsync(TicketRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
         Task<Stream> GetDocumentAsync(string fileUrl, string proxy, CancellationToken cancellationToken = default(CancellationToken));
 
