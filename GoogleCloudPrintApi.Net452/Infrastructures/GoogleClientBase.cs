@@ -35,7 +35,19 @@ namespace GoogleCloudPrintApi.Infrastructures
             if (_token.ExpireDateTime > DateTime.Now)
                 return;
 
-            _token = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken, cancellationToken).ConfigureAwait(false);
+            var nToken = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken, cancellationToken).ConfigureAwait(false);
+            _token = new Token(nToken.AccessToken, nToken.TokenType, nToken.ExpiresIn, _token.RefreshToken, nToken.ExpireDateTime);
+        }
+
+        /// <summary>
+        /// Expose internal token for external web call
+        /// </summary>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Get internal token</returns>
+        public async Task<Token> GetTokenAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await UpdateTokenAsync(cancellationToken);
+            return _token;
         }
     }
 }

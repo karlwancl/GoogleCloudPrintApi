@@ -6,14 +6,14 @@ namespace GoogleCloudPrintApi.Models
     public class Token
     {
         [JsonConstructor]
-        public Token(string access_token, string token_type, long expires_in, string refresh_token, DateTime expire_datetime)
+        public Token(string access_token, string token_type, long expires_in, string refresh_token, DateTime? expire_datetime = null)
         {
             AccessToken = access_token;
             TokenType = token_type;
             ExpiresIn = expires_in;
             RefreshToken = refresh_token;
             // Calculate the expire datetime if token is generated, read the expire datetime if token is read from file
-            ExpireDateTime = expire_datetime == default(DateTime) ? DateTime.Now.AddSeconds(expires_in) : expire_datetime;
+            ExpireDateTime = expire_datetime ?? DateTime.Now.AddSeconds(expires_in);
         }
 
         /// <summary>

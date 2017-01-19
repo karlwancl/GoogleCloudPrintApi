@@ -91,7 +91,7 @@ namespace GoogleCloudPrintApi.Infrastructures
         public async Task<Token> GenerateAccessTokenAsync(string refreshToken, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await GoogleApiOAuth2TokenUri
-                .PostUrlEncodedAsync( new
+                .PostUrlEncodedAsync(new
                 {
                     client_id = _clientId,
                     client_secret = _clientSecret,
