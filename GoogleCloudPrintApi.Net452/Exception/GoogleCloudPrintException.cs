@@ -8,7 +8,7 @@ namespace GoogleCloudPrintApi.Exception
 {
     public class GoogleCloudPrintException : System.Exception
     {
-        public GoogleCloudPrintException(string message, string errorCode, dynamic request) : base(message)
+        public GoogleCloudPrintException(string message, string errorCode = null, dynamic request = null) : base(message)
         {
             ErrorCode = errorCode;
             Request = request;

@@ -25,6 +25,8 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         protected Token _token;
 
+        public event EventHandler<Token> OnTokenUpdated;
+
         /// <summary>
         /// Update access token if it is expired
         /// </summary>
@@ -37,6 +39,7 @@ namespace GoogleCloudPrintApi.Infrastructures
 
             var nToken = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken, cancellationToken).ConfigureAwait(false);
             _token = new Token(nToken.AccessToken, nToken.TokenType, nToken.ExpiresIn, _token.RefreshToken, nToken.ExpireDateTime);
+            OnTokenUpdated?.Invoke(this, _token);
         }
 
         /// <summary>

@@ -13,6 +13,6 @@ namespace GoogleCloudPrintApi
         {
         }
 
-        protected override string Scope => "https://www.googleapis.com/auth/cloudprint";
+        protected override string Scope => "https://www.googleapis.com/auth/cloudprint https://www.googleapis.com/auth/googletalk";
     }
 }

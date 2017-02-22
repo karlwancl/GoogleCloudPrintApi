@@ -15,62 +15,70 @@ namespace GoogleCloudPrintApi.Test
     {
         static void FetchJob()
         {
-            var client = new GoogleCloudPrintClient(provider, token);
-
-            var listRequest = new ListRequest { Proxy = proxy };
-            var listResponse = client.ListPrinterAsync(listRequest).Result;
-            if (listResponse.Printers != null && listResponse.Printers.Any())
+            try
             {
-                for (int i=0; i<listResponse.Printers.Count(); i++)
-                {
-                    Console.WriteLine($"{i + 1}. {listResponse.Printers.ElementAt(i).DisplayName}");
-                }
 
-                // Choose printer
-                Console.Write("Please choose a printer to fetch job: ");
-                int printerOption = -1;
-                if (int.TryParse(Console.ReadLine(), out printerOption))
-                {
-                    var printer = listResponse.Printers.ElementAt(printerOption - 1);
+                var client = new GoogleCloudPrintClient(provider, token);
 
-                    var fetchRequest = new FetchRequest { PrinterId = printer.Id };
-                    var fetchResponse = client.FetchJobAsync(fetchRequest).Result;
-                    if (fetchResponse.Success && fetchResponse.Jobs.Any())
+                var listRequest = new ListRequest { Proxy = proxy };
+                var listResponse = client.ListPrinterAsync(listRequest).Result;
+                if (listResponse.Printers != null && listResponse.Printers.Any())
+                {
+                    for (int i = 0; i < listResponse.Printers.Count(); i++)
                     {
-                        for (int i = 0; i < fetchResponse.Jobs.Count(); i++)
-                        {
-                            Console.WriteLine($"{i + 1}. {fetchResponse.Jobs.ElementAt(i).Title}");
-                        }
+                        Console.WriteLine($"{i + 1}. {listResponse.Printers.ElementAt(i).DisplayName}");
+                    }
 
-                        // Choose job on specific printer
-                        Console.Write("Please choose a print job to download: ");
-                        int printJobOption = -1;
-                        if (int.TryParse(Console.ReadLine(), out printJobOption))
+                    // Choose printer
+                    Console.Write("Please choose a printer to fetch job: ");
+                    int printerOption = -1;
+                    if (int.TryParse(Console.ReadLine(), out printerOption))
+                    {
+                        var printer = listResponse.Printers.ElementAt(printerOption - 1);
+
+                        var fetchRequest = new FetchRequest { PrinterId = printer.Id };
+                        var fetchResponse = client.FetchJobAsync(fetchRequest).Result;
+                        if (fetchResponse.Success && fetchResponse.Jobs.Any())
                         {
-                            if (printJobOption == -1)
-                                return;
-                            var printJob = fetchResponse.Jobs.ElementAt(printJobOption - 1);
-                            if (DownloadTicket(client, printJob) && DownloadDocument(client, printJob))
+                            for (int i = 0; i < fetchResponse.Jobs.Count(); i++)
                             {
-                                var updateRequest = new ControlRequest
-                                {
-                                    JobId = printJob.Id,
-                                    Status = Models.Job.LegacyJobStatus.DONE
-                                };
-                                var updateResponse = client.UpdateJobStatusAsync(updateRequest).Result;
-                                Console.WriteLine($"Update job status: {updateResponse.Success}");
+                                Console.WriteLine($"{i + 1}. {fetchResponse.Jobs.ElementAt(i).Title}");
                             }
 
+                            // Choose job on specific printer
+                            Console.Write("Please choose a print job to download: ");
+                            int printJobOption = -1;
+                            if (int.TryParse(Console.ReadLine(), out printJobOption))
+                            {
+                                if (printJobOption == -1)
+                                    return;
+                                var printJob = fetchResponse.Jobs.ElementAt(printJobOption - 1);
+                                if (DownloadTicket(client, printJob) && DownloadDocument(client, printJob))
+                                {
+                                    var updateRequest = new ControlRequest
+                                    {
+                                        JobId = printJob.Id,
+                                        Status = Models.Job.LegacyJobStatus.DONE
+                                    };
+                                    var updateResponse = client.UpdateJobStatusAsync(updateRequest).Result;
+                                    Console.WriteLine($"Update job status: {updateResponse.Success}");
+                                }
+
+                            }
+                            else
+                                Console.WriteLine("Fail to choose print job");
                         }
                         else
-                            Console.WriteLine("Fail to choose print job");
+                            Console.WriteLine("There is currently no job!");
                     }
-                    else
-                        Console.WriteLine("There is currently no job!");
                 }
+                else
+                    Console.WriteLine("There is no printer to delete!");
             }
-            else
-                Console.WriteLine("There is no printer to delete!");
+            catch (System.Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
 
         private static bool DownloadDocument(GoogleCloudPrintClient client, Models.Job.Job printJob)

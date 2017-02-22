@@ -41,7 +41,6 @@ Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.Test.pdb
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Flurl.dll
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Flurl.Http.dll
-Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.Net452.dll
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Microsoft.Win32.Primitives.dll
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Newtonsoft.Json.dll
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\System.Diagnostics.DiagnosticSource.dll
@@ -58,9 +57,14 @@ Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Flurl.xml
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Flurl.Http.pdb
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Flurl.Http.xml
-Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.Net452.pdb
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\Newtonsoft.Json.xml
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\System.Diagnostics.DiagnosticSource.xml
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\obj\Debug\GoogleCloudPrintApi.Test.csprojResolveAssemblyReference.cache
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\obj\Debug\GoogleCloudPrintApi.Test.exe
 Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\obj\Debug\GoogleCloudPrintApi.Test.pdb
+Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.dll
+Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\GoogleCloudPrintApi.pdb
+Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\System.Net.Sockets.dll
+Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\obj\Debug\GoogleCloudPrintApi.Test.csproj.GoogleCloudPrintApi.Test.exe.config
+Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\System.Net.Security.dll
+Z:\Development\Personal\Source\GoogleCloudPrintApi\GoogleCloudPrintApi.Test\bin\Debug\System.Xml.XmlDocument.dll

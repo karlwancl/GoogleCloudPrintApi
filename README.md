@@ -6,6 +6,7 @@ A .NET wrapper for Google Cloud Print API, used for server application, currentl
 * Allows printer manipulation on Google Cloud
 * Allows job retrieval from Google Cloud
 * Allows printer sharing to Google Accounts
+* Allows subscribing to new job notification from Google Cloud (Thanks to [@Jezternz](https://github.com/Jezternz) for providing the xmpp implementation)
 
 ### Supported Platforms
 * .NET Core 1.0
@@ -21,16 +22,55 @@ You can find the package through Nuget
 
 ### How To Use
 
+* Initialization
+	* [First Time Token Generation](#FirstTimeTokenGeneration)
+	* [Initialize Google Cloud Print Client](#InitializeGoogleCloudPrintClient)
+	* [Subscribe To Job Notification](#SubscribeToJobNotification)
+
+* Printer Management
+	* [Register Printer](#RegisterPrinter)
+	* [List Printers](#ListPrinters)
+	* [Get Printer Information](#GetPrinterInformation)
+	* [Update Printer](#UpdatePrinter)
+	* [Delete Printer](#DeletePrinter)
+
+* Job Management
+	* [Download Printed Job](#DownloadPrintedJob)
+
+* Sharing/Unsharing
+	* [Share Printer to Google User](#SharePrinter)
+	* [Unshare Printer to Google User](#UnsharePrinter)
+
+* Misc
+	* [Customized Web Call Using Internal Access Token](#CustomizedCall)
+
+<a name="FirstTimeTokenGeneration"></a>
 #### First-time token generation
 	var provider = new GoogleCloudPrintOAuth2Provider(clientId, clientSecret);
 	var url = provider.BuildAuthorizationUrl( /* Optional redirect uri */ );
 	/* Your method to retrieve authorization code from the above url */
 	var token = await provider.GenerateRefreshTokenAsync(authorizationCode);
 	
-
+<a name="InitializeGoogleCloudPrintClient"></a>
 #### Initialize Google Cloud Print Client
 	var client = new GoogleCloudPrintClient(provider, token);
-	
+
+	// You can also subscribe to the OnTokenUpdated event for token update notification
+	client.OnTokenUpdated += (sender, e) => 
+	{
+		// Do what you want with the updated token (Save the new token/ log, etc.)
+	};
+
+<a name="SubscribeToJobNotification"></a>
+#### Subscribe job notification
+	// You can subscibe to job notification by the following steps
+	client.OnIncomingPrintJobs += (sender, e) => Console.WriteLine(e.PrinterId);
+	await client.InitXmppAsync(<Your xmppJid here, e.g. 'admin' for 'admin@gmail.com'>);
+
+	// Also, you can terminate the subscription by using the StopXmppAndCleanUp method
+	client.StopXmppAndCleanUp();
+
+<a name="RegisterPrinter"></a>
 #### Register printer
 	var request = new RegisterRequest
 	{
@@ -40,14 +80,17 @@ You can find the package through Nuget
 	};
 	var response = await client.RegisterPrinterAsync(request);
 	
+<a name="ListPrinters"></a>
 #### List printers
 	var request = new ListRequest { Proxy = proxy };
 	var response = await client.ListPrinterAsync(request);
 	
+<a name="GetPrinterInformation"></a>
 #### Get printer information
 	var request = new PrinterRequest { PrinterId = printerId };
 	var response = await client.GetPrinterAsync(request);
 	
+<a name="UpdatePrinter"></a>
 #### Update printer
 	var request = new UpdateRequest
 	{
@@ -55,11 +98,13 @@ You can find the package through Nuget
 		Name = nameToUpdate
 	};
 	var response = await client.UpdatePrinterAsync(request);
-	
+
+<a name="DeletePrinter"></a>
 #### Delete printer
 	var request = new DeleteRequest { PrinterId = printerId };
 	var response = await client.DeletePrinterAsync(request);
 	
+<a name="DownloadPrintedJob"></a>
 #### Download printed job
 	// Retrieve printed job list
 	var fetchRequest = new FetchRequest { PrinterId = printerId };
@@ -107,6 +152,7 @@ You can find the package through Nuget
 	If you'd like to distinguish the difference between case 1 & 2, you'd be better off calling GetPrinterAsync before this method. It will throw you "The printer is not found" exception if the printer does not exist.
 	*/
 
+<a name="SharePrinter"></a>
 #### Share printer to Google User
 	var request = new ShareRequest
 	{
@@ -116,6 +162,7 @@ You can find the package through Nuget
 	};
 	var response = await client.SharePrinterAsync(request);
 
+<a name="UnsharePrinter"></a>
 #### Unshare printer from Google User
 	var request = new UnshareRequest
 	{
@@ -124,6 +171,7 @@ You can find the package through Nuget
 	};
 	var response = await client.UnsharePrinterAsync(request);
 	
+<a name="CustomizedCall"></a>
 #### Customized Web Call Using the Internal Access Token
 	var googClient = new GoogleCloudPrintClient(provider, token);
 	using (var client = new HttpClient())

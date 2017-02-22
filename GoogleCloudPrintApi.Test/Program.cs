@@ -1,4 +1,5 @@
 ﻿using GoogleCloudPrintApi.Models.Printer;
+using GoogleCloudPrintApi;
 using Newtonsoft.Json;
 using System;
 using System.Diagnostics;
@@ -38,6 +39,7 @@ namespace GoogleCloudPrintApi.Test
                 Console.WriteLine("5. Share Printer");
                 Console.WriteLine("6. Unshare Printer");
                 Console.WriteLine("7. Test Only");
+                Console.WriteLine("8. Xmpp Testing");
                 Console.Write("Select an operation: ");
                 if (int.TryParse(Console.ReadLine(), out option))
                 {
@@ -67,6 +69,9 @@ namespace GoogleCloudPrintApi.Test
                         case 7:
                             Test();
                             break;
+                        case 8:
+                            XmppTest();
+                            break;
                     }
                 }
                 else
@@ -76,6 +81,31 @@ namespace GoogleCloudPrintApi.Test
                 Console.Clear();
             }
             Console.ReadLine();
+        }
+
+        private static async void XmppTest()
+        {
+            var client = new GoogleCloudPrintClient(provider, token);
+            client.OnXmppDebugLogging += Client_OnXmppLogging;
+            client.OnIncomingPrintJobs += Client_OnIncomingPrintJobs;
+            client.OnTokenUpdated += Client_OnTokenUpdated;
+            await client.InitXmppAsync("salmonthinlion");
+            //client.StopXmppAndCleanup();
+        }
+
+        private static void Client_OnTokenUpdated(object sender, Models.Token e)
+        {
+            SaveToken(e);
+        }
+
+        private static void Client_OnIncomingPrintJobs(object sender, JobRecievedEventArgs e)
+        {
+            Console.WriteLine(e.PrinterId);
+        }
+
+        private static void Client_OnXmppLogging(object sender, string e)
+        {
+            Console.WriteLine(e);
         }
 
         private static string GetProxy()
