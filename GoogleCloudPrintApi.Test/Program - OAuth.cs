@@ -36,10 +36,15 @@ namespace GoogleCloudPrintApi.Test
 
             var authCode = Console.ReadLine();
             var token = provider.GenerateRefreshTokenAsync(authCode).Result;
+            SaveToken(token);
+            return token;
+        }
+
+        private static void SaveToken(Models.Token token)
+        {
             string tokenString = JsonConvert.SerializeObject(token);
             File.WriteAllText(TokenPath, tokenString);
             Console.WriteLine($"Token: {tokenString}");
-            return token;
         }
     }
 }
