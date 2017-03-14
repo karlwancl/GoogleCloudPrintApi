@@ -36,7 +36,23 @@ namespace GoogleCloudPrintApi
 
         #region Constructor & Cleanup
 
+        /// <summary>
+        /// Stop and dispose xmpp-related source together with handlers
+        /// </summary>
         public void StopXmppAndCleanup()
+        {
+            StopXmpp();
+
+            // Unsubscribe all handlers for xmpp subscription
+            OnIncomingPrintJobs = null;
+            OnXmppDebugLogging?.Invoke(this, "Clean up event handlers.");
+            OnXmppDebugLogging = null;
+        }
+
+        /// <summary>
+        /// Stop and dispose xmpp-related resource
+        /// </summary>
+        private void StopXmpp()
         {
             OnXmppDebugLogging?.Invoke(this, "Xmpp Connection - Closing & Cleaning up socket connection with google.");
             // Cleanup stream & client
@@ -50,10 +66,6 @@ namespace GoogleCloudPrintApi
                 _xmppTcpClient.Dispose();
                 _xmppTcpClient = null;
             }
-            // Unsubscribe all handlers for xmpp subscription
-            OnIncomingPrintJobs = null;
-            OnXmppDebugLogging?.Invoke(this, "Clean up event handlers.");
-            OnXmppDebugLogging = null;
         }
 
         #endregion Constructor & Cleanup
@@ -133,13 +145,13 @@ namespace GoogleCloudPrintApi
             }
             catch (GoogleCloudPrintException ex)
             {
-                StopXmppAndCleanup();
+                StopXmpp();
                 OnXmppDebugLogging?.Invoke(this, ex.Message);
                 throw ex;
             }
             catch (System.Exception ex)
             {
-                StopXmppAndCleanup();
+                StopXmpp();
                 var message = $"Xmpp Connection - Exception occured while attempting to establish secure stream with google exception: '{ex.Message}', conversation: '{ConnectConversation}'";
                 OnXmppDebugLogging?.Invoke(this, message);
                 throw new GoogleCloudPrintException(message);
@@ -185,7 +197,7 @@ namespace GoogleCloudPrintApi
                 catch (System.Exception ex)
                 {
                     OnXmppDebugLogging?.Invoke(this, $"Xmpp Connection - An Exception was thrown while listening to google, the listener loop is terminated. Exception: '{ex.Message}'");
-                    StopXmppAndCleanup();
+                    StopXmpp();
                     return false;
                 }
             }
