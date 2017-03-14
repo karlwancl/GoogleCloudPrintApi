@@ -49,7 +49,7 @@ You can find the package through Nuget
 	var provider = new GoogleCloudPrintOAuth2Provider(clientId, clientSecret);
 	var url = provider.BuildAuthorizationUrl( /* Optional redirect uri */ );
 	/* Your method to retrieve authorization code from the above url */
-	var token = await provider.GenerateRefreshTokenAsync(authorizationCode);
+	var token = await provider.GenerateRefreshTokenAsync(authorizationCode, /* Optional redirect uri */);
 	
 <a name="InitializeGoogleCloudPrintClient"></a>
 #### Initialize Google Cloud Print Client
