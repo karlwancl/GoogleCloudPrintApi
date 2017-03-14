@@ -65,9 +65,10 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// Get refresh token from authorization code
         /// </summary>
         /// <param name="authorizationCode">Authorization code</param>
+        /// <param name="redirectUrl">Same redirect uri used when building authorization url</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Refresh token & access token</returns>
-        public async Task<Token> GenerateRefreshTokenAsync(string authorizationCode, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Token> GenerateRefreshTokenAsync(string authorizationCode, string redirectUrl = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await GoogleAccountOAuth2TokenUri
                 .PostUrlEncodedAsync(new
@@ -75,7 +76,7 @@ namespace GoogleCloudPrintApi.Infrastructures
                     code = authorizationCode,
                     client_id = _clientId,
                     client_secret = _clientSecret,
-                    redirect_uri = OAuth2RedirectUri,
+                    redirect_uri = redirectUrl ?? OAuth2RedirectUri,
                     grant_type = OAuth2GrantTypeAuthCode
                 }, cancellationToken)
                 .ReceiveJson<Token>()

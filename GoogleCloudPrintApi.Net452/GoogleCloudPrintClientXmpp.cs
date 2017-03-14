@@ -50,6 +50,10 @@ namespace GoogleCloudPrintApi
                 _xmppTcpClient.Close();
                 _xmppTcpClient = null;
             }
+            // Unsubscribe all handlers for xmpp subscription
+            OnIncomingPrintJobs = null;
+            OnXmppDebugLogging?.Invoke(this, "Clean up event handlers.");
+            OnXmppDebugLogging = null;
         }
 
         #endregion Constructor & Cleanup
