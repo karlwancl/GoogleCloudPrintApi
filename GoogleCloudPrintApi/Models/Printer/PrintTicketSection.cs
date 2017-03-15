@@ -11,9 +11,9 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class PrintTicketSection
     {
-        public PrintTicketSection(IList<VendorTicketItem> vendor_ticket_item, ColorTicketItem color, DuplexTicketItem duplex,
-            PageOrientationTicketItem page_orientation, CopiesTicketItem copies, MarginsTicketItem margins, DpiTicketItem dpi,
-            FitToPageTicketItem fit_to_page, PageRangeTicketItem page_range, MediaSizeTicketItem media_size, CollateTicketItem collate, ReverseOrderTicketItem reverse_order)
+        public PrintTicketSection(IList<VendorTicketItem> vendor_ticket_item = null, ColorTicketItem color = null, DuplexTicketItem duplex = null,
+            PageOrientationTicketItem page_orientation = null, CopiesTicketItem copies = null, MarginsTicketItem margins = null, DpiTicketItem dpi = null,
+            FitToPageTicketItem fit_to_page = null, PageRangeTicketItem page_range = null, MediaSizeTicketItem media_size = null, CollateTicketItem collate = null, ReverseOrderTicketItem reverse_order = null)
         {
             VendorTicketItem = vendor_ticket_item;
             Color = color;
