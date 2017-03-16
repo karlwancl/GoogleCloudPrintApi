@@ -9,9 +9,12 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
+using GoogleCloudPrintApi.Models.Application;
+using Newtonsoft.Json.Serialization;
 
 namespace GoogleCloudPrintApi
 {
@@ -23,7 +26,13 @@ namespace GoogleCloudPrintApi
 
         public GoogleCloudPrintClient(GoogleCloudPrintOAuth2Provider oAuth2Provider, Token token) : base(oAuth2Provider, token)
         {
-        }
+			FlurlHttp.Configure(c => {
+				c.JsonSerializer = new Flurl.Http.Configuration.NewtonsoftJsonSerializer(new JsonSerializerSettings {
+					ContractResolver = new UnderscoreSeparatedPropertyNamesContractResolver(),
+					NullValueHandling = NullValueHandling.Ignore
+				});
+			});
+		}
 
         /// <summary>
         /// Update status for the google print job
@@ -364,5 +373,65 @@ namespace GoogleCloudPrintApi
                 .ReceiveJsonButThrowIfFails<UnshareResponse>()
                 .ConfigureAwait(false);
         }
-    }
+
+		public async Task<SubmitResponse> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
+		{
+			var file = request.Content as SubmitFileStream;
+			var link = request.Content as SubmitFileLink;
+
+			return await GoogleCloudPrintBaseUrl
+				.AppendPathSegment("submit")
+				.WithOAuthBearerToken(_token.AccessToken)
+				
+				.PostMultipartAsync(mp =>
+				{
+					mp
+						.AddString("printerid", request.PrinterId)
+						.AddString("title", request.Title);
+
+					if (request.Ticket != null)
+					{
+						mp.AddJson("ticket", request.Ticket);
+					}
+
+					if (file != null)
+					{
+						mp
+							.AddFile("content", file.File, file.FileName, file.ContentType)
+							.AddString("contentType", file.ContentType);
+					}
+					else if (link != null)
+					{
+						mp
+							.AddString("content", link.Link)
+							.AddString("contentType", "url");
+					}
+					else
+					{
+						throw new ArgumentException("Invalid file provided");
+					}
+
+				}
+				, cancellationToken)
+				.ReceiveJson<SubmitResponse>()
+				.ConfigureAwait(false);
+		}
+
+		public async Task<ListResponse> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
+		{
+			return await GoogleCloudPrintBaseUrl
+				.AppendPathSegment("search")
+				.WithOAuthBearerToken(_token.AccessToken)
+				.PostUrlEncodedAsync(new
+				{
+					q = request.Q,
+					type = request.Type,
+					connection_status = request.ConnectionStatus,
+					use_cdd = request.UseCdd,
+					extra_fields = request.ExtraFields
+				}, cancellationToken)
+				.ReceiveJsonButThrowIfFails<ListResponse>()
+				.ConfigureAwait(false);
+		}
+	}
 }
