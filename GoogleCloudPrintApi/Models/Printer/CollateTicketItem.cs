@@ -6,15 +6,15 @@
     /// </summary>
     public class CollateTicketItem
     {
-        public CollateTicketItem(bool collate)
-        {
-            Collate = collate;
-        }
+        //public CollateTicketItem(bool collate)
+        //{
+        //    Collate = collate;
+        //}
 
         /// <summary>
         /// Whether to print collated (required).
         /// </summary>
-        public bool Collate { get; private set; }
+        public bool Collate { get; set; }
     }
 
 }

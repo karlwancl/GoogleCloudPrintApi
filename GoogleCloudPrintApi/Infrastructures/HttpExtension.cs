@@ -1,11 +1,7 @@
 ﻿using Flurl.Http;
 using GoogleCloudPrintApi.Exception;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Infrastructures
@@ -20,7 +16,7 @@ namespace GoogleCloudPrintApi.Infrastructures
                 dynamic error = JsonConvert.DeserializeObject(responseString);
                 throw new GoogleCloudPrintException(error.message.ToString(), error.errorCode.ToString(), error.request);
             }
-            return JsonConvert.DeserializeObject<T>(responseString);
+            return JsonConvert.DeserializeObject<T>(responseString, SerializationHelper.DeserializationSettings);
         }
 
         public static async Task<T> ReceiveJsonButThrowIfFails<T>(this Task<HttpResponseMessage> responseTask)

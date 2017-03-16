@@ -2,7 +2,7 @@
 
 namespace GoogleCloudPrintApi.Models.Application 
 {
-	public class SubmitFileStream : BaseSubmitFile
+	public class SubmitFileStream : ISubmitFile
 	{
 		public SubmitFileStream(string contentType, string fileName, Stream file)
 		{

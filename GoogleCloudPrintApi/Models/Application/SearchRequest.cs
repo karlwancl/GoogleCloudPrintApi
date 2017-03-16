@@ -3,16 +3,7 @@
 namespace GoogleCloudPrintApi.Models.Application
 {
 	public class SearchRequest
-	{
-		public SearchRequest(string q, PrinterType? type, ConnectionStatusType? connection_status, bool? use_cdd, string extra_fields)
-		{
-			Q = q;
-			Type = type;
-			ConnectionStatus = connection_status;
-			UseCdd = use_cdd;
-			ExtraFields = extra_fields;
-		}
-
+    { 
 		/// <summary>
 		/// If q is specified, then only printers whose name, display name, or tags contain the given query as a substring (case-insensitively) will be returned.
 		/// Setting q=^recent will return the list of recently used printers, which will have all fields including capabilities.

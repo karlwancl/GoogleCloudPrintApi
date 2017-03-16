@@ -1,4 +1,5 @@
-﻿using GoogleCloudPrintApi.Models.Printer;
+﻿using GoogleCloudPrintApi.Models.Application;
+using GoogleCloudPrintApi.Models.Printer;
 using GoogleCloudPrintApi.Models.Share;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,14 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         Task<Stream> GetDocumentAsync(string fileUrl, string proxy, CancellationToken cancellationToken = default(CancellationToken));
 
-        Task<Stream> GetDocumentv2Async(string fileUrl, CancellationToken cancellationToken = default(CancellationToken));
-
         Task<PrinterResponse> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
         Task<ShareResponse> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
         Task<UnshareResponse> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken));
+
+        Task<SubmitResponse> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken));
+
+        Task<ListResponse> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken));
     }
 }

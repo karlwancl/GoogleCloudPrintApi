@@ -9,18 +9,21 @@ using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
+    /// <summary>
+    /// Diff that can be applied to a PrintJobState message. Any omitted field will
+    /// not be changed.
+    /// Reference: https://developers.google.com/cloud-print/docs/cdd?hl=zh-TW#pjsdiff
+    /// </summary>
     public class PrintJobStateDiff : IJsonSerializable
     {
-        public PrintJobStateDiff(JobState state, int pages_printed)
-        {
-            State = state;
-            PagesPrinted = pages_printed;
-        }
+        /// <summary>
+        /// New job state.
+        /// </summary>
+        public JobState State { get; set; }
 
-        [JsonProperty("state")]
-        public JobState State { get; private set; }
-
-        [JsonProperty("pages_printed")]
-        public int PagesPrinted { get; private set; }
+        /// <summary>
+        /// New number of pages printed.
+        /// </summary>
+        public int PagesPrinted { get; set; }
     }
 }

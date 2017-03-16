@@ -1,6 +1,6 @@
 ﻿namespace GoogleCloudPrintApi.Models.Application
 {
-	public class SubmitFileLink : BaseSubmitFile 
+	public class SubmitFileLink : ISubmitFile 
 	{
 		public SubmitFileLink(string link)
 		{

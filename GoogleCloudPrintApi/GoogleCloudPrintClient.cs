@@ -1,20 +1,17 @@
 ﻿using Flurl;
 using Flurl.Http;
-using GoogleCloudPrintApi.Exception;
 using GoogleCloudPrintApi.Infrastructures;
 using GoogleCloudPrintApi.Models;
 using GoogleCloudPrintApi.Models.Printer;
 using GoogleCloudPrintApi.Models.Share;
-using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using GoogleCloudPrintApi.Models.Application;
-using Newtonsoft.Json.Serialization;
+using GoogleCloudPrintApi.Exception;
+using Newtonsoft.Json;
 
 namespace GoogleCloudPrintApi
 {
@@ -26,13 +23,14 @@ namespace GoogleCloudPrintApi
 
         public GoogleCloudPrintClient(GoogleCloudPrintOAuth2Provider oAuth2Provider, Token token) : base(oAuth2Provider, token)
         {
-			FlurlHttp.Configure(c => {
-				c.JsonSerializer = new Flurl.Http.Configuration.NewtonsoftJsonSerializer(new JsonSerializerSettings {
-					ContractResolver = new UnderscoreSeparatedPropertyNamesContractResolver(),
-					NullValueHandling = NullValueHandling.Ignore
-				});
-			});
-		}
+            FlurlHttp.Configure(c => {
+                c.JsonSerializer = new Flurl.Http.Configuration.NewtonsoftJsonSerializer(new JsonSerializerSettings
+                {
+                    ContractResolver = new UnderscoreSeparatedPropertyNamesContractResolver(),
+                    NullValueHandling = NullValueHandling.Ignore
+                });
+            });
+        }
 
         /// <summary>
         /// Update status for the google print job
@@ -289,18 +287,6 @@ namespace GoogleCloudPrintApi
         }
 
         /// <summary>
-        /// Return downloaded file for the print job (for GCP 2.0)
-        /// Reference: https://developers.google.com/cloud-print/docs/proxyinterfaces#fetch
-        /// </summary>
-        /// <param name="fileUrl">The URL of the file</param>
-        /// <param name="cancellationToken">Cancellation token</param>
-        /// <returns>The downloaded file</returns>
-        public Task<Stream> GetDocumentv2Async(string fileUrl, CancellationToken cancellationToken = default(CancellationToken))
-        {
-            throw new NotImplementedException("Use GCP 1.0 instead since GCP 2.0 requires CDD document for the printer");
-        }
-
-        /// <summary>
         /// Get printer detail
         /// reference: https://developers.google.com/cloud-print/docs/appInterfaces#printer
         /// </summary>
@@ -340,7 +326,7 @@ namespace GoogleCloudPrintApi
             var form = new Dictionary<string, string>();
             form.Add("printerid", request.PrinterId);
             form.Add("scope", request.Scope);
-            form.Add("role", request.Role.ToString().ToUpper());
+            form.Add("role", request.Role.ToString());
             if (request.SkipNotification) form.Add("skip_notification", request.SkipNotification.ToString());
 
             return await GoogleCloudPrintBaseUrl
@@ -374,15 +360,22 @@ namespace GoogleCloudPrintApi
                 .ConfigureAwait(false);
         }
 
+        /// <summary>
+        /// Send print jobs to the GCP service
+        /// </summary>
+        /// <param name="request">Parameters for /submit interface</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Response from google cloud</returns>
 		public async Task<SubmitResponse> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
 		{
+            await UpdateTokenAsync(cancellationToken);
+
 			var file = request.Content as SubmitFileStream;
 			var link = request.Content as SubmitFileLink;
 
 			return await GoogleCloudPrintBaseUrl
 				.AppendPathSegment("submit")
 				.WithOAuthBearerToken(_token.AccessToken)
-				
 				.PostMultipartAsync(mp =>
 				{
 					mp
@@ -393,6 +386,10 @@ namespace GoogleCloudPrintApi
 					{
 						mp.AddJson("ticket", request.Ticket);
 					}
+                    else if (!string.IsNullOrEmpty(request.Capabilities))
+                    {
+                        mp.AddString("capabilities", request.Capabilities);
+                    }
 
 					if (file != null)
 					{
@@ -408,17 +405,28 @@ namespace GoogleCloudPrintApi
 					}
 					else
 					{
-						throw new ArgumentException("Invalid file provided");
+						throw new GoogleCloudPrintException("Invalid file provided");
 					}
 
-				}
+                    if (request.Tag != null)
+                        foreach (var tag in request.Tag)
+                            mp.AddString("tag", tag);
+                }
 				, cancellationToken)
-				.ReceiveJson<SubmitResponse>()
+				.ReceiveJsonButThrowIfFails<SubmitResponse>()
 				.ConfigureAwait(false);
 		}
 
+        /// <summary>
+        /// The /search interface returns a list of printers accessible to the authenticated user, filtered by various search options. 
+        /// </summary>
+        /// <param name="request">Parameters for /search interface</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Response from google cloud</returns>
 		public async Task<ListResponse> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
 		{
+            await UpdateTokenAsync(cancellationToken);
+
 			return await GoogleCloudPrintBaseUrl
 				.AppendPathSegment("search")
 				.WithOAuthBearerToken(_token.AccessToken)
