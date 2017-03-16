@@ -1,9 +1,4 @@
 ﻿using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
@@ -18,11 +13,6 @@ namespace GoogleCloudPrintApi.Infrastructures
     public static class JsonSerializableExtension
     {
         public static string ToJson(this IJsonSerializable serializable)
-        {
-            return JsonConvert.SerializeObject(serializable, new JsonSerializerSettings
-            {
-                NullValueHandling = NullValueHandling.Ignore
-            });
-        }
+            => JsonConvert.SerializeObject(serializable, SerializationHelper.SerializationSettings);
     }
 }

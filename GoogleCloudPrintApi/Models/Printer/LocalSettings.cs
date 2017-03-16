@@ -12,23 +12,14 @@ namespace GoogleCloudPrintApi.Models.Printer
     {
         public class Settings
         {
-            // Couldn't use constructor to 'dispatch' values to fields since the field name contains invalid characters
-            // The field values will not be readonly consider the case, may potentially cause bugs
-            //public Settings(bool local_discovery, bool access_token_enabled, bool printer/local_printing_enabled)
-            //{
-
-            //}
-
             /// <summary>
             /// Whether Privet local discovery is enabled (required).
             /// </summary>
-            [JsonProperty("local_discovery")]
             public bool LocalDiscovery { get; set; }
 
             /// <summary>
             /// Whether Privet access token API should be exposed on the local network.
             /// </summary>
-            [JsonProperty("access_token_enabled")]
             public bool AccessTokenEnabled { get; set; }
 
             /// <summary>
@@ -46,7 +37,6 @@ namespace GoogleCloudPrintApi.Models.Printer
             /// <summary>
             /// Number of seconds between XMPP channel pings.
             /// </summary>
-            [JsonProperty("xmpp_timeout_value")]
             public int XmppTimeoutValue { get; set; }
         }
 
@@ -57,7 +47,6 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// interface as necessary. Prohibited to be provided by clients. Always
         /// present in the local_settings field returned by the /printer interface.
         /// </summary>
-        [JsonProperty("current")]
         public Settings Current { get; set; }
 
         /// <summary>
@@ -67,7 +56,6 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// /printer interface if a client has provided pending local settings but the
         /// device has not yet confirmed them as current.
         /// </summary>
-        [JsonProperty("pending")]
         public Settings Pending { get; set; }
     }
 }

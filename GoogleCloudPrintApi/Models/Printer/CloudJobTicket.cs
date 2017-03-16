@@ -11,22 +11,22 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class CloudJobTicket
     {
-        public CloudJobTicket(string version = "1.0", PrintTicketSection print = null, ScanTicketSection scan = null)
-        {
-            Version = version;
-            Print = print;
-            Scan = scan;
-        }
+        //public CloudJobTicket(string version = "1.0", PrintTicketSection print = null, ScanTicketSection scan = null)
+        //{
+        //    Version = version;
+        //    Print = print;
+        //    Scan = scan;
+        //}
 
         /// <summary>
         /// Version of the CJT in the form "X.Y" where changes to Y are backwards compatible, and changes to X are not (required).
         /// </summary>
-        public string Version { get; private set; }
+        public string Version { get; set; } = "1.0";
 
         /// <summary>
         /// Section of CJT pertaining to cloud printer ticket items.
         /// </summary>
-        public PrintTicketSection Print { get; private set; }
+        public PrintTicketSection Print { get; set; }
 
         /// <summary>
         /// Section of CJT pertaining to cloud scanner ticket items.

@@ -6,15 +6,15 @@
     /// </summary>
     public class CopiesTicketItem
     {
-        public CopiesTicketItem(int copies)
-        {
-            Copies = copies;
-        }
+        //public CopiesTicketItem(int copies)
+        //{
+        //    Copies = copies;
+        //}
 
         /// <summary>
         /// Number of copies to print (required).
         /// </summary>
-        public int Copies { get; private set; }
+        public int Copies { get; set; }
     }
 
 }

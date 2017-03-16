@@ -82,14 +82,14 @@ namespace GoogleCloudPrintApi
 
                 // Setup socket connection
                 _xmppTcpClient = new TcpClient();
-                await _xmppTcpClient.ConnectAsync(xmppServerHost, xmppServerPort);
+                await _xmppTcpClient.ConnectAsync(xmppServerHost, xmppServerPort).ConfigureAwait(false);
 
                 // Setup SSL Wrapper
                 var tcpStream = _xmppTcpClient.GetStream();
                 _xmppSslStream = new SslStream(tcpStream, false, new RemoteCertificateValidationCallback((s, c, ch, ss) => true), null);
 
                 // Authenticate
-                await _xmppSslStream.AuthenticateAsClientAsync(xmppServerHost);
+                await _xmppSslStream.AuthenticateAsClientAsync(xmppServerHost).ConfigureAwait(false);
 
                 // Begin conversation with google
                 // 1st initial stream request

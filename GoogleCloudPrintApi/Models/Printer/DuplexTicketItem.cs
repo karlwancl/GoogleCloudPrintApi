@@ -6,15 +6,15 @@
     /// </summary>
     public class DuplexTicketItem
     {
-        public DuplexTicketItem(Duplex.Type type)
-        {
-            Type = type;
-        }
+        //public DuplexTicketItem(Duplex.Type type)
+        //{
+        //    Type = type;
+        //}
 
         /// <summary>
         /// Type of duplexing (required).
         /// </summary>
-        public Duplex.Type Type { get; private set; }
+        public Duplex.Type Type { get; set; }
     }
 
 }

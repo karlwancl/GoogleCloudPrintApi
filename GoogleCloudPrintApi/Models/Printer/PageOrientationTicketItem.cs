@@ -6,15 +6,15 @@
     /// </summary>
     public class PageOrientationTicketItem
     {
-        public PageOrientationTicketItem(PageOrientation.Type type)
-        {
-            Type = type;
-        }
+        //public PageOrientationTicketItem(PageOrientation.Type type)
+        //{
+        //    Type = type;
+        //}
 
         /// <summary>
         /// Page orientation type (required).
         /// </summary>
-        public PageOrientation.Type Type { get; private set; }
+        public PageOrientation.Type Type { get; set; }
     }
 
 }
