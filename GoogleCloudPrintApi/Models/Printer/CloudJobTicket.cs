@@ -11,7 +11,7 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class CloudJobTicket
     {
-        public CloudJobTicket(string version, PrintTicketSection print, ScanTicketSection scan)
+        public CloudJobTicket(string version = "1.0", PrintTicketSection print = null, ScanTicketSection scan = null)
         {
             Version = version;
             Print = print;
