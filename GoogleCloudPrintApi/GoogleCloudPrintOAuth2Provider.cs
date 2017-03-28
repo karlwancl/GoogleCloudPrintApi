@@ -1,9 +1,4 @@
 ﻿using GoogleCloudPrintApi.Infrastructures;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi
 {
@@ -13,6 +8,6 @@ namespace GoogleCloudPrintApi
         {
         }
 
-        protected override string Scope => "https://www.googleapis.com/auth/cloudprint https://www.googleapis.com/auth/googletalk";
+        protected override string Scope => "https://www.googleapis.com/auth/cloudprint https://www.googleapis.com/auth/googletalk email";
     }
 }

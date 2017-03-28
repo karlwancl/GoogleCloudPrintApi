@@ -20,8 +20,9 @@ namespace GoogleCloudPrintApi
     public partial class GoogleCloudPrintClient : GoogleClientBase, IGoogleCloudPrintService
     {
         protected const string GoogleCloudPrintBaseUrl = "https://www.google.com/cloudprint/";
+		protected const string GoogleCloudUserProfileUrl = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json";
 
-        public GoogleCloudPrintClient(GoogleCloudPrintOAuth2Provider oAuth2Provider, Token token) : base(oAuth2Provider, token)
+		public GoogleCloudPrintClient(GoogleCloudPrintOAuth2Provider oAuth2Provider, Token token) : base(oAuth2Provider, token)
         {
             FlurlHttp.Configure(c => {
                 c.JsonSerializer = new Flurl.Http.Configuration.NewtonsoftJsonSerializer(new JsonSerializerSettings
@@ -441,5 +442,15 @@ namespace GoogleCloudPrintApi
 				.ReceiveJsonButThrowIfFails<ListResponse>()
 				.ConfigureAwait(false);
 		}
+
+		public async Task<UserProfile> GetUserProfileAsync(CancellationToken cancellationToken = default(CancellationToken))
+	    {
+		    await UpdateTokenAsync(cancellationToken);
+
+		    return await GoogleCloudUserProfileUrl
+				.WithOAuthBearerToken(_token.AccessToken)
+			    .GetAsync(cancellationToken)
+			    .ReceiveJsonButThrowIfFails<UserProfile>();
+	    }
 	}
 }
