@@ -34,7 +34,7 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// <returns>Access token</returns>
         protected async Task UpdateTokenAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            if (_token.ExpireDateTime > DateTime.Now)
+            if (_token.ExpireDateTime > DateTime.UtcNow.AddMinutes(-1))
                 return;
 
             var nToken = await _oAuth2Provider.GenerateAccessTokenAsync(_token.RefreshToken, cancellationToken).ConfigureAwait(false);
