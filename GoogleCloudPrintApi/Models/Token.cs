@@ -38,7 +38,7 @@ namespace GoogleCloudPrintApi.Models
         /// Refresh token for access token renewal
         /// </summary>
         [JsonProperty("refresh_token")]
-        public string RefreshToken { get; private set; }
+        public string RefreshToken { get; internal set; }
 
         /// <summary>
         /// Expiration date time
