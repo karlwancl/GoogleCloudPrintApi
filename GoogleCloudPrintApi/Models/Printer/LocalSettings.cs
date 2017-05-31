@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-    public class LocalSettings : IJsonSerializable
+    public class LocalSettings
     {
         public class Settings
         {

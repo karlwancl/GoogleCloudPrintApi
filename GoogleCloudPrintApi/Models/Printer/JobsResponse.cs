@@ -4,14 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 using GoogleCloudPrintApi.Infrastructures;
+using Newtonsoft.Json;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-    public class PrinterResponse<T>: ResponseBase<T> where T: IRequest
+    public class JobsResponse<T>: ResponseBase<T> where T: IRequest
     {
         [JsonProperty]
-        public Printer Printer { get; private set; }
+        public List<Job.Job> Jobs { get; private set; }
     }
 }

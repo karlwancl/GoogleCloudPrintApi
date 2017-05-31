@@ -14,7 +14,7 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// not be changed.
     /// Reference: https://developers.google.com/cloud-print/docs/cdd?hl=zh-TW#pjsdiff
     /// </summary>
-    public class PrintJobStateDiff : IJsonSerializable
+    public class PrintJobStateDiff
     {
         /// <summary>
         /// New job state.

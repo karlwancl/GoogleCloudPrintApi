@@ -40,26 +40,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /control interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result for /control interface</returns>
-        public async Task<ControlResponse> UpdateJobStatusAsync(ControlRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<JobResponse<ControlRequest>> UpdateJobStatusAsync(ControlRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
-
-            var form = new Dictionary<string, string>();
-            form.Add("jobid", request.JobId);
-            if (request.SemanticStateDiff == null)
-            {
-                form.Add("status", request.Status.ToString());
-                form.Add("code", request.Code);
-                form.Add("message", request.Message);
-            }
-            else
-                form.Add("semantic_state_diff", request.SemanticStateDiff.ToJson());
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("control")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJsonButThrowIfFails<ControlResponse>()
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<JobResponse<ControlRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -70,15 +59,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /delete interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result for /delete interface</returns>
-        public async Task<DeleteResponse> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<ResponseBase<DeleteRequest>> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("delete")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(new { printerid = request.PrinterId }, cancellationToken)
-                .ReceiveJsonButThrowIfFails<DeleteResponse>()
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<ResponseBase<DeleteRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -89,19 +78,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /list interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns></returns>
-        public async Task<ListResponse> ListPrinterAsync(ListRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<PrintersResponse<ListRequest>> ListPrinterAsync(ListRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
-
-            var form = new Dictionary<string, string>();
-            form.Add("proxy", request.Proxy);
-            if (!string.IsNullOrEmpty(request.ExtraFields)) form.Add("extra_fields", request.ExtraFields);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("list")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJsonButThrowIfFails<ListResponse>()
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<PrintersResponse<ListRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -116,41 +101,13 @@ namespace GoogleCloudPrintApi
         {
             await UpdateTokenAsync(cancellationToken);
 
-            bool isGoogleCloudPrint20 = request.GCPVersion == "2.0";
-
-            var form = new Dictionary<string, string>();
-            form.Add("name", request.Name);
-            if (!string.IsNullOrEmpty(request.DefaultDisplayName)) form.Add("default_display_name", request.DefaultDisplayName);
-            form.Add("proxy", request.Proxy);
-            if (isGoogleCloudPrint20)
-            {
-                form.Add("uuid", request.Uuid);
-                form.Add("manufacturer", request.Manufacturer);
-                form.Add("model", request.Model);
-                form.Add("gcp_version", request.GCPVersion);
-                form.Add("setup_url", request.SetupUrl);
-                form.Add("support_url", request.SupportUrl);
-                form.Add("update_url", request.UpdateUrl);
-                form.Add("firmware", request.Firmware);
-                form.Add("use_cdd", true.ToString());
-            }
-            else
-                form.Add("use_cdd", request.UseCdd.ToString());
-            if (request.LocalSettings != null) form.Add("local_settings", request.LocalSettings.ToJson());
-            form.Add("capabilities", request.Capabilities);
-            if (!string.IsNullOrEmpty(request.Defaults)) form.Add("defaults", request.Defaults);
-            if (!string.IsNullOrEmpty(request.CapsHash)) form.Add("capsHash", request.CapsHash);
-            if (request.Tag != null)
-                foreach (var tag in request.Tag)
-                    form.Add("tag", tag);
-            if (request.Data != null)
-                foreach (var data in request.Data)
-                    form.Add("data", data);
+            // use_cdd parameter must set to true if google cloud print version is 2.0
+            request.UseCdd = request.GCPVersion == "2.0" || request.UseCdd;
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("register")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostMultipartAsync(multipart => multipart.AddStringParts(form), cancellationToken)
+                .PostRequestAsync(request, cancellationToken, true)
                 .ReceiveJsonButThrowIfFails<RegisterResponse>()
                 .ConfigureAwait(false);
         }
@@ -162,49 +119,18 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /update interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<UpdateResponse> UpdatePrinterAsync(UpdateRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<PrinterResponse<UpdateRequest>> UpdatePrinterAsync(UpdateRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
-            bool isGoogleCloudPrint20 = request.GCPVersion == "2.0";
-
-            var form = new Dictionary<string, string>();
-            form.Add("printerid", request.PrinterId);
-            if (!string.IsNullOrEmpty(request.Name)) form.Add("name", request.Name);
-            if (!string.IsNullOrEmpty(request.DefaultDisplayName)) form.Add("default_display_name", request.DefaultDisplayName);
-            if (!string.IsNullOrEmpty(request.DisplayName)) form.Add("display_name", request.DisplayName);
-            if (!string.IsNullOrEmpty(request.Proxy)) form.Add("proxy", request.Proxy);
-            if (!string.IsNullOrEmpty(request.Uuid)) form.Add("uuid", request.Uuid);
-            if (!string.IsNullOrEmpty(request.Manufacturer)) form.Add("manufacturer", request.Manufacturer);
-            if (!string.IsNullOrEmpty(request.Model)) form.Add("model", request.Model);
-            if (!string.IsNullOrEmpty(request.GCPVersion)) form.Add("gcp_version", request.GCPVersion);
-            if (!string.IsNullOrEmpty(request.SetupUrl)) form.Add("setup_url", request.SetupUrl);
-            if (!string.IsNullOrEmpty(request.SupportUrl)) form.Add("support_url", request.SupportUrl);
-            if (!string.IsNullOrEmpty(request.UpdateUrl)) form.Add("update_url", request.UpdateUrl);
-            if (!string.IsNullOrEmpty(request.Firmware)) form.Add("firmware", request.Firmware);
-            if (request.LocalSettings != null) form.Add("local_settings", request.LocalSettings.ToJson());
-            form.Add("use_cdd", isGoogleCloudPrint20 ? true.ToString() : request.UseCdd.ToString());
-            if (!string.IsNullOrEmpty(request.Capabilities)) form.Add("capabilities", request.Capabilities);
-            if (!string.IsNullOrEmpty(request.Defaults)) form.Add("defaults", request.Defaults);
-            if (!string.IsNullOrEmpty(request.CapsHash)) form.Add("capsHash", request.CapsHash);
-            if (request.Tag != null)
-                foreach (var tag in request.Tag)
-                    form.Add("tag", tag);
-            if (request.RemoveTag != null)
-                foreach (var removeTag in request.RemoveTag)
-                    form.Add("remove_tag", removeTag);
-            if (request.Data != null)
-                foreach (var data in request.Data)
-                    form.Add("data", data);
-            if (request.RemoveData != null)
-                foreach (var removeData in request.RemoveData)
-                    form.Add("remove_data", removeData);
+			// use_cdd parameter must set to true if google cloud print version is 2.0
+			request.UseCdd = request.GCPVersion == "2.0" || request.UseCdd;
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("update")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostMultipartAsync(multipart => multipart.AddStringParts(form), cancellationToken)
-                .ReceiveJsonButThrowIfFails<UpdateResponse>()
+                .PostRequestAsync(request, cancellationToken, true)
+                .ReceiveJsonButThrowIfFails<PrinterResponse<UpdateRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -215,15 +141,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /fetch interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<FetchResponse> FetchJobAsync(FetchRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<JobsResponse<FetchRequest>> FetchJobAsync(FetchRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("fetch")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(new { printerid = request.PrinterId }, cancellationToken)
-                .ReceiveJsonButThrowIfFails<FetchResponse>()
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<JobsResponse<FetchRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -252,7 +178,7 @@ namespace GoogleCloudPrintApi
         /// Return print ticket in Cloud Job Ticket (CJT) format for the print job (for GCP 2.0, currently not implemented since the need of cdd)
         /// Reference: https://developers.google.com/cloud-print/docs/proxyinterfaces#fetch
         /// </summary>
-        /// <param name="jobId">The id of the job</param>
+        /// <param name="request">The ticket request</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>The print ticket</returns>
         public async Task<CloudJobTicket> GetCloudJobTicketAsync(TicketRequest request, CancellationToken cancellationToken = default(CancellationToken))
@@ -262,7 +188,7 @@ namespace GoogleCloudPrintApi
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("ticket")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(new { jobid = request.JobId, use_cjt = request.UseCjt }, cancellationToken)
+                .PostRequestAsync(request, cancellationToken)
                 .ReceiveJsonButThrowIfFails<CloudJobTicket>()
                 .ConfigureAwait(false);
         }
@@ -294,22 +220,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /printer interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<PrinterResponse> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<PrinterResponse<PrinterRequest>> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
-
-            var form = new Dictionary<string, string>();
-            form.Add("printerid", request.PrinterId);
-            if (!string.IsNullOrEmpty(request.Client)) form.Add("client", request.Client);
-            if (!string.IsNullOrEmpty(request.ExtraFields)) form.Add("extra_fields", request.ExtraFields);
-            form.Add("use_cdd", request.UseCdd.ToString());
-            if (request.PrinterConnectionStatus) form.Add("printer_connection_status", request.PrinterConnectionStatus.ToString());
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("printer")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJsonButThrowIfFails<PrinterResponse>()
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<PrinterResponse<PrinterRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -320,21 +239,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /share interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<ShareResponse> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<ResponseBase<ShareRequest>> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
-
-            var form = new Dictionary<string, string>();
-            form.Add("printerid", request.PrinterId);
-            form.Add("scope", request.Scope);
-            form.Add("role", request.Role.ToString());
-            if (request.SkipNotification) form.Add("skip_notification", request.SkipNotification.ToString());
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("share")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(form, cancellationToken)
-                .ReceiveJsonButThrowIfFails<ShareResponse>()
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<ResponseBase<ShareRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -345,19 +258,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /unshare interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<UnshareResponse> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<ResponseBase<UnshareRequest>> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("unshare")
                 .WithOAuthBearerToken(_token.AccessToken)
-                .PostUrlEncodedAsync(new
-                {
-                    printerid = request.PrinterId,
-                    scope = request.Scope
-                }, cancellationToken)
-                .ReceiveJsonButThrowIfFails<UnshareResponse>()
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<ResponseBase<UnshareRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -367,54 +276,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /submit interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-		public async Task<SubmitResponse> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
+		public async Task<JobResponse<SubmitRequest>> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
 		{
             await UpdateTokenAsync(cancellationToken);
-
-			var file = request.Content as SubmitFileStream;
-			var link = request.Content as SubmitFileLink;
 
 			return await GoogleCloudPrintBaseUrl
 				.AppendPathSegment("submit")
 				.WithOAuthBearerToken(_token.AccessToken)
-				.PostMultipartAsync(mp =>
-				{
-					mp
-						.AddString("printerid", request.PrinterId)
-						.AddString("title", request.Title);
-
-					if (request.Ticket != null)
-					{
-						mp.AddJson("ticket", request.Ticket);
-					}
-                    else if (!string.IsNullOrEmpty(request.Capabilities))
-                    {
-                        mp.AddString("capabilities", request.Capabilities);
-                    }
-
-					if (file != null)
-					{
-						mp
-							.AddFile("content", file.File, file.FileName, file.ContentType)
-							.AddString("contentType", file.ContentType);
-					}
-					else if (link != null)
-					{
-						mp
-							.AddString("content", link.Link)
-							.AddString("contentType", "url");
-					}
-					else
-					{
-						throw new GoogleCloudPrintException("Invalid file provided");
-					}
-
-                    if (request.Tag != null)
-                        foreach (var tag in request.Tag)
-                            mp.AddString("tag", tag);
-                }
-				, cancellationToken)
-				.ReceiveJsonButThrowIfFails<SubmitResponse>()
+				.PostRequestAsync(request, cancellationToken, true)
+				.ReceiveJsonButThrowIfFails<JobResponse<SubmitRequest>>()
 				.ConfigureAwait(false);
 		}
 
@@ -424,22 +294,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /search interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-		public async Task<ListResponse> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
+		public async Task<PrintersResponse<SearchRequest>> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
 		{
             await UpdateTokenAsync(cancellationToken);
 
 			return await GoogleCloudPrintBaseUrl
 				.AppendPathSegment("search")
 				.WithOAuthBearerToken(_token.AccessToken)
-				.PostUrlEncodedAsync(new
-				{
-					q = request.Q,
-					type = request.Type,
-					connection_status = request.ConnectionStatus,
-					use_cdd = request.UseCdd,
-					extra_fields = request.ExtraFields
-				}, cancellationToken)
-				.ReceiveJsonButThrowIfFails<ListResponse>()
+                .PostRequestAsync(request, cancellationToken)
+				.ReceiveJsonButThrowIfFails<PrintersResponse<SearchRequest>>()
 				.ConfigureAwait(false);
 		}
 
@@ -447,10 +310,11 @@ namespace GoogleCloudPrintApi
 	    {
 		    await UpdateTokenAsync(cancellationToken);
 
-		    return await GoogleCloudUserProfileUrl
-				.WithOAuthBearerToken(_token.AccessToken)
-			    .GetAsync(cancellationToken)
-			    .ReceiveJsonButThrowIfFails<UserProfile>();
+            return await GoogleCloudUserProfileUrl
+                .WithOAuthBearerToken(_token.AccessToken)
+                .GetAsync(cancellationToken)
+                .ReceiveJsonButThrowIfFails<UserProfile>()
+                .ConfigureAwait(false);
 	    }
 	}
 }
