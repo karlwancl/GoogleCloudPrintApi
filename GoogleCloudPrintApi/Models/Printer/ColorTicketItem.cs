@@ -6,12 +6,6 @@
     /// </summary>
     public class ColorTicketItem
     {
-        //public ColorTicketItem(string vendor_id, Color.Type type)
-        //{
-        //    VendorId = vendor_id;
-        //    Type = type;
-        //}
-
         /// <summary>
         /// Vendor ID of the color (required if the type is CUSTOM_COLOR or CUSTOM_MONOCHROME).
         /// </summary>

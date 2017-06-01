@@ -6,12 +6,6 @@
     /// </summary>
     public class VendorTicketItem
     {
-        //public VendorTicketItem(string id, string value)
-        //{
-        //    Id = id;
-        //    Value = value;
-        //}
-
         /// <summary>
         /// ID of vendor-specific capability that this ticket item refers to (required).
         /// </summary>

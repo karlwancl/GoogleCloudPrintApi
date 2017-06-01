@@ -6,11 +6,6 @@
     /// </summary>
     public class CollateTicketItem
     {
-        //public CollateTicketItem(bool collate)
-        //{
-        //    Collate = collate;
-        //}
-
         /// <summary>
         /// Whether to print collated (required).
         /// </summary>

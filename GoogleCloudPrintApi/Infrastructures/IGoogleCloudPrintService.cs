@@ -14,11 +14,11 @@ namespace GoogleCloudPrintApi.Infrastructures
 {
     interface IGoogleCloudPrintService
     {
-        Task<ResponseBase<DeleteRequest>> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken));
+        Task<Response<DeleteRequest>> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-		Task<ResponseBase<ShareRequest>> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken));
+		Task<Response<ShareRequest>> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-		Task<ResponseBase<UnshareRequest>> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken));
+		Task<Response<UnshareRequest>> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
 
         Task<JobResponse<ControlRequest>> UpdateJobStatusAsync(ControlRequest request, CancellationToken cancellationToken = default(CancellationToken));

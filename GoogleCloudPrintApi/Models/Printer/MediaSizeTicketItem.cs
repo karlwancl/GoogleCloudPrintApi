@@ -6,14 +6,6 @@
     /// </summary>
     public class MediaSizeTicketItem
     {
-        //public MediaSizeTicketItem(int width_microns, int height_microns, bool is_continuous_feed, string vendor_id)
-        //{
-        //    WidthMicrons = width_microns;
-        //    HeightMicrons = height_microns;
-        //    IsContinuousFeed = is_continuous_feed;
-        //    VendorId = vendor_id;
-        //}
-
         /// <summary>
         /// Width (in microns) of the media to print to.
         /// </summary>

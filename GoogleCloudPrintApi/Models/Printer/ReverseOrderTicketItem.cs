@@ -6,11 +6,6 @@
     /// </summary>
     public class ReverseOrderTicketItem
     {
-        //public ReverseOrderTicketItem(bool reverse_order)
-        //{
-        //    ReverseOrder = reverse_order;
-        //}
-
         /// <summary>
         /// Whether to print in reverse (required).
         /// </summary>

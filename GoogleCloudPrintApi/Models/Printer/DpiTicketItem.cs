@@ -6,13 +6,6 @@
     /// </summary>
     public class DpiTicketItem
     {
-        //public DpiTicketItem(int horizontal_dpi, int vertical_dpi, string vendor_id)
-        //{
-        //    HorizontalDpi = horizontal_dpi;
-        //    VerticalDpi = vertical_dpi;
-        //    VendorId = vendor_id;
-        //}
-
         /// <summary>
         /// Horizontal DPI to print at (required).
         /// </summary>

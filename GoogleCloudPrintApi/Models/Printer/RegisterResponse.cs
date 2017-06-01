@@ -7,28 +7,28 @@ namespace GoogleCloudPrintApi.Models.Printer
 {
     public class RegisterResponse: PrintersResponse<RegisterRequest>
     {
-        [JsonProperty("polling_url")]
+        [JsonProperty]
         public string PollingUrl { get; private set; }
 
-        [JsonProperty("invite_page_url")]
-        public string InvitePageUrl { get; private set; }
+		[JsonProperty]
+		public string InvitePageUrl { get; private set; }
 
-        [JsonProperty("complete_invite_url")]
-        public string CompleteInviteUrl { get; private set; }
+		[JsonProperty]
+		public string CompleteInviteUrl { get; private set; }
 
-        [JsonProperty("automated_invite_url")]
-        public string AutomatedInviteUrl { get; private set; }
+		[JsonProperty]
+		public string AutomatedInviteUrl { get; private set; }
 
-        [JsonProperty("oauth_scope")]
-        public string OAuthScope { get; private set; }
+		[JsonProperty]
+		public string OAuthScope { get; private set; }
 
-        [JsonProperty("token_duration")]
-        public int TokenDuration { get; private set; }
+		[JsonProperty]
+		public int TokenDuration { get; private set; }
 
-        [JsonProperty("registration_token")]
-        public string RegistrationToken { get; private set; }
+		[JsonProperty]
+		public string RegistrationToken { get; private set; }
 
-        [JsonProperty("invite_url")]
-        public string InviteUrl { get; private set; }
+		[JsonProperty]
+		public string InviteUrl { get; private set; }
     }
 }

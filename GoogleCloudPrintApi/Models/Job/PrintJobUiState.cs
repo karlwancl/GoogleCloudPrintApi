@@ -10,13 +10,6 @@ namespace GoogleCloudPrintApi.Models.Job
 {
     public class PrintJobUiState
     {
-        public PrintJobUiState(SummaryType summary, string progress, string cause)
-        {
-            Summary = summary;
-            Progress = progress;
-            Cause = cause;
-        }
-
         [JsonConverter(typeof(StringEnumConverter))]
         public enum SummaryType
         {
@@ -30,10 +23,13 @@ namespace GoogleCloudPrintApi.Models.Job
             EXPIRED = 7
         }
 
+        [JsonProperty]
         public SummaryType Summary { get; private set; }
 
+        [JsonProperty]
         public string Progress { get; private set; }
 
+        [JsonProperty]
         public string Cause { get; private set; }
     }
 }

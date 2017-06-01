@@ -8,11 +8,6 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class PageRangeTicketItem
     {
-        //public PageRangeTicketItem(IList<PageRange.Interval> interval)
-        //{
-        //    Interval = interval;
-        //}
-
         public IList<PageRange.Interval> Interval { get; set; }
     }
 

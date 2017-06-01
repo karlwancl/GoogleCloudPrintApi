@@ -6,11 +6,6 @@
     /// </summary>
     public class FitToPageTicketItem
     {
-        //public FitToPageTicketItem(FitToPage.Type type)
-        //{
-        //    Type = type;
-        //}
-
         /// <summary>
         /// Type of page fitting (required).
         /// </summary>

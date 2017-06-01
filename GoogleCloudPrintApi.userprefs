@@ -1,13 +1,13 @@
-﻿<Properties StartupConfiguration="{5078816B-4BE6-4774-80E0-545D7C3799E8}|Default">
+﻿<Properties StartupConfiguration="{4A5542F6-AA01-4364-A32E-424E6F6A13D8}|Default">
   <MonoDevelop.Ide.Workbench />
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.GoogleCloudPrintApi.Pad PreferredExecutionTarget="MonoDevelop.Default" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore>
       <Breakpoint file="/Users/karlwan/Development/Personal/Source/GoogleCloudPrintApi/GoogleCloudPrintApi/Models/Share/UnshareResponse.cs" relfile="GoogleCloudPrintApi/Models/Share/UnshareResponse.cs" line="11" column="18" />
     </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.ItemProperties.GoogleCloudPrintApi.Test PreferredExecutionTarget="MonoDevelop.Default" />
   <MultiItemStartupConfigurations />
   <DisabledProjects>
     <String>GoogleCloudPrintApi.Net452/GoogleCloudPrintApi.Net452.csproj</String>

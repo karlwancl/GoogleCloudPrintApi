@@ -9,7 +9,7 @@ using Newtonsoft.Json;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-    public class JobsResponse<T>: ResponseBase<T> where T: IRequest
+    public class JobsResponse<T>: Response<T> where T: IRequest
     {
         [JsonProperty]
         public List<Job.Job> Jobs { get; private set; }

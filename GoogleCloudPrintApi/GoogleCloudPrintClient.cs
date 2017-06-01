@@ -4,13 +4,11 @@ using GoogleCloudPrintApi.Infrastructures;
 using GoogleCloudPrintApi.Models;
 using GoogleCloudPrintApi.Models.Printer;
 using GoogleCloudPrintApi.Models.Share;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 using GoogleCloudPrintApi.Models.Application;
-using GoogleCloudPrintApi.Exception;
 using Newtonsoft.Json;
 
 namespace GoogleCloudPrintApi
@@ -59,7 +57,7 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /delete interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Result for /delete interface</returns>
-        public async Task<ResponseBase<DeleteRequest>> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Response<DeleteRequest>> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
@@ -67,7 +65,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("delete")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostRequestAsync(request, cancellationToken)
-                .ReceiveJsonButThrowIfFails<ResponseBase<DeleteRequest>>()
+                .ReceiveJsonButThrowIfFails<Response<DeleteRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -239,7 +237,7 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /share interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<ResponseBase<ShareRequest>> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Response<ShareRequest>> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
@@ -247,7 +245,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("share")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostRequestAsync(request, cancellationToken)
-                .ReceiveJsonButThrowIfFails<ResponseBase<ShareRequest>>()
+                .ReceiveJsonButThrowIfFails<Response<ShareRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -258,7 +256,7 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /unshare interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<ResponseBase<UnshareRequest>> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<Response<UnshareRequest>> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
@@ -266,7 +264,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("unshare")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostRequestAsync(request, cancellationToken)
-                .ReceiveJsonButThrowIfFails<ResponseBase<UnshareRequest>>()
+                .ReceiveJsonButThrowIfFails<Response<UnshareRequest>>()
                 .ConfigureAwait(false);
         }
 

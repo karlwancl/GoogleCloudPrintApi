@@ -6,11 +6,6 @@
     /// </summary>
     public class DuplexTicketItem
     {
-        //public DuplexTicketItem(Duplex.Type type)
-        //{
-        //    Type = type;
-        //}
-
         /// <summary>
         /// Type of duplexing (required).
         /// </summary>

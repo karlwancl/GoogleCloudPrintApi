@@ -9,7 +9,7 @@ using GoogleCloudPrintApi.Infrastructures;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-    public class PrintersResponse<T>: ResponseBase<T> where T:IRequest
+    public class PrintersResponse<T>: Response<T> where T:IRequest
     {
         [JsonProperty]
         public List<Printer> Printers { get; private set; }

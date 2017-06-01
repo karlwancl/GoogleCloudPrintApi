@@ -5,16 +5,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoogleCloudPrintApi.Attributes;
 
 namespace GoogleCloudPrintApi.Models.Job
 {
+    /// <summary>
+    /// Job state. ControlRequest uses it, use get; set;
+    /// </summary>
     public class JobState
     {
-        public JobState(TypeType type, UserActionCauseObject user_action_cause, DeviceStateCauseObject device_state_cause, DeviceActionCauseObject device_action_cause, ServiceActionCauseObject service_action_cause )
-        {
-
-        }
-
         [JsonConverter(typeof(StringEnumConverter))]
         public enum TypeType
         {
@@ -29,11 +28,6 @@ namespace GoogleCloudPrintApi.Models.Job
 
         public class UserActionCauseObject
         {
-            public UserActionCauseObject(ActionCodeType action_code)
-            {
-                ActionCode = action_code;
-            }
-
             [JsonConverter(typeof(StringEnumConverter))]
             public enum ActionCodeType
             {
@@ -42,16 +36,12 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            public ActionCodeType ActionCode { get; private set; }
+            [FormKey("action_code")]
+            public ActionCodeType ActionCode { get; set; }
         }
 
         public class DeviceStateCauseObject
         {
-            public DeviceStateCauseObject(ErrorCodeType error_code)
-            {
-                ErrorCode = error_code;
-            }
-
             [JsonConverter(typeof(StringEnumConverter))]
             public enum ErrorCodeType
             {
@@ -63,16 +53,12 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            public ErrorCodeType ErrorCode { get; private set; }
+            [FormKey("error_code")]
+            public ErrorCodeType ErrorCode { get; set; }
         }
 
         public class DeviceActionCauseObject
         {
-            public DeviceActionCauseObject(ErrorCodeType error_code)
-            {
-                ErrorCode = error_code;
-            }
-
             [JsonConverter(typeof(StringEnumConverter))]
             public enum ErrorCodeType
             {
@@ -82,16 +68,12 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            public ErrorCodeType ErrorCode { get; private set; }
+            [FormKey("error_code")]
+            public ErrorCodeType ErrorCode { get; set; }
         }
 
         public class ServiceActionCauseObject
         {
-            public ServiceActionCauseObject(ErrorCodeType error_code)
-            {
-                ErrorCode = error_code;
-            }
-
             [JsonConverter(typeof(StringEnumConverter))]
             public enum ErrorCodeType
             {
@@ -114,17 +96,23 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            public ErrorCodeType ErrorCode { get; private set; }
+            [FormKey("error_code")]
+            public ErrorCodeType ErrorCode { get; set; }
         }
 
-        public TypeType Type { get; private set; }
+        [FormKey]
+        public TypeType Type { get; set; }
 
-        public UserActionCauseObject UserActionCause { get; private set; }
+        [FormKey("user_action_cause")]
+		public UserActionCauseObject UserActionCause { get; set; }
 
-        public DeviceStateCauseObject DeviceStateCause { get; private set; }
+        [FormKey("device_state_cause")]
+		public DeviceStateCauseObject DeviceStateCause { get; set; }
 
-        public DeviceActionCauseObject DeviceActionCause { get; private set; }
+        [FormKey("device_action_cause")]
+		public DeviceActionCauseObject DeviceActionCause { get; set; }
 
-        public ServiceActionCauseObject ServiceActionCause { get; private set; }
+        [FormKey("service_action_cause")]
+		public ServiceActionCauseObject ServiceActionCause { get; set; }
     }
 }

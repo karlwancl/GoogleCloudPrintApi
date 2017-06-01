@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GoogleCloudPrintApi.Attributes;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
@@ -11,46 +12,41 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class PrintTicketSection
     {
-        //public PrintTicketSection(IList<VendorTicketItem> vendor_ticket_item = null, ColorTicketItem color = null, DuplexTicketItem duplex = null,
-        //    PageOrientationTicketItem page_orientation = null, CopiesTicketItem copies = null, MarginsTicketItem margins = null, DpiTicketItem dpi = null,
-        //    FitToPageTicketItem fit_to_page = null, PageRangeTicketItem page_range = null, MediaSizeTicketItem media_size = null, CollateTicketItem collate = null, ReverseOrderTicketItem reverse_order = null)
-        //{
-        //    VendorTicketItem = vendor_ticket_item;
-        //    Color = color;
-        //    Duplex = duplex;
-        //    PageOrientation = page_orientation;
-        //    Copies = copies;
-        //    Margins = margins;
-        //    Dpi = dpi;
-        //    FitToPage = fit_to_page;
-        //    PageRange = page_range;
-        //    MediaSize = media_size;
-        //    Collate = collate;
-        //    ReverseOrder = reverse_order;
-        //}
-
+        [FormKey("vendor_ticket_item")]
         public IList<VendorTicketItem> VendorTicketItem { get; set; }
 
-        public ColorTicketItem Color { get; set; }
+        [FormKey]
+        public ColorTicketItem Color
+        { get; set; }
 
+        [FormKey]
         public DuplexTicketItem Duplex { get; set; }
 
+        [FormKey("page_orientation")]
         public PageOrientationTicketItem PageOrientation { get; set; }
 
+        [FormKey]
         public CopiesTicketItem Copies { get; set; }
 
+        [FormKey]
         public MarginsTicketItem Margins { get; set; }
 
+        [FormKey]
         public DpiTicketItem Dpi { get; set; }
 
+        [FormKey("fit_to_page")]
         public FitToPageTicketItem FitToPage { get; set; }
 
+        [FormKey("page_range")]
         public PageRangeTicketItem PageRange { get; set; }
 
+        [FormKey("media_size")]
         public MediaSizeTicketItem MediaSize { get; set; }
 
+        [FormKey]
         public CollateTicketItem Collate { get; set; }
 
+        [FormKey("reverse_order")]
         public ReverseOrderTicketItem ReverseOrder { get; set; }
     }
 }
