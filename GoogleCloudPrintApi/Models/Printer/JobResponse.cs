@@ -11,7 +11,6 @@ namespace GoogleCloudPrintApi.Models.Printer
 {
     public class JobResponse<T>: Response<T> where T: IRequest
     {
-        [JsonProperty]
-        public Job.Job Job { get; private set; }
+        public Job.Job Job { get; set; }
     }
 }

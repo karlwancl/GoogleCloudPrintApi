@@ -1,0 +1,188 @@
+{
+ "success": true,
+ "request": {
+  "time": "0",
+  "params": {
+   "proxy": [
+    "7091d3d7-a603-4abe-843c-e44f5f6f6583"
+   ]
+  },
+  "user": "salmonthinlion@gmail.com",
+  "users": [
+   "salmonthinlion@gmail.com"
+  ]
+ },
+ "printers": [
+  {
+   "isTosAccepted": false,
+   "displayName": "HelloWorldEx",
+   "supportedContentTypes": "application/pdf",
+   "description": "",
+   "capsHash": "",
+   "updateTime": "1496310210067",
+   "type": "GOOGLE",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^recent",
+    "^own",
+    "^can_share",
+    "^can_update",
+    "^can_delete"
+   ],
+   "gcpVersion": "1.0",
+   "proxy": "7091d3d7-a603-4abe-843c-e44f5f6f6583",
+   "ownerName": "Karl Wan",
+   "createTime": "1496304445122",
+   "defaultDisplayName": "Printer175",
+   "name": "HelloWorldEx",
+   "id": "c82b7eb9-d41d-f845-f2cd-c947dac26c40",
+   "status": "",
+   "accessTime": "1496304445122"
+  },
+  {
+   "isTosAccepted": false,
+   "displayName": "Printer164",
+   "description": "",
+   "capsHash": "",
+   "updateTime": "1496303489633",
+   "type": "GOOGLE",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^own",
+    "^can_share",
+    "^can_update",
+    "^can_delete"
+   ],
+   "gcpVersion": "1.0",
+   "proxy": "7091d3d7-a603-4abe-843c-e44f5f6f6583",
+   "ownerName": "Karl Wan",
+   "createTime": "1496303489633",
+   "defaultDisplayName": "Printer164",
+   "name": "Printer164",
+   "id": "4e349f50-edd1-cf48-3f92-45787be08246",
+   "status": "",
+   "accessTime": "1496303489633"
+  },
+  {
+   "isTosAccepted": false,
+   "displayName": "Printer164",
+   "description": "",
+   "capsHash": "",
+   "updateTime": "1496303021636",
+   "type": "GOOGLE",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^own",
+    "^can_share",
+    "^can_update",
+    "^can_delete"
+   ],
+   "gcpVersion": "1.0",
+   "proxy": "7091d3d7-a603-4abe-843c-e44f5f6f6583",
+   "ownerName": "Karl Wan",
+   "createTime": "1496303021636",
+   "defaultDisplayName": "Printer164",
+   "name": "Printer164",
+   "id": "9f9d192f-cbe0-52f6-6565-971ce73096dd",
+   "status": "",
+   "accessTime": "1496303021636"
+  },
+  {
+   "isTosAccepted": false,
+   "displayName": "Printer36",
+   "description": "",
+   "capsHash": "",
+   "updateTime": "1496302987200",
+   "type": "GOOGLE",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^own",
+    "^can_share",
+    "^can_update",
+    "^can_delete"
+   ],
+   "gcpVersion": "1.0",
+   "proxy": "7091d3d7-a603-4abe-843c-e44f5f6f6583",
+   "ownerName": "Karl Wan",
+   "createTime": "1496302987200",
+   "defaultDisplayName": "Printer36",
+   "name": "Printer36",
+   "id": "36e4d42e-237e-dac4-cd2e-cf3dca0b1ded",
+   "status": "",
+   "accessTime": "1496302987200"
+  },
+  {
+   "isTosAccepted": false,
+   "displayName": "Printer64",
+   "description": "",
+   "capsHash": "",
+   "updateTime": "1496302932123",
+   "type": "GOOGLE",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^own",
+    "^can_share",
+    "^can_update",
+    "^can_delete"
+   ],
+   "gcpVersion": "1.0",
+   "proxy": "7091d3d7-a603-4abe-843c-e44f5f6f6583",
+   "ownerName": "Karl Wan",
+   "createTime": "1496302932123",
+   "defaultDisplayName": "Printer64",
+   "name": "Printer64",
+   "id": "979b4376-270c-015e-14eb-ee11325aafd7",
+   "status": "",
+   "accessTime": "1496302932123"
+  },
+  {
+   "isTosAccepted": false,
+   "displayName": "Printer98",
+   "description": "",
+   "capsHash": "",
+   "updateTime": "1496301970496",
+   "type": "GOOGLE",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^own",
+    "^can_share",
+    "^can_update",
+    "^can_delete"
+   ],
+   "gcpVersion": "1.0",
+   "proxy": "7091d3d7-a603-4abe-843c-e44f5f6f6583",
+   "ownerName": "Karl Wan",
+   "createTime": "1496301970496",
+   "defaultDisplayName": "Printer98",
+   "name": "Printer98",
+   "id": "9ac174d8-5318-0ef7-fd6f-90b37849685b",
+   "status": "",
+   "accessTime": "1496301970496"
+  },
+  {
+   "isTosAccepted": false,
+   "displayName": "Printer98",
+   "description": "",
+   "capsHash": "",
+   "updateTime": "1496301837411",
+   "type": "GOOGLE",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^own",
+    "^can_share",
+    "^can_update",
+    "^can_delete"
+   ],
+   "gcpVersion": "1.0",
+   "proxy": "7091d3d7-a603-4abe-843c-e44f5f6f6583",
+   "ownerName": "Karl Wan",
+   "createTime": "1496301837411",
+   "defaultDisplayName": "Printer98",
+   "name": "Printer98",
+   "id": "1513f50d-1b3b-51f8-5e39-64c37c7e5501",
+   "status": "",
+   "accessTime": "1496301837411"
+  }
+ ],
+ "xsrf_token": "AIp06DiNP9KxwuzhEnrNXHsin8jsqWeVSA:1496400612172"
+}

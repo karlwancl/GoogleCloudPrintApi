@@ -1,23 +1,24 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <Description>A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4</Description>
-    <Copyright>Copyright (c) 2016-2017 SalmonThinLion</Copyright>
+    <Copyright>Copyright (c) 2016-* SalmonThinLion</Copyright>
     <AssemblyTitle>GoogleCloudPrintApi</AssemblyTitle>
-    <VersionPrefix>1.2.0</VersionPrefix>
+    <VersionPrefix>1.3.0</VersionPrefix>
     <Authors>SalmonThinLion</Authors>
     <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>GoogleCloudPrintApi</AssemblyName>
     <PackageId>GoogleCloudPrintApi</PackageId>
     <PackageTags>Google;Cloud;Print;API</PackageTags>
     <PackageReleaseNotes>
-      [22/02/2017] Added xmpp client for new job notification (Thanks to @Jezternz for the code)
-      [19/01/2017] Fixed missing refresh token when updating the access token (Thanks to @Jezternz for bug-fixing)
-      [23/12/2016] Added GetCloudJobTicketAsync for getting user settings for CDD print jobs
-      [23/11/2016] Expose access token for external web call.
-      [9/11/2016] Expose exception information from Google if the request fails.
-      [4/11/2016] Added redirect uri for authorization
-      [3/11/2016] Added CancellationToken for cancelling request.
-      [3/11/2016] Added ConfigureAwait(false) to prevent deadlocks</PackageReleaseNotes>
+[02/06/2017] Added job submission and printer search (Thanks to @elacy for the implementation), Net452 package is no longer maintained
+[22/02/2017] Added xmpp client for new job notification (Thanks to @Jezternz for the code)
+[19/01/2017] Fixed missing refresh token when updating the access token (Thanks to @Jezternz for bug-fixing)
+[23/12/2016] Added GetCloudJobTicketAsync for getting user settings for CDD print jobs
+[23/11/2016] Expose access token for external web call.
+[9/11/2016] Expose exception information from Google if the request fails.
+[4/11/2016] Added redirect uri for authorization
+[3/11/2016] Added CancellationToken for cancelling request.
+[3/11/2016] Added ConfigureAwait(false) to prevent deadlocks</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/salmonthinlion/GoogleCloudPrintApi</PackageProjectUrl>
     <PackageLicenseUrl>https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE</PackageLicenseUrl>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
@@ -45,6 +46,9 @@
     <PackageReference Include="System.Net.Security" Version="4.3.0" />
     <PackageReference Include="System.Xml.XmlDocument" Version="4.3.0" />
     <PackageReference Include="System.Net.Sockets" Version="4.3.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Infrastructures\UnderscoreSeparatedPropertyNamesContractResolver.cs" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DefineConstants>$(DefineConstants);RELEASE</DefineConstants>

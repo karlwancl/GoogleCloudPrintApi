@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace GoogleCloudPrintApi.Pad
 {
@@ -12,22 +13,28 @@ namespace GoogleCloudPrintApi.Pad
             try
             {
                 var client = new GoogleCloudPrintClient(provider, token);
-                var pq = GetSelectedQueue();
-                if (pq != null)
+                var pqs = GetPrintQueues();
+
+                for (int i = 0; i < pqs.Count(); i++)
                 {
-                    //string capabilities = GetCapabilitiesFromPrintQueue(pq);
-                    string capabilities = File.ReadAllText("cdd.txt");
-                    var request = new RegisterRequest
-                    {
-                        Name = pq.FullName,
-                        DefaultDisplayName = pq.FullName,
-                        Proxy = proxy,
-                        Capabilities = capabilities,
-                        UseCdd = true
-                    };
-                    var googlePrinter = client.RegisterPrinterAsync(request).Result;
-                    Console.WriteLine($"Success: {googlePrinter.Success}");
+                    Console.WriteLine("{0}. {1}", i, pqs.ElementAt(i).Key);
                 }
+                Console.Write("Select 1 printer to register: ");
+                int index = Convert.ToInt32(Console.ReadLine());
+
+                var request = new RegisterRequest
+                {
+                    Name = pqs.ElementAt(index).Key,
+                    DefaultDisplayName = pqs.ElementAt(index).Key,
+                    Proxy = proxy,
+                    Capabilities = File.ReadAllText(pqs.ElementAt(index).Value),
+                    UseCdd = false
+                };
+
+                Console.WriteLine("Prepare to register: {0} to {1}\n{2}", request.Name, request.Proxy, request.Capabilities.Substring(0, 32));
+                Console.ReadLine();
+                var googlePrinter = client.RegisterPrinterAsync(request).Result;
+                Console.WriteLine($"Success: {googlePrinter.Success}");
             }
             catch (System.AggregateException ex)
             {
@@ -36,32 +43,12 @@ namespace GoogleCloudPrintApi.Pad
             }
         }
 
-        private static string GetCapabilitiesFromPrintQueue(PrintQueue pq)
+        static IDictionary<string, string> GetPrintQueues()
         {
-            string cap = null;
-            using (var ms = pq.GetPrintCapabilitiesAsXml())
-            using (var sr = new StreamReader(ms))
-            {
-                cap = sr.ReadToEnd();
-            }
-            return cap;
-        }
-
-        private static PrintQueue GetSelectedQueue()
-        {
-            var pqs = new LocalPrintServer().GetPrintQueues();
-            if (pqs != null && pqs.Any())
-            {
-                for (int i = 0; i < pqs.Count(); i++)
-                    Console.WriteLine($"{i+1}. {pqs.ElementAt(i).FullName}");
-                Console.Write("Please choose a printer to register: ");
-                int option = -1;
-                if (int.TryParse(Console.ReadLine(), out option))
-                    return pqs.ElementAt(option - 1);
-            }
-            else
-                Console.WriteLine("There's no printer to register!");
-            return null;
+            var path = Directory.GetCurrentDirectory();
+            Console.WriteLine("Current Path: {0}", path);
+            var files = Directory.GetFiles(Path.Combine(path, "xps")).Where(f => Path.GetExtension(f) == ".xml");
+            return files.ToDictionary(f => Path.GetFileNameWithoutExtension(f), f => Path.GetFullPath(f));
         }
     }
 }

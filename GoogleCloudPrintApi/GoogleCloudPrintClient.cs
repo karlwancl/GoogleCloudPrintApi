@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Xml.Linq;
 using GoogleCloudPrintApi.Models.Application;
 using Newtonsoft.Json;
+using GoogleCloudPrintApi.Exception;
+using Newtonsoft.Json.Serialization;
 
 namespace GoogleCloudPrintApi
 {
@@ -25,7 +27,7 @@ namespace GoogleCloudPrintApi
             FlurlHttp.Configure(c => {
                 c.JsonSerializer = new Flurl.Http.Configuration.NewtonsoftJsonSerializer(new JsonSerializerSettings
                 {
-                    ContractResolver = new UnderscoreSeparatedPropertyNamesContractResolver(),
+                    ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() },
                     NullValueHandling = NullValueHandling.Ignore
                 });
             });
@@ -218,7 +220,7 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /printer interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-        public async Task<PrinterResponse<PrinterRequest>> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        public async Task<PrintersResponse<PrinterRequest>> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
             await UpdateTokenAsync(cancellationToken);
 
@@ -226,7 +228,7 @@ namespace GoogleCloudPrintApi
                 .AppendPathSegment("printer")
                 .WithOAuthBearerToken(_token.AccessToken)
                 .PostRequestAsync(request, cancellationToken)
-                .ReceiveJsonButThrowIfFails<PrinterResponse<PrinterRequest>>()
+                .ReceiveJsonButThrowIfFails<PrintersResponse<PrinterRequest>>()
                 .ConfigureAwait(false);
         }
 
@@ -281,7 +283,34 @@ namespace GoogleCloudPrintApi
 			return await GoogleCloudPrintBaseUrl
 				.AppendPathSegment("submit")
 				.WithOAuthBearerToken(_token.AccessToken)
-				.PostRequestAsync(request, cancellationToken, true)
+                .PostMultipartAsync(mp => {
+
+                    // Basic information
+                    mp.AddString("printerid", request.PrinterId)
+                      .AddString("title", request.Title);
+
+                    // Print information
+                    if (request.Ticket != null)
+                        mp.AddJson("ticket", request.Ticket);
+                    else if (!string.IsNullOrEmpty(request.Capabilities))
+                        mp.AddString("capabilities", request.Capabilities);
+                    
+                    // Document information
+                    if (request.Content is SubmitFileStream file)
+                        mp.AddFile("content", file.File, file.FileName, file.ContentType)
+                          .AddString("contentType", file.ContentType);
+                    else if (request.Content is SubmitFileLink link)
+                        mp.AddString("content", link.Link)
+                          .AddString("contentType", "url");
+                    else
+                        throw new GoogleCloudPrintException("Invalid file provided");
+                    
+                    // Tags
+                    if (request.Tag != null)
+                        foreach (var tag in request.Tag)
+                            mp.AddString("tag", tag);
+                
+                }, cancellationToken)
 				.ReceiveJsonButThrowIfFails<JobResponse<SubmitRequest>>()
 				.ConfigureAwait(false);
 		}
@@ -292,7 +321,7 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /search interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-		public async Task<PrintersResponse<SearchRequest>> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
+		public async Task<PrintersResponse<SearchRequest>> SearchPrinterAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
 		{
             await UpdateTokenAsync(cancellationToken);
 

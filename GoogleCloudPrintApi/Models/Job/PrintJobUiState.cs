@@ -23,13 +23,10 @@ namespace GoogleCloudPrintApi.Models.Job
             EXPIRED = 7
         }
 
-        [JsonProperty]
-        public SummaryType Summary { get; private set; }
-
-        [JsonProperty]
-        public string Progress { get; private set; }
-
-        [JsonProperty]
-        public string Cause { get; private set; }
+        public SummaryType Summary { get; set; }
+        
+        public string Progress { get; set; }
+        
+        public string Cause { get; set; }
     }
 }

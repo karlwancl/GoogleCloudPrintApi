@@ -1,0 +1,29 @@
+{
+ "success": false,
+ "request": {
+  "time": "0",
+  "params": {
+   "ticket": [
+    "{\"version\":\"1.0\",\"print\":{\"color\":{\"type\":\"STANDARD_MONOCHROME\"},\"duplex\":{\"type\":\"LONG_EDGE\"},\"page_orientation\":{\"type\":\"LANDSCAPE\"},\"copies\":{\"copies\":3}}}"
+   ],
+   "printerid": [
+    "c82b7eb9-d41d-f845-f2cd-c947dac26c40"
+   ],
+   "title": [
+    "460e6730-3c91-49e6-a03d-79ce53a56a7a"
+   ],
+   "contentType": [
+    "url"
+   ],
+   "content": [
+    "https://github.com/elasalmonthinlion"
+   ]
+  },
+  "user": "salmonthinlion@gmail.com",
+  "users": [
+   "salmonthinlion@gmail.com"
+  ]
+ },
+ "errorCode": 404,
+ "message": "\u7121\u6cd5\u64f7\u53d6\u7db2\u5740\u3002"
+}

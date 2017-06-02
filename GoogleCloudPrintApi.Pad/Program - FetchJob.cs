@@ -102,12 +102,13 @@ namespace GoogleCloudPrintApi.Pad
         {
             try
             {
-                //var ticket = client.GetTicketAsync(printJob.TicketUrl, proxy).Result;
-                var request = new TicketRequest { JobId = printJob.Id };
-                var ticket = client.GetCloudJobTicketAsync(request).Result;
+                var ticket = client.GetTicketAsync(printJob.TicketUrl, proxy).Result;
+                //var request = new TicketRequest { JobId = printJob.Id };
+                //var ticket = client.GetCloudJobTicketAsync(request).Result;
                 Directory.CreateDirectory(TicketFolderPath);
                 string path = $"{Path.Combine(TicketFolderPath, Path.GetFileNameWithoutExtension(printJob.Title))}.xml";
-                //ticket.Save(path);
+                using (var s = File.Create(path))
+                    ticket.Save(s);
 
                 Console.WriteLine($"Ticket {printJob.Title} is saved.");
             }

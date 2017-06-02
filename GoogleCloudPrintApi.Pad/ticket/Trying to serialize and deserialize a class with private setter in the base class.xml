@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<psf:PrintTicket xmlns:psf="http://schemas.microsoft.com/windows/2003/08/printing/printschemaframework" xmlns:ns0000="http://schemas.monotypeimaging.com/ptpc/2006/1" xmlns:psk="http://schemas.microsoft.com/windows/2003/08/printing/printschemakeywords" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1">
+  <psf:Feature name="psk:PageMediaSize">
+    <psf:Option name="psk:NorthAmericaLetter">
+      <psf:ScoredProperty name="psk:MediaSizeWidth">
+        <psf:Value xsi:type="xsd:integer">215900</psf:Value>
+      </psf:ScoredProperty>
+      <psf:ScoredProperty name="psk:MediaSizeHeight">
+        <psf:Value xsi:type="xsd:integer">279400</psf:Value>
+      </psf:ScoredProperty>
+    </psf:Option>
+  </psf:Feature>
+  <psf:Feature name="psk:PageOrientation">
+    <psf:Option name="psk:Portrait" />
+  </psf:Feature>
+  <psf:Feature name="psk:JobDuplexAllDocumentsContiguously">
+    <psf:Option name="psk:OneSided" />
+  </psf:Feature>
+  <psf:Feature name="psk:DocumentCollate">
+    <psf:Option name="psk:Uncollated" />
+  </psf:Feature>
+  <psf:Feature name="psk:PageResolution">
+    <psf:Option name="ns0000:_300dpi">
+      <psf:ScoredProperty name="psk:ResolutionX">
+        <psf:Value xsi:type="xsd:integer">300</psf:Value>
+      </psf:ScoredProperty>
+      <psf:ScoredProperty name="psk:ResolutionY">
+        <psf:Value xsi:type="xsd:integer">300</psf:Value>
+      </psf:ScoredProperty>
+    </psf:Option>
+  </psf:Feature>
+  <psf:Feature name="psk:PageOutputColor">
+    <psf:Option name="psk:Monochrome" />
+  </psf:Feature>
+  <psf:ParameterInit name="psk:JobCopiesAllDocuments">
+    <psf:Value xsi:type="xsd:integer">1</psf:Value>
+  </psf:ParameterInit>
+</psf:PrintTicket>

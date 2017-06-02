@@ -9,16 +9,12 @@ namespace GoogleCloudPrintApi.Models.Job
 {
     public class PrintJobState
     {
-        [JsonProperty]
-        public string Version { get; private set; }
+        public string Version { get; set; }
 
-        [JsonProperty]
-        public JobState State { get; private set; }
+        public JobState State { get; set; }
 
-        [JsonProperty]
-        public int PagesPrinted { get; private set; }
+        public int PagesPrinted { get; set; }
 
-        [JsonProperty]
-        public int DeliveryAttempts { get; private set; }
+        public int DeliveryAttempts { get; set; }
     }
 }

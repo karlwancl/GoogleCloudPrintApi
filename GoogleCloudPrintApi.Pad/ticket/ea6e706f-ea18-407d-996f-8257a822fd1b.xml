@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<psf:PrintTicket xmlns:psf="http://schemas.microsoft.com/windows/2003/08/printing/printschemaframework" xmlns:ns0000="http://schemas.monotypeimaging.com/ptpc/2006/1" xmlns:psk="http://schemas.microsoft.com/windows/2003/08/printing/printschemakeywords" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" version="1">
+  <psf:Feature name="psk:PageOrientation">
+    <psf:Option name="psk:Portrait" />
+  </psf:Feature>
+  <psf:Feature name="psk:JobDuplexAllDocumentsContiguously">
+    <psf:Option name="psk:TwoSidedLongEdge" />
+  </psf:Feature>
+  <psf:Feature name="psk:DocumentCollate">
+    <psf:Option name="psk:Uncollated" />
+  </psf:Feature>
+  <psf:Feature name="psk:PageOutputColor">
+    <psf:Option name="psk:Monochrome" />
+  </psf:Feature>
+  <psf:ParameterInit name="psk:JobCopiesAllDocuments">
+    <psf:Value xsi:type="xsd:integer">1</psf:Value>
+  </psf:ParameterInit>
+</psf:PrintTicket>

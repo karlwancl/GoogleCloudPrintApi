@@ -5,16 +5,12 @@ namespace GoogleCloudPrintApi.Infrastructures
 {
     public class Response<T> : IResponse<T> where T : IRequest
     {
-        [JsonProperty]
-        public bool Success { get; private set; }
+        public bool Success { get; set; }
 
-		[JsonProperty]
-		public string Message{ get; private set; }
+		public string Message{ get; set; }
 
-		[JsonProperty]
-		public string XsrfToken { get; private set; }
+		public string XsrfToken { get; set; }
 
-        [JsonProperty]
-        public dynamic Request { get; private set; }
+        public dynamic Request { get; set; }
     }
 }

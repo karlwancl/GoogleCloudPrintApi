@@ -4,9 +4,11 @@ A .NET wrapper for Google Cloud Print API, used for server application, currentl
 ### Features
 * Allows printer registration to Google Cloud
 * Allows printer manipulation on Google Cloud
+* Allows printer search on Google Cloud (Thanks to [@elacy](https://github.com/elacy) for providing the search implementation)
 * Allows job retrieval from Google Cloud
 * Allows printer sharing to Google Accounts
 * Allows subscribing to new job notification from Google Cloud (Thanks to [@Jezternz](https://github.com/Jezternz) for providing the xmpp implementation)
+* Allows job submission to Google Cloud (Thanks to [@elacy](https://github.com/elacy) for providing the submission implementation)
 
 ### Supported Platforms
 * .NET Core 1.0
@@ -23,6 +25,7 @@ You can find the package through Nuget
 ### How To Use
 
 * Initialization
+	* [Using the library](#UsingTheLibrary)
 	* [First Time Token Generation](#FirstTimeTokenGeneration)
 	* [Initialize Google Cloud Print Client](#InitializeGoogleCloudPrintClient)
 	* [Subscribe To Job Notification](#SubscribeToJobNotification)
@@ -33,9 +36,11 @@ You can find the package through Nuget
 	* [Get Printer Information](#GetPrinterInformation)
 	* [Update Printer](#UpdatePrinter)
 	* [Delete Printer](#DeletePrinter)
+	* [Search Printer](#SearchPrinter)
 
 * Job Management
 	* [Download Printed Job](#DownloadPrintedJob)
+	* [Submit Print Job](#SubmitPrintJob)
 
 * Sharing/Unsharing
 	* [Share Printer to Google User](#SharePrinter)
@@ -43,6 +48,11 @@ You can find the package through Nuget
 
 * Misc
 	* [Customized Web Call Using Internal Access Token](#CustomizedCall)
+
+<a name="UsingTheLibrary"></a>
+#### Using the Library
+	// Add the following statement on top of the file
+	using GoogleCloudPrintApi;
 
 <a name="FirstTimeTokenGeneration"></a>
 #### First-time token generation
@@ -103,6 +113,12 @@ You can find the package through Nuget
 #### Delete printer
 	var request = new DeleteRequest { PrinterId = printerId };
 	var response = await client.DeletePrinterAsync(request);
+
+<a name="SearchPrinter"></a>
+#### Search Printer
+	// ^recent for recent used printers, ^own for printer owned by, ^shared for printer shared with user
+	var request = new SearchRequest { Q = "^recent" };
+	var response = await client.SearchPrinterAsync(request);
 	
 <a name="DownloadPrintedJob"></a>
 #### Download printed job
@@ -151,6 +167,32 @@ You can find the package through Nuget
 		
 	If you'd like to distinguish the difference between case 1 & 2, you'd be better off calling GetPrinterAsync before this method. It will throw you "The printer is not found" exception if the printer does not exist.
 	*/
+
+<a name="SubmitPrintJob"></a>
+#### Submit Print Job
+	// Create a cloud job ticket first, it contains the printer setting of the document
+	var cjt = new CloudJobTicket
+	{
+		Print = new PrintTicketSection
+		{
+			Color = new ColorTicketItem { Type = Color.Type.STANDARD_MONOCHROME },
+			Duplex = new DuplexTicketItem { Type = Duplex.Type.LONG_EDGE },
+			PageOrientation = new PageOrientationTicketItem { Type = PageOrientation.Type.LANDSCAPE },
+			Copies = new CopiesTicketItem { Copies = 3 }
+		}
+	};
+
+	// Create a request for file submission, you can either submit a url with SubmitFileLink class, or a local file with SubmitFileStream class
+	var request = new SubmitRequest
+	{
+		PrinterId = printer.Id,
+		Title = title,
+		Ticket = cjt,
+		Content = new SubmitFileLink(url) // or new SubmitFileStream(contentType, fileName, fileStream)
+	};
+
+	// Submit request
+	var response = await client.SubmitJobAsync(request);
 
 <a name="SharePrinter"></a>
 #### Share printer to Google User

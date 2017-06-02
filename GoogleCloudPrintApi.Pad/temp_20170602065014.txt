@@ -1,0 +1,54 @@
+{
+ "success": true,
+ "request": {
+  "time": "0",
+  "params": {
+   "printerid": [
+    "c82b7eb9-d41d-f845-f2cd-c947dac26c40"
+   ]
+  },
+  "user": "salmonthinlion@gmail.com",
+  "users": [
+   "salmonthinlion@gmail.com"
+  ]
+ },
+ "xsrf_token": "AIp06DgpngHgU393y5g4rmX6WwdwJvQNLA:1496400614028",
+ "jobs": [
+  {
+   "ticketUrl": "https://www.google.com/cloudprint/ticket?format\u003dxps\u0026output\u003dxml\u0026jobid\u003dbd4f220b-ba53-30e2-7169-cf07f58b0914",
+   "printerType": "GOOGLE",
+   "printerName": "HelloWorldEx",
+   "errorCode": "",
+   "updateTime": "1496400607795",
+   "title": "16dea00f-5454-487a-a64d-de2bc0aa1c7a",
+   "message": "",
+   "ownerId": "salmonthinlion@gmail.com",
+   "tags": [
+    "^own"
+   ],
+   "uiState": {
+    "summary": "QUEUED",
+    "progress": "\u5617\u8a66\u50b3\u9001\u6b21\u6578\uff1a1"
+   },
+   "numberOfPages": 2,
+   "createTime": "1496400605286",
+   "semanticState": {
+    "delivery_attempts": 1,
+    "state": {
+     "type": "QUEUED"
+    },
+    "version": "1.0"
+   },
+   "printerid": "c82b7eb9-d41d-f845-f2cd-c947dac26c40",
+   "fileUrl": "https://www.google.com/cloudprint/download?id\u003dbd4f220b-ba53-30e2-7169-cf07f58b0914",
+   "id": "bd4f220b-ba53-30e2-7169-cf07f58b0914",
+   "rasterUrl": "https://www.google.com/cloudprint/download?id\u003dbd4f220b-ba53-30e2-7169-cf07f58b0914\u0026forcepwg\u003d1",
+   "contentType": "text/url",
+   "status": "QUEUED"
+  }
+ ],
+ "range": {
+  "jobsTotal": "1",
+  "jobsCount": 1
+ }
+}

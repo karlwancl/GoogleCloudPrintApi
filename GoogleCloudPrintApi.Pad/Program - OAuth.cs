@@ -31,7 +31,7 @@ namespace GoogleCloudPrintApi.Pad
             var url = provider.BuildAuthorizationUrl();
             Console.WriteLine($"{url} will be opened");
 
-            var process = Process.Start("chrome.exe", url);
+            var process = Process.Start("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", url);
             Console.Write("Please paste the authorization code to continue: ");
 
             var authCode = Console.ReadLine();

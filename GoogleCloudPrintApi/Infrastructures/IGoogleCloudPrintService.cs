@@ -28,13 +28,13 @@ namespace GoogleCloudPrintApi.Infrastructures
 		Task<JobsResponse<FetchRequest>> FetchJobAsync(FetchRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
 
-		Task<PrinterResponse<PrinterRequest>> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken));
+		Task<PrintersResponse<PrinterRequest>> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
 		Task<PrinterResponse<UpdateRequest>> UpdatePrinterAsync(UpdateRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
 		Task<PrintersResponse<ListRequest>> ListPrinterAsync(ListRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
-		Task<PrintersResponse<SearchRequest>> SearchAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken));
+		Task<PrintersResponse<SearchRequest>> SearchPrinterAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
 
 		Task<RegisterResponse> RegisterPrinterAsync(RegisterRequest request, CancellationToken cancellationToken = default(CancellationToken));

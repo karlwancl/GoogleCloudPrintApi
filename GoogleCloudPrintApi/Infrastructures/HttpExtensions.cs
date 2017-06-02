@@ -12,6 +12,7 @@ using System.Threading;
 using System.Collections;
 using GoogleCloudPrintApi.Models.Application;
 using Flurl.Http.Content;
+using System.IO;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
@@ -52,8 +53,6 @@ namespace GoogleCloudPrintApi.Infrastructures
             };
 
             var form = new Dictionary<string, string>();
-            CapturedMultipartContent submitFileMultiparts = null;
-
             foreach (var option in optionsToProcess)
             {
                 var oKeys = keys.Where(k => k.GetCustomAttribute<FormKeyAttribute>().IsFor.Equals(option));
@@ -70,44 +69,17 @@ namespace GoogleCloudPrintApi.Infrastructures
                     if (ok.GetValue(request) is IEnumerable<string> list)
                         foreach (var item in list)
                             form.Add(keyName(ok), item);
-                    else if (ok.GetValue(request) is ISubmitFile content)
-                    {
-                        // Contributed by @elacy (https://github.com/elacy)
-                        submitFileMultiparts = new CapturedMultipartContent();
-
-                        if (content is SubmitFileStream file)
-                        {
-                            submitFileMultiparts
-                                .AddFile(keyName(ok), file.File, file.FileName, file.ContentType)
-                                .AddString("contentType", file.ContentType);
-                        }
-                        else if (content is SubmitFileLink link)
-                        {
-                            submitFileMultiparts
-                                .AddString(keyName(ok), link.Link)
-                                .AddString("contentType", "url");
-                        }
-                        else
-                            throw new GoogleCloudPrintException("Invalid file provided");
-                    }
                     else
                     {
                         var objValue = ok.GetValue(request);
                         if (!(objValue is bool && ok.GetCustomAttribute<FormKeyAttribute>().AddKeyOnlyIfBoolTrue && !(bool)objValue))
                             form.Add(keyName(ok), ok.PropertyType.IsSimpleType() ?
-                                     objValue.ToString() :
-                                     JsonConvert.SerializeObject(ok.GetValue(request), SerializationHelper.SerializationSettings));
+                                     objValue.ToString() : JsonConvert.SerializeObject(ok.GetValue(request), SerializationHelper.SerializationSettings));
                     }
                 });
             }
 
-            return isMultipart ?
-                await client.PostMultipartAsync(mp =>
-            {
-                mp.AddStringParts(form);
-                if (submitFileMultiparts != null)
-                    mp.Add(submitFileMultiparts);
-            }) : await client.PostUrlEncodedAsync(form, token);
+            return isMultipart ? await client.PostMultipartAsync(mp => mp.AddStringParts(form)) : await client.PostUrlEncodedAsync(form, token);
         }
     }
 }
