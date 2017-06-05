@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating what image resolution to use.
     /// </summary>
@@ -23,5 +22,4 @@
         /// </summary>
         public string VendorId { get; set; }
     }
-
 }

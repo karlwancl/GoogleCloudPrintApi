@@ -7,7 +7,7 @@ namespace GoogleCloudPrintApi.Pad
 {
     internal partial class Program
     {
-        static void ListAndGetPrinter()
+        private static void ListAndGetPrinter()
         {
             var client = new GoogleCloudPrintClient(provider, token);
             var listRequest = new ListRequest { Proxy = proxy };

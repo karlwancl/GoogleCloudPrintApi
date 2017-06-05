@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating which page orientation option to use.
     /// </summary>
@@ -11,5 +10,4 @@
         /// </summary>
         public PageOrientation.Type Type { get; set; }
     }
-
 }

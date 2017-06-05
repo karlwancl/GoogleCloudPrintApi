@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating what media size to use.
     /// </summary>
@@ -29,5 +28,4 @@
         /// </summary>
         public string VendorId { get; set; }
     }
-
 }

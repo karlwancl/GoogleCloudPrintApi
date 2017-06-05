@@ -1,13 +1,13 @@
 ﻿namespace GoogleCloudPrintApi.Infrastructures
 {
-    public interface IResponse<T> where T: IRequest
+    public interface IResponse<T> where T : IRequest
     {
-		bool Success { get; }
+        bool Success { get; }
 
-		string Message { get;  }
+        string Message { get; }
 
-		string XsrfToken { get; }
+        string XsrfToken { get; }
 
-		dynamic Request { get; }
+        dynamic Request { get; }
     }
 }

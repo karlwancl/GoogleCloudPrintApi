@@ -1,5 +1,4 @@
-﻿using System;
-namespace GoogleCloudPrintApi.Infrastructures
+﻿namespace GoogleCloudPrintApi.Infrastructures
 {
     /// <summary>
     /// Marker interface for requests

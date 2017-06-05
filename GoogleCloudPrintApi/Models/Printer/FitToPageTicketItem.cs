@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating what page-fitting algorithm to use.
     /// </summary>
@@ -11,5 +10,4 @@
         /// </summary>
         public FitToPage.Type Type { get; set; }
     }
-
 }

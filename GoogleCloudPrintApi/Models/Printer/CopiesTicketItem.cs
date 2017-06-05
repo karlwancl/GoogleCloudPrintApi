@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating how many copies to produce.
     /// </summary>
@@ -11,5 +10,4 @@
         /// </summary>
         public int Copies { get; set; }
     }
-
 }

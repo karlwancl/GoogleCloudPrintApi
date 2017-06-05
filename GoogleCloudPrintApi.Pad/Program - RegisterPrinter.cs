@@ -1,14 +1,14 @@
 ﻿using GoogleCloudPrintApi.Models.Printer;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace GoogleCloudPrintApi.Pad
 {
     internal partial class Program
     {
-        static void RegisterPrinter()
+        private static void RegisterPrinter()
         {
             try
             {
@@ -43,7 +43,7 @@ namespace GoogleCloudPrintApi.Pad
             }
         }
 
-        static IDictionary<string, string> GetPrintQueues()
+        private static IDictionary<string, string> GetPrintQueues()
         {
             var path = Directory.GetCurrentDirectory();
             Console.WriteLine("Current Path: {0}", path);

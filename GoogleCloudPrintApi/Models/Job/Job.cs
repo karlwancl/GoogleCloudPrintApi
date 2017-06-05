@@ -1,10 +1,7 @@
 ﻿using GoogleCloudPrintApi.Models.Printer;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace GoogleCloudPrintApi.Models.Job
 {
@@ -66,7 +63,7 @@ namespace GoogleCloudPrintApi.Models.Job
         /// timestamp of when the print job state was last updated
         /// </summary>
         [JsonProperty("updateTime")]
-        public long UpdateTime { get;private  set; }
+        public long UpdateTime { get; private set; }
 
         /// <summary>
         /// state of the print job in Print Job State format
@@ -78,7 +75,7 @@ namespace GoogleCloudPrintApi.Models.Job
         /// print job's Print Job UI State, which is a form of of Print Job State localized for the authenticated user and convenient for display in a UI
         /// </summary>
         [JsonProperty("uiState")]
-        public PrintJobUiState UiState { get;private  set; }
+        public PrintJobUiState UiState { get; private set; }
 
         /// <summary>
         /// Legacy job status

@@ -1,11 +1,12 @@
 ﻿using System;
+
 namespace GoogleCloudPrintApi.Attributes
 {
     /// <summary>
-    /// Form key attribute. 
+    /// Form key attribute.
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class FormKeyAttribute : System.Attribute
+    public class FormAttribute : System.Attribute
     {
         /// <summary>
         /// Gets the name of key for web call
@@ -13,11 +14,11 @@ namespace GoogleCloudPrintApi.Attributes
         /// <value>The name.</value>
         public string Name { get; }
 
-		/// <summary>
-		/// Gets if the key is for which version
-		/// </summary>
-		/// <value>The flag.</value>
-		public VersionOption IsFor { get; }
+        /// <summary>
+        /// Gets if the key is for which version
+        /// </summary>
+        /// <value>The flag.</value>
+        public VersionOption IsFor { get; }
 
         /// <summary>
         /// Gets if the key is required for the web call on different version
@@ -31,7 +32,7 @@ namespace GoogleCloudPrintApi.Attributes
         /// <value><c>true</c> if add key only if bool true; otherwise, <c>false</c>.</value>
         public bool AddKeyOnlyIfBoolTrue { get; }
 
-        public FormKeyAttribute(string name = null, VersionOption isFor = VersionOption.All, VersionOption isRequiredFor = VersionOption.None, bool addKeyOnlyIfBoolTrue = false)
+        public FormAttribute(string name = null, VersionOption isFor = VersionOption.All, VersionOption isRequiredFor = VersionOption.None, bool addKeyOnlyIfBoolTrue = false)
         {
             AddKeyOnlyIfBoolTrue = addKeyOnlyIfBoolTrue;
             IsFor = isFor;

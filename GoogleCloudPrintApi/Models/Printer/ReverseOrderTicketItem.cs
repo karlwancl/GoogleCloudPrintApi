@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating whether to print in reverse.
     /// </summary>
@@ -11,5 +10,4 @@
         /// </summary>
         public bool ReverseOrder { get; set; }
     }
-
 }

@@ -1,30 +1,29 @@
 ﻿using Flurl;
 using Flurl.Http;
+using GoogleCloudPrintApi.Exception;
 using GoogleCloudPrintApi.Infrastructures;
 using GoogleCloudPrintApi.Models;
+using GoogleCloudPrintApi.Models.Application;
 using GoogleCloudPrintApi.Models.Printer;
 using GoogleCloudPrintApi.Models.Share;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Xml.Linq;
-using GoogleCloudPrintApi.Models.Application;
-using Newtonsoft.Json;
-using GoogleCloudPrintApi.Exception;
-using Newtonsoft.Json.Serialization;
 
 namespace GoogleCloudPrintApi
 {
-    // For use in server application only
-    // TODO: Support other different platforms
     public partial class GoogleCloudPrintClient : GoogleClientBase, IGoogleCloudPrintService
     {
         protected const string GoogleCloudPrintBaseUrl = "https://www.google.com/cloudprint/";
-		protected const string GoogleCloudUserProfileUrl = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json";
+        protected const string GoogleCloudUserProfileUrl = "https://www.googleapis.com/oauth2/v1/userinfo?alt=json";
 
-		public GoogleCloudPrintClient(GoogleCloudPrintOAuth2Provider oAuth2Provider, Token token) : base(oAuth2Provider, token)
+        public GoogleCloudPrintClient(GoogleCloudPrintOAuth2Provider oAuth2Provider, Token token) : base(oAuth2Provider, token)
         {
-            FlurlHttp.Configure(c => {
+            FlurlHttp.Configure(c =>
+            {
                 c.JsonSerializer = new Flurl.Http.Configuration.NewtonsoftJsonSerializer(new JsonSerializerSettings
                 {
                     ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() },
@@ -123,8 +122,8 @@ namespace GoogleCloudPrintApi
         {
             await UpdateTokenAsync(cancellationToken);
 
-			// use_cdd parameter must set to true if google cloud print version is 2.0
-			request.UseCdd = request.GCPVersion == "2.0" || request.UseCdd;
+            // use_cdd parameter must set to true if google cloud print version is 2.0
+            request.UseCdd = request.GCPVersion == "2.0" || request.UseCdd;
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("update")
@@ -276,15 +275,15 @@ namespace GoogleCloudPrintApi
         /// <param name="request">Parameters for /submit interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-		public async Task<JobResponse<SubmitRequest>> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
-		{
+		public async Task<JobResponse<SubmitRequest>> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        {
             await UpdateTokenAsync(cancellationToken);
 
-			return await GoogleCloudPrintBaseUrl
-				.AppendPathSegment("submit")
-				.WithOAuthBearerToken(_token.AccessToken)
-                .PostMultipartAsync(mp => {
-
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("submit")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostMultipartAsync(mp =>
+                {
                     // Basic information
                     mp.AddString("printerid", request.PrinterId)
                       .AddString("title", request.Title);
@@ -294,7 +293,7 @@ namespace GoogleCloudPrintApi
                         mp.AddJson("ticket", request.Ticket);
                     else if (!string.IsNullOrEmpty(request.Capabilities))
                         mp.AddString("capabilities", request.Capabilities);
-                    
+
                     // Document information
                     if (request.Content is SubmitFileStream file)
                         mp.AddFile("content", file.File, file.FileName, file.ContentType)
@@ -304,44 +303,43 @@ namespace GoogleCloudPrintApi
                           .AddString("contentType", "url");
                     else
                         throw new GoogleCloudPrintException("Invalid file provided");
-                    
+
                     // Tags
                     if (request.Tag != null)
                         foreach (var tag in request.Tag)
                             mp.AddString("tag", tag);
-                
                 }, cancellationToken)
-				.ReceiveJsonButThrowIfFails<JobResponse<SubmitRequest>>()
-				.ConfigureAwait(false);
-		}
+                .ReceiveJsonButThrowIfFails<JobResponse<SubmitRequest>>()
+                .ConfigureAwait(false);
+        }
 
         /// <summary>
-        /// The /search interface returns a list of printers accessible to the authenticated user, filtered by various search options. 
+        /// The /search interface returns a list of printers accessible to the authenticated user, filtered by various search options.
         /// </summary>
         /// <param name="request">Parameters for /search interface</param>
         /// <param name="cancellationToken">Cancellation token</param>
         /// <returns>Response from google cloud</returns>
-		public async Task<PrintersResponse<SearchRequest>> SearchPrinterAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken)) 
-		{
+		public async Task<PrintersResponse<SearchRequest>> SearchPrinterAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        {
             await UpdateTokenAsync(cancellationToken);
 
-			return await GoogleCloudPrintBaseUrl
-				.AppendPathSegment("search")
-				.WithOAuthBearerToken(_token.AccessToken)
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("search")
+                .WithOAuthBearerToken(_token.AccessToken)
                 .PostRequestAsync(request, cancellationToken)
-				.ReceiveJsonButThrowIfFails<PrintersResponse<SearchRequest>>()
-				.ConfigureAwait(false);
-		}
+                .ReceiveJsonButThrowIfFails<PrintersResponse<SearchRequest>>()
+                .ConfigureAwait(false);
+        }
 
-		public async Task<UserProfile> GetUserProfileAsync(CancellationToken cancellationToken = default(CancellationToken))
-	    {
-		    await UpdateTokenAsync(cancellationToken);
+        public async Task<UserProfile> GetUserProfileAsync(CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await UpdateTokenAsync(cancellationToken);
 
             return await GoogleCloudUserProfileUrl
                 .WithOAuthBearerToken(_token.AccessToken)
                 .GetAsync(cancellationToken)
                 .ReceiveJsonButThrowIfFails<UserProfile>()
                 .ConfigureAwait(false);
-	    }
-	}
+        }
+    }
 }

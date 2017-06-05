@@ -9,7 +9,7 @@ namespace GoogleCloudPrintApi.Infrastructures
         {
             ContractResolver = new DefaultContractResolver
             {
-                NamingStrategy = new SnakeCaseNamingStrategy()  
+                NamingStrategy = new SnakeCaseNamingStrategy()
             },
             NullValueHandling = NullValueHandling.Ignore
         };

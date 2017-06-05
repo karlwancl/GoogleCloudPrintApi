@@ -2,7 +2,6 @@
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Capability that defines a default page-range selection on a device.
     /// </summary>
@@ -38,5 +37,4 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public IList<Interval> Default { get; private set; }
     }
-
 }

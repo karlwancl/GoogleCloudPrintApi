@@ -3,7 +3,6 @@ using Newtonsoft.Json.Converters;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// A localized human-readable string translated to a specific locale.
     /// It is recommended to include translations of custom strings only for locales
@@ -15,24 +14,18 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class LocalizedString
     {
-        public LocalizedString(Locale locale, string value)
-        {
-            StringLocale = locale;
-            Value = value;
-        }
-
         /// <summary>
         /// Locale that the string is translated to (required).
         /// </summary>
-        public Locale StringLocale { get; private set; }
+        public LocaleType Locale { get; set; }
 
         /// <summary>
         /// Translated content of the string (required).
         /// </summary>
-        public string Value { get; private set; }
+        public string Value { get; set; }
 
         [JsonConverter(typeof(StringEnumConverter))]
-        public enum Locale
+        public enum LocaleType
         {
             AF = 0,
             AM = 1,
@@ -139,5 +132,4 @@ namespace GoogleCloudPrintApi.Models.Printer
             ZU = 102
         }
     }
-
 }

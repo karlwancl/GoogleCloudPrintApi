@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Capability that defines the duplexing options available on a device.
     /// </summary>
@@ -38,5 +37,4 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public IList<Option> DuplexOption { get; private set; }
     }
-
 }

@@ -1,11 +1,5 @@
-﻿using GoogleCloudPrintApi.Infrastructures;
+﻿using GoogleCloudPrintApi.Attributes;
 using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GoogleCloudPrintApi.Attributes;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
@@ -19,31 +13,31 @@ namespace GoogleCloudPrintApi.Models.Printer
             /// <summary>
             /// Whether Privet local discovery is enabled (required).
             /// </summary>
-            [FormKey("local_discovery")]
+            [Form("local_discovery")]
             public bool LocalDiscovery { get; set; }
 
             /// <summary>
             /// Whether Privet access token API should be exposed on the local network.
             /// </summary>
-            [FormKey("access_token_enabled")]
+            [Form("access_token_enabled")]
             public bool AccessTokenEnabled { get; set; }
 
             /// <summary>
             /// Whether Privet local printing API should be exposed on the local network.
             /// </summary>
-            [FormKey("printer/local_printing_enabled"), JsonProperty("printer/local_printing_enabled")]
+            [Form("printer/local_printing_enabled"), JsonProperty("printer/local_printing_enabled")]
             public bool PrinterLocalPrintingEnabled { get; set; }
 
             /// <summary>
             /// Whether Privet local printing may send jobs to the server for conversion.
             /// </summary>
-            [FormKey("printer/conversion_printing_enabled"), JsonProperty("printer/conversion_printing_enabled")]
+            [Form("printer/conversion_printing_enabled"), JsonProperty("printer/conversion_printing_enabled")]
             public bool PrinterConversionPrintingEnabled { get; set; }
 
             /// <summary>
             /// Number of seconds between XMPP channel pings.
             /// </summary>
-            [FormKey("xmpp_timeout_value")]
+            [Form("xmpp_timeout_value")]
             public int XmppTimeoutValue { get; set; }
         }
 
@@ -54,7 +48,7 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// interface as necessary. Prohibited to be provided by clients. Always
         /// present in the local_settings field returned by the /printer interface.
         /// </summary>
-        [FormKey]
+
         public Settings Current { get; set; }
 
         /// <summary>
@@ -64,7 +58,7 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// /printer interface if a client has provided pending local settings but the
         /// device has not yet confirmed them as current.
         /// </summary>
-        [FormKey]
+
         public Settings Pending { get; set; }
     }
 }

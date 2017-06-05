@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating what margins to use (in microns).
     /// </summary>
@@ -26,5 +25,4 @@
         /// </summary>
         public int LeftMicrons { get; set; }
     }
-
 }

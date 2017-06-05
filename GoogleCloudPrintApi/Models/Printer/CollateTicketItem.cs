@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating whether to collate pages.
     /// </summary>
@@ -11,5 +10,4 @@
         /// </summary>
         public bool Collate { get; set; }
     }
-
 }

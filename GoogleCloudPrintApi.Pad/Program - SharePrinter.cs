@@ -7,7 +7,7 @@ namespace GoogleCloudPrintApi.Pad
 {
     internal partial class Program
     {
-        static void SharePrinter()
+        private static void SharePrinter()
         {
             var client = new GoogleCloudPrintClient(provider, token);
             var listRequest = new ListRequest { Proxy = proxy };
@@ -27,10 +27,10 @@ namespace GoogleCloudPrintApi.Pad
                     string account = Console.ReadLine();
                     var shareRequest = new ShareRequest
                     {
-                         PrinterId = printer.Id,
-                         Scope = account,
-                         Role = Role.USER,
-                         SkipNotification = false
+                        PrinterId = printer.Id,
+                        Scope = account,
+                        Role = Role.USER,
+                        SkipNotification = false
                     };
                     var shareResponse = client.SharePrinterAsync(shareRequest).Result;
                     if (shareResponse.Success)
@@ -43,7 +43,7 @@ namespace GoogleCloudPrintApi.Pad
                 Console.WriteLine("There is no printer in the list");
         }
 
-        static void UnsharePrinter()
+        private static void UnsharePrinter()
         {
             var client = new GoogleCloudPrintClient(provider, token);
             var listRequest = new ListRequest { Proxy = proxy };

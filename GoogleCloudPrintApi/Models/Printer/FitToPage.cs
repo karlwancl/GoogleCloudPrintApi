@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Capability that defines the page fitting options available on a device.
     /// </summary>
@@ -48,5 +47,4 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public IList<Option> FitToPageOption { get; private set; }
     }
-
 }

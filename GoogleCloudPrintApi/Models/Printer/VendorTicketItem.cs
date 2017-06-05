@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating what value for a vendor-specific capability to use.
     /// </summary>
@@ -16,5 +15,4 @@
         /// </summary>
         public string Value { get; set; }
     }
-
 }

@@ -1,6 +1,5 @@
 ﻿namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Ticket item indicating which color option to use.
     /// </summary>
@@ -16,5 +15,4 @@
         /// </summary>
         public Color.Type Type { get; set; }
     }
-
 }

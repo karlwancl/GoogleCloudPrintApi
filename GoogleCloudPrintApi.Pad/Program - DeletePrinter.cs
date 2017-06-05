@@ -6,14 +6,14 @@ namespace GoogleCloudPrintApi.Pad
 {
     internal partial class Program
     {
-        static void DeletePrinter()
+        private static void DeletePrinter()
         {
             var client = new GoogleCloudPrintClient(provider, token);
             var listRequest = new ListRequest { Proxy = proxy };
             var listResponse = client.ListPrinterAsync(listRequest).Result;
             if (listResponse.Printers != null && listResponse.Printers.Any())
             {
-                for (int i=0; i<listResponse.Printers.Count(); i++)
+                for (int i = 0; i < listResponse.Printers.Count(); i++)
                 {
                     Console.WriteLine($"{i + 1}. {listResponse.Printers.ElementAt(i).DisplayName}");
                 }

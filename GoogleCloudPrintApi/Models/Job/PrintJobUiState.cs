@@ -1,10 +1,5 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Models.Job
 {
@@ -24,9 +19,9 @@ namespace GoogleCloudPrintApi.Models.Job
         }
 
         public SummaryType Summary { get; set; }
-        
+
         public string Progress { get; set; }
-        
+
         public string Cause { get; set; }
     }
 }

@@ -1,22 +1,18 @@
 ﻿using Flurl.Http;
+using GoogleCloudPrintApi.Attributes;
 using GoogleCloudPrintApi.Exception;
 using Newtonsoft.Json;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Reflection;
-using System.Linq;
-using GoogleCloudPrintApi.Attributes;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using System.Reflection;
 using System.Threading;
-using System.Collections;
-using GoogleCloudPrintApi.Models.Application;
-using Flurl.Http.Content;
-using System.IO;
+using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
-    static class HttpExtensions
+    internal static class HttpExtensions
     {
         public static async Task<T> ReceiveJsonButThrowIfTagExists<T>(this Task<HttpResponseMessage> responseTask, string tag)
         {
@@ -36,7 +32,7 @@ namespace GoogleCloudPrintApi.Infrastructures
         {
             // Get all form keys from request
             var keys = request.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance | BindingFlags.DeclaredOnly)
-                                  .Where(prop => prop.GetCustomAttribute<FormKeyAttribute>() != null);
+                                  .Where(prop => prop.GetCustomAttribute<FormIgnoreAttribute>() == null);
 
             // Get determination key for determine if the web call is a v2 call or not
             var v2DetKey = keys.SingleOrDefault(prop => prop.GetCustomAttribute<V2DeterminationKeyAttribute>() != null);
@@ -44,40 +40,37 @@ namespace GoogleCloudPrintApi.Infrastructures
             if (isV2 && v2DetKey.GetCustomAttribute<V2DeterminationKeyAttribute>().IsByVersionNumber)
                 isV2 &= v2DetKey.GetValue(request).ToString() == "2.0";
 
-            Func<PropertyInfo, string> keyName = prop => prop.GetCustomAttribute<FormKeyAttribute>()?.Name ?? prop.Name.ToLower();
+            // Get keys to process
+            var keysToProcess = keys.Except(keys.Where(k => k.GetCustomAttribute<FormAttribute>()?.IsFor.Equals(isV2 ? VersionOption.V1 : VersionOption.V2) ?? false));
 
-            var optionsToProcess = new List<VersionOption>
+            // Check null for required keys
+            foreach (var option in new List<VersionOption> { isV2 ? VersionOption.V2 : VersionOption.V1, VersionOption.All })
             {
-                isV2 ? VersionOption.V2 : VersionOption.V1,
-                VersionOption.All
-            };
-
-            var form = new Dictionary<string, string>();
-            foreach (var option in optionsToProcess)
-            {
-                var oKeys = keys.Where(k => k.GetCustomAttribute<FormKeyAttribute>().IsFor.Equals(option));
-
-                // Check null for required keys
-                var invalidOKeys = oKeys.Where(ok => ok.GetCustomAttribute<FormKeyAttribute>().IsRequiredFor.HasFlag(option) && ok.GetValue(request) == null);
-                if (invalidOKeys.Any())
-                    throw new KeyRequiredException(invalidOKeys.Select(k => k.Name).ToArray());
-
-                oKeys.Where(ok => ok.GetValue(request) != null)
-                     .ToList()
-                     .ForEach(ok =>
-                {
-                    if (ok.GetValue(request) is IEnumerable<string> list)
-                        foreach (var item in list)
-                            form.Add(keyName(ok), item);
-                    else
-                    {
-                        var objValue = ok.GetValue(request);
-                        if (!(objValue is bool && ok.GetCustomAttribute<FormKeyAttribute>().AddKeyOnlyIfBoolTrue && !(bool)objValue))
-                            form.Add(keyName(ok), ok.PropertyType.IsSimpleType() ?
-                                     objValue.ToString() : JsonConvert.SerializeObject(ok.GetValue(request), SerializationHelper.SerializationSettings));
-                    }
-                });
+                var keysToValidate = keysToProcess.Where(k => k.GetCustomAttribute<FormAttribute>()?.IsFor.Equals(option) ?? false);
+                var invalidKeys = keysToValidate.Where(k => (k.GetCustomAttribute<FormAttribute>()?.IsRequiredFor.HasFlag(option) ?? false) && k.GetValue(request) == null);
+                if (invalidKeys.Any())
+                    throw new KeyRequiredException(invalidKeys.Select(k => k.Name).ToArray());
             }
+
+            Func<PropertyInfo, string> keyName = prop => prop.GetCustomAttribute<FormAttribute>()?.Name ?? prop.Name.ToLower();
+
+            // Process keys to form
+            var form = new Dictionary<string, string>();
+            keysToProcess.Where(ok => ok.GetValue(request) != null)
+                 .ToList()
+                 .ForEach(ok =>
+            {
+                if (ok.GetValue(request) is IEnumerable<string> list)
+                    foreach (var item in list)
+                        form.Add(keyName(ok), item);
+                else
+                {
+                    var objValue = ok.GetValue(request);
+                    if (!(objValue is bool && ok.GetCustomAttribute<FormAttribute>().AddKeyOnlyIfBoolTrue && !(bool)objValue))
+                        form.Add(keyName(ok), ok.PropertyType.IsSimpleType() ?
+                                 objValue.ToString() : JsonConvert.SerializeObject(ok.GetValue(request), SerializationHelper.SerializationSettings));
+                }
+            });
 
             return isMultipart ? await client.PostMultipartAsync(mp => mp.AddStringParts(form)) : await client.PostUrlEncodedAsync(form, token);
         }

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Capability that defines the page orientation options available on a device.
     /// </summary>
@@ -41,5 +40,4 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public IList<Option> PageOrientationOption { get; private set; }
     }
-
 }

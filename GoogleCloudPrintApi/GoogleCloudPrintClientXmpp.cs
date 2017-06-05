@@ -1,6 +1,4 @@
 ﻿using GoogleCloudPrintApi.Exception;
-using GoogleCloudPrintApi.Infrastructures;
-using GoogleCloudPrintApi.Models;
 using System;
 using System.IO;
 using System.Net.Security;
@@ -18,6 +16,7 @@ namespace GoogleCloudPrintApi
     {
         // Consts
         private const string xmppServerHost = "talk.google.com";
+
         private const int xmppServerPort = 5223;
 
         // Stream / Connection

@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
-
     /// <summary>
     /// Capability that defines the color options available on a device.
     /// </summary>
@@ -42,7 +41,7 @@ namespace GoogleCloudPrintApi.Models.Printer
             public string VendorId { get; private set; }
 
             /// <summary>
-            /// Type of color option used in UIs to differentiate color and non-color 
+            /// Type of color option used in UIs to differentiate color and non-color
             /// options (required). Note that there can be any number of options of type
             /// CUSTOM_COLOR and CUSTOM_MONOCHROME, but there should be at most one
             /// option of each of the other types.
@@ -73,5 +72,4 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public IList<Option> ColorOption { get; private set; }
     }
-
 }

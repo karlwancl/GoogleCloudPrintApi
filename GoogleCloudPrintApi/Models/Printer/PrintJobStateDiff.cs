@@ -1,11 +1,4 @@
-﻿using GoogleCloudPrintApi.Infrastructures;
-using GoogleCloudPrintApi.Models.Job;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using GoogleCloudPrintApi.Models.Job;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {

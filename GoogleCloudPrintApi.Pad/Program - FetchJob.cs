@@ -7,11 +7,10 @@ namespace GoogleCloudPrintApi.Pad
 {
     internal partial class Program
     {
-        static void FetchJob()
+        private static void FetchJob()
         {
             try
             {
-
                 var client = new GoogleCloudPrintClient(provider, token);
 
                 var listRequest = new ListRequest { Proxy = proxy };
@@ -57,7 +56,6 @@ namespace GoogleCloudPrintApi.Pad
                                     var updateResponse = client.UpdateJobStatusAsync(updateRequest).Result;
                                     Console.WriteLine($"Update job status: {updateResponse.Success}");
                                 }
-
                             }
                             else
                                 Console.WriteLine("Fail to choose print job");

@@ -1,8 +1,8 @@
-﻿using Flurl.Http;
+﻿using Flurl;
+using Flurl.Http;
 using GoogleCloudPrintApi.Models;
-using System.Threading.Tasks;
-using Flurl;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace GoogleCloudPrintApi.Infrastructures
 {
@@ -61,14 +61,14 @@ namespace GoogleCloudPrintApi.Infrastructures
                 .ToString();
         }
 
-		/// <summary>
-		/// Get refresh token from authorization code
-		/// </summary>
-		/// <param name="authorizationCode">Authorization code</param>
-		/// <param name="redirectUrl">Same redirect uri used when building authorization url</param>
-		/// <param name="cancellationToken">Cancellation token</param>
-		/// <returns>Refresh token & access token</returns>
-		public async Task<Token> GenerateRefreshTokenAsync(string authorizationCode, string redirectUrl = null, CancellationToken cancellationToken = default(CancellationToken))
+        /// <summary>
+        /// Get refresh token from authorization code
+        /// </summary>
+        /// <param name="authorizationCode">Authorization code</param>
+        /// <param name="redirectUrl">Same redirect uri used when building authorization url</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Refresh token & access token</returns>
+        public async Task<Token> GenerateRefreshTokenAsync(string authorizationCode, string redirectUrl = null, CancellationToken cancellationToken = default(CancellationToken))
         {
             return await GoogleAccountOAuth2TokenUri
                 .PostUrlEncodedAsync(new
@@ -92,7 +92,7 @@ namespace GoogleCloudPrintApi.Infrastructures
         public async Task<Token> GenerateAccessTokenAsync(string refreshToken, CancellationToken cancellationToken = default(CancellationToken))
         {
             var token = await GoogleApiOAuth2TokenUri
-                .PostUrlEncodedAsync( new
+                .PostUrlEncodedAsync(new
                 {
                     client_id = _clientId,
                     client_secret = _clientSecret,
@@ -102,8 +102,8 @@ namespace GoogleCloudPrintApi.Infrastructures
                 .ReceiveJson<Token>()
                 .ConfigureAwait(false);
 
-	        token.RefreshToken = refreshToken;
-			return token;
+            token.RefreshToken = refreshToken;
+            return token;
         }
     }
 }

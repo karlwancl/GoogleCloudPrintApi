@@ -1,11 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using GoogleCloudPrintApi.Attributes;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GoogleCloudPrintApi.Attributes;
 
 namespace GoogleCloudPrintApi.Models.Job
 {
@@ -36,7 +31,7 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            [FormKey("action_code")]
+            [Form("action_code")]
             public ActionCodeType ActionCode { get; set; }
         }
 
@@ -53,7 +48,7 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            [FormKey("error_code")]
+            [Form("error_code")]
             public ErrorCodeType ErrorCode { get; set; }
         }
 
@@ -68,7 +63,7 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            [FormKey("error_code")]
+            [Form("error_code")]
             public ErrorCodeType ErrorCode { get; set; }
         }
 
@@ -96,23 +91,22 @@ namespace GoogleCloudPrintApi.Models.Job
                 OTHER = 100
             }
 
-            [FormKey("error_code")]
+            [Form("error_code")]
             public ErrorCodeType ErrorCode { get; set; }
         }
 
-        [FormKey]
         public TypeType Type { get; set; }
 
-        [FormKey("user_action_cause")]
-		public UserActionCauseObject UserActionCause { get; set; }
+        [Form("user_action_cause")]
+        public UserActionCauseObject UserActionCause { get; set; }
 
-        [FormKey("device_state_cause")]
-		public DeviceStateCauseObject DeviceStateCause { get; set; }
+        [Form("device_state_cause")]
+        public DeviceStateCauseObject DeviceStateCause { get; set; }
 
-        [FormKey("device_action_cause")]
-		public DeviceActionCauseObject DeviceActionCause { get; set; }
+        [Form("device_action_cause")]
+        public DeviceActionCauseObject DeviceActionCause { get; set; }
 
-        [FormKey("service_action_cause")]
-		public ServiceActionCauseObject ServiceActionCause { get; set; }
+        [Form("service_action_cause")]
+        public ServiceActionCauseObject ServiceActionCause { get; set; }
     }
 }

@@ -1,10 +1,6 @@
 ﻿using GoogleCloudPrintApi.Attributes;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.Collections.Generic;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
@@ -15,65 +11,65 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// </summary>
         public string Id { get; set; }
 
-		/// <summary>
-		/// system name of the printer
-		/// </summary>
+        /// <summary>
+        /// system name of the printer
+        /// </summary>
         public string Name { get; set; }
 
-		/// <summary>
-		/// default printer display name
-		/// </summary>
+        /// <summary>
+        /// default printer display name
+        /// </summary>
         [JsonProperty("defaultDisplayName")]  // Don't know why Json.NET do not parse it correctly
         public string DefaultDisplayName { get; set; }
 
-		/// <summary>
-		/// user-specified printer display name
-		/// </summary>
+        /// <summary>
+        /// user-specified printer display name
+        /// </summary>
         [JsonProperty("displayName")]  // Don't know why Json.NET do not parse it correctly
         public string DisplayName { get; set; }
 
-		/// <summary>
-		/// descriptive string about the printer
-		/// </summary>
+        /// <summary>
+        /// descriptive string about the printer
+        /// </summary>
         public string Description { get; set; }
 
-		/// <summary>
-		/// printer type (for possible types see the /search interface "type" parameter below)
-		/// </summary>
+        /// <summary>
+        /// printer type (for possible types see the /search interface "type" parameter below)
+        /// </summary>
         public PrinterType Type { get; set; }
 
-		/// <summary>
-		/// connector through which this printer is run, if any
-		/// </summary>
-        public string Proxy { get;set; }
+        /// <summary>
+        /// connector through which this printer is run, if any
+        /// </summary>
+        public string Proxy { get; set; }
 
-		/// <summary>
-		/// timestamp of when the printer was registered
-		/// </summary>
+        /// <summary>
+        /// timestamp of when the printer was registered
+        /// </summary>
         [JsonProperty("createTime")]
         public long CreateTime { get; set; }
 
-		/// <summary>
-		/// timestamp of last /fetch request sent by the printer (if the printer has never sent a /fetch, this field is equal to createTime)
-		/// </summary>
+        /// <summary>
+        /// timestamp of last /fetch request sent by the printer (if the printer has never sent a /fetch, this field is equal to createTime)
+        /// </summary>
         [JsonProperty("accessTime")]
         public long AccessTime { get; set; }
 
-		/// <summary>
-		/// timestamp of last /update performed on the printer
-		/// </summary>
+        /// <summary>
+        /// timestamp of last /update performed on the printer
+        /// </summary>
         [JsonProperty("updateTime")]
         public long UpdateTime { get; set; }
 
-		/// <summary>
-		/// whether the user needs to accept the printer's terms of service
-		/// </summary>
+        /// <summary>
+        /// whether the user needs to accept the printer's terms of service
+        /// </summary>
         [JsonProperty("isTosAccepted")]
         public bool IsTosAccepted { get; set; }
 
-		/// <summary>
-		/// array of free-form strings provided by the printer/proxy or the Cloud Print server – any of the tags ^recent, ^connector, ^own, ^shared_directly, ^can_share, ^can_update, ^can_delete may be added by the server
-		/// </summary>
+        /// <summary>
+        /// array of free-form strings provided by the printer/proxy or the Cloud Print server – any of the tags ^recent, ^connector, ^own, ^shared_directly, ^can_share, ^can_update, ^can_delete may be added by the server
+        /// </summary>
         public List<string> Tags { get; set; }
 
         /// <summary>
@@ -104,7 +100,7 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// printer owner's name
         /// </summary>
         [JsonProperty("ownerName")]
-        public string OwnerName { get;private  set; }
+        public string OwnerName { get; private set; }
 
         /// <summary>
         /// printer's access control list, see Printer ACL
@@ -191,7 +187,7 @@ namespace GoogleCloudPrintApi.Models.Printer
         [JsonProperty("supportedContentTypes")]
         public string SupportedContentTypes { get; set; }
 
-        #endregion
+        #endregion GCP2.0 Printer fields
 
         #region Extra fields
 
@@ -217,6 +213,6 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// </summary>
         public int QueuedJobsCount { get; set; }
 
-        #endregion
+        #endregion Extra fields
     }
 }
