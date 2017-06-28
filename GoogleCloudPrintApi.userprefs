@@ -1,9 +1,7 @@
 ﻿<Properties StartupConfiguration="{4A5542F6-AA01-4364-A32E-424E6F6A13D8}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GoogleCloudPrintApi/Models/Printer/InputTrayUnit.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GoogleCloudPrintApi.Pad/Program.cs">
     <Files>
-      <File FileName="GoogleCloudPrintApi/Models/Printer/CloudDeviceDescription.cs" Line="18" Column="34" />
-      <File FileName="GoogleCloudPrintApi/Models/Printer/PrinterDescriptionSection.cs" Line="32" Column="22" />
-      <File FileName="GoogleCloudPrintApi/Models/Printer/InputTrayUnit.cs" Line="26" Column="17" />
+      <File FileName="GoogleCloudPrintApi.Pad/Program.cs" Line="1" Column="1" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
