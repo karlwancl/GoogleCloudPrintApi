@@ -1,6 +1,7 @@
 # GoogleCloudPrintApi
 [![Build status](https://ci.appveyor.com/api/projects/status/anj9864jo6fhg871?svg=true)](https://ci.appveyor.com/project/lppkarl/googlecloudprintapi)
 [![NuGet](https://img.shields.io/nuget/v/GoogleCloudPrintApi.svg)](https://www.nuget.org/packages/GoogleCloudPrintApi/)
+[![NuGet](https://img.shields.io/nuget/dt/GoogleCloudPrintApi.svg)](https://www.nuget.org/packages/GoogleCloudPrintApi/)
 [![license](https://img.shields.io/github/license/lppkarl/GoogleCloudPrintApi.svg)](https://github.com/lppkarl/GoogleCloudPrintApi/blob/master/LICENSE)
 
 A .NET wrapper for Google Cloud Print API. This library is based on .NET standard 1.4, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
