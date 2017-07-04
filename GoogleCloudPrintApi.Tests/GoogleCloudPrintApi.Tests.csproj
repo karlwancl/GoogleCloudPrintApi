@@ -10,4 +10,24 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\GoogleCloudPrintApi\GoogleCloudPrintApi.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="proxy.txt" />
+    <None Remove="token.txt" />
+    <None Remove="capabilities.json" />
+    <None Remove="capabilities.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="proxy.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="token.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="capabilities.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

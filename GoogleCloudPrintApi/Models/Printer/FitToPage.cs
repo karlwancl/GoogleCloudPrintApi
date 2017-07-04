@@ -9,11 +9,6 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class FitToPage
     {
-        public FitToPage(IList<Option> option)
-        {
-            FitToPageOption = option;
-        }
-
         /// <summary>
         /// Enumeration of page fitting algorithms. The "page" is defined as the media
         /// size minus any given margins.
@@ -30,21 +25,15 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public class Option
         {
-            public Option(Type type, bool is_default)
-            {
-                Type = type;
-                IsDefault = is_default;
-            }
-
             /// <summary>
             /// Enumeration of page fitting algorithms. The "page" is defined as the media
             /// size minus any given margins.
             /// </summary>
-            public Type Type { get; private set; }
+            public Type? Type { get; set; }
 
-            public bool IsDefault { get; private set; } = false;
+            public bool? IsDefault { get; set; }
         }
 
-        public IList<Option> FitToPageOption { get; private set; }
+        public IList<Option> FitToPageOption { get; set; }
     }
 }

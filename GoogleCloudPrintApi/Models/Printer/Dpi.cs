@@ -13,13 +13,13 @@ namespace GoogleCloudPrintApi.Models.Printer
 			/// Horizontal DPI (required).
 			/// </summary>
 			/// <value>The horizontal API.</value>
-			public int HorizontalApi { get; set; }
+			public int? HorizontalApi { get; set; }
 
 			/// <summary>
 			/// Vertical DPI (required).
 			/// </summary>
 			/// <value>The vertical API.</value>
-			public int VerticalApi { get; set; }
+			public int? VerticalApi { get; set; }
 
             /// <summary>
             /// Gets or sets a value indicating whether this
@@ -55,12 +55,12 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public IList<OptionType> Option { get; set; }
 
-        public int MinHorizontalDpi { get; set; }
+        public int? MinHorizontalDpi { get; set; }
 
-        public int MaxHorizontalDpi { get; set; }
+        public int? MaxHorizontalDpi { get; set; }
 
-        public int MinVerticalDpi { get; set; }
+        public int? MinVerticalDpi { get; set; }
 
-        public int MaxVerticalDpi { get; set; }
+        public int? MaxVerticalDpi { get; set; }
     }
 }

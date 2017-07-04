@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
@@ -8,7 +10,8 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class VendorCapability
     {
-        public enum TypeType
+        [JsonConverter(typeof(StringEnumConverter))]
+		public enum TypeType
         {
             RANGE,
             SELECT,
@@ -34,7 +37,7 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// Type of this capability (required).
         /// </summary>
         /// <value>The type.</value>
-        public TypeType Type { get; set; }
+        public TypeType? Type { get; set; }
 
         /// <summary>
         /// Range-based capability definition.

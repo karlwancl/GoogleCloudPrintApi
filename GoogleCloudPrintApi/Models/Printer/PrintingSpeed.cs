@@ -7,16 +7,16 @@ namespace GoogleCloudPrintApi.Models.Printer
 	/// </summary>
 	public class PrintingSpeed
     {
-		/// <summary>
-		/// Available speed of the printer.
-		/// </summary>
-		public class OptionType
+        /// <summary>
+        /// Available speed of the printer.
+        /// </summary>
+        public class OptionType
         {
 			/// <summary>
 			/// Speed measured in pages per minute (required).
 			/// </summary>
 			/// <value>The speed ppm.</value>
-			public float SpeedPpm { get; set; }
+			public float? SpeedPpm { get; set; }
 
 			/// <summary>
 			/// Types of color settings that operate at this speed.

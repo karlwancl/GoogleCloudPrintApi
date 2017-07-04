@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.IO;
 
-namespace GoogleCloudPrintApi.Pad
+namespace GoogleCloudPrintApi.Samples
 {
     internal partial class Program
     {
@@ -24,14 +24,14 @@ namespace GoogleCloudPrintApi.Pad
 
         private static Models.Token GenerateAndSaveToken()
         {
-            var url = provider.BuildAuthorizationUrl();
+            var url = provider.BuildAuthorizationUrl("http://127.0.0.1");
             Console.WriteLine($"{url} will be opened");
 
             var process = Process.Start("/Applications/Google Chrome.app/Contents/MacOS/Google Chrome", url);
             Console.Write("Please paste the authorization code to continue: ");
 
             var authCode = Console.ReadLine();
-            var token = provider.GenerateRefreshTokenAsync(authCode).Result;
+            var token = provider.GenerateRefreshTokenAsync(authCode, "http://127.0.0.1").Result;
             SaveToken(token);
             return token;
         }

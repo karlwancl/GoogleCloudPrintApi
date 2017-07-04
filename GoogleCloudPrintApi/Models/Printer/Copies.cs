@@ -10,12 +10,12 @@
         /// Gets or sets the default.
         /// </summary>
         /// <value>The default.</value>
-        public int Default { get; set; }
+        public int? Default { get; set; }
 
         /// <summary>
         /// Gets or sets the max.
         /// </summary>
         /// <value>The max.</value>
-        public int Max { get; set; }
+        public int? Max { get; set; }
     }
 }

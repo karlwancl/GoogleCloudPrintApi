@@ -1,11 +1,15 @@
-﻿namespace GoogleCloudPrintApi.Models.Printer
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace GoogleCloudPrintApi.Models.Printer
 {
 	/// <summary>
 	/// Message that stores capability information specific to typed-value-based capabilities.
 	/// </summary>
 	public class TypedValueCapability
     {
-        public enum ValueTypeType
+        [JsonConverter(typeof(StringEnumConverter))]
+		public enum ValueTypeType
         {
             BOOLEAN,
             FLOAT,
@@ -17,7 +21,7 @@
 		/// Type of data of the typed-value capability (required).
 		/// </summary>
 		/// <value>The type of the value.</value>
-		public ValueTypeType ValueType { get; set; }
+		public ValueTypeType? ValueType { get; set; }
 
 		/// <summary>
 		/// Default value of the typed-value capability.

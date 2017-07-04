@@ -31,7 +31,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 			/// <see cref="T:GoogleCloudPrintApi.Models.Printer.SelectCapability.Option"/> is default.
 			/// </summary>
 			/// <value><c>true</c> if is default; otherwise, <c>false</c>.</value>
-			public bool IsDefault { get; set; } = false;
+			public bool? IsDefault { get; set; }
 
 			/// <summary>
 			/// Translations of display name of the option. If not empty, must contain an entry with locale == EN.

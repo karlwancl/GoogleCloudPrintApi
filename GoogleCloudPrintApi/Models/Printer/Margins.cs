@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
@@ -12,6 +14,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// types to semantically describe the margins option. This type will be used
 		/// for UI purposes only.
 		/// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
 		public enum TypeType
         {
             BORDERLESS,
@@ -25,38 +28,38 @@ namespace GoogleCloudPrintApi.Models.Printer
 			/// Type of margin option (required).
 			/// </summary>
 			/// <value>The type.</value>
-			public TypeType Type { get; set; }
+			public TypeType? Type { get; set; }
 
 			/// <summary>
 			/// Top margin of the page (required).
 			/// </summary>
 			/// <value>The top microns.</value>
-			public int TopMicrons { get; set; }
+			public int? TopMicrons { get; set; }
 
 			/// <summary>
 			/// Right margin of the page (required).
 			/// </summary>
 			/// <value>The right microns.</value>
-			public int RightMicrons { get; set; }
+			public int? RightMicrons { get; set; }
 
 			/// <summary>
 			/// Bottom margin of the page (required).
 			/// </summary>
 			/// <value>The bottom microns.</value>
-			public int BottomMicrons { get; set; }
+			public int? BottomMicrons { get; set; }
 
 			/// <summary>
 			/// Left margin of the page (required).
 			/// </summary>
 			/// <value>The left microns.</value>
-			public int LeftMicrons { get; set; }
+			public int? LeftMicrons { get; set; }
 
             /// <summary>
             /// Gets or sets a value indicating whether this
             /// <see cref="T:GoogleCloudPrintApi.Models.Printer.Margins.Option"/> is default.
             /// </summary>
             /// <value><c>true</c> if is default; otherwise, <c>false</c>.</value>
-            public bool IsDefault { get; set; } = false;
+            public bool? IsDefault { get; set; }
 		}
 
         public IList<OptionType> Option { get; set; }

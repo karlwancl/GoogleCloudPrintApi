@@ -5,6 +5,6 @@
 	/// </summary>
 	public class Collate
     {
-        public bool Default { get; set; } = true;
+        public bool? Default { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using System;
 using System.IO;
 using System.Linq;
 
-namespace GoogleCloudPrintApi.Pad
+namespace GoogleCloudPrintApi.Samples
 {
     internal partial class Program
     {

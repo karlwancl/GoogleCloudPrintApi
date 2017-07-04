@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
@@ -10,6 +12,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// <summary>
 		/// Enumeration of media size names. This is used for UI purposes.
 		/// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
 		public enum Name
         {
 			CUSTOM = 0,
@@ -191,7 +194,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public class OptionType
         {
-            public Name Name { get; set; }
+            public Name? Name { get; set; }
 
 			/// <summary>
 			/// Both of the fields ("width_microns" and "height_microns") are required
@@ -199,13 +202,13 @@ namespace GoogleCloudPrintApi.Models.Printer
 			/// to true only one of these fields is required.
 			/// </summary>
 			/// <value>The width microns.</value>
-			public int WidthMicrons { get; set; }
+			public int? WidthMicrons { get; set; }
 
-            public int HeightMicrons { get; set; }
+            public int? HeightMicrons { get; set; }
 
-            public bool IsContinuousFeed { get; set; }
+            public bool? IsContinuousFeed { get; set; }
 
-            public bool IsDefault { get; set; }
+            public bool? IsDefault { get; set; }
 
 			/// <summary>
 			/// Non-localized user-friendly string that represents this option.
@@ -234,12 +237,12 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public IList<OptionType> Option { get; set; }
 
-        public int MinWidthMicrons { get; set; }
+        public int? MinWidthMicrons { get; set; }
 
-        public int MaxWidthMicrons { get; set; }
+        public int? MaxWidthMicrons { get; set; }
 
-        public int MinHeightMicrons { get; set; }
+        public int? MinHeightMicrons { get; set; }
 
-        public int MaxHeightMicrons { get; set; }
+        public int? MaxHeightMicrons { get; set; }
     }
 }

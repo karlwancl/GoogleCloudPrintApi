@@ -17,7 +17,7 @@ namespace GoogleCloudPrintApi.Models.Printer
         /// <summary>
         /// Locale that the string is translated to (required).
         /// </summary>
-        public LocaleType Locale { get; set; }
+        public LocaleType? Locale { get; set; }
 
         /// <summary>
         /// Translated content of the string (required).

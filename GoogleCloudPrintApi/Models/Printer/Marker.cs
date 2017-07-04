@@ -26,9 +26,10 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// </summary>
 		public class ColorType
         {
-			/// <summary>
-			/// Enumeration of color types of the printer marker.
-			/// </summary>
+            /// <summary>
+            /// Enumeration of color types of the printer marker.
+            /// </summary>
+            [JsonConverter(typeof(StringEnumConverter))]
 			public enum TypeType
             {
                 CUSTOM = 0,
@@ -56,7 +57,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 			/// Required.
 			/// </summary>
 			/// <value>The type.</value>
-			public TypeType Type { get; set; }
+			public TypeType? Type { get; set; }
 
 			/// <summary>
 			/// Non-localized custom display name of the color.
@@ -85,7 +86,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// Type of marker (required).
 		/// </summary>
 		/// <value>The type.</value>
-		public TypeType Type
+		public TypeType? Type
         {
             get;
             set;

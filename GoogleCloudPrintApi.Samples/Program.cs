@@ -1,12 +1,12 @@
 ﻿using System;
 using System.IO;
 
-namespace GoogleCloudPrintApi.Pad
+namespace GoogleCloudPrintApi.Samples
 {
     partial class Program
     {
-        private const string ClientId = "1043593901426-7puk1uucb5qmgac8cnnocv48qivaptvv.apps.googleusercontent.com";
-        private const string ClientSecret = "NSdjucZucgNdLl9eANIswkXJ";
+		private const string ClientId = "125548135131-6ge2gii5efpsc429qh9rrtst11fs170j.apps.googleusercontent.com";
+		private const string ClientSecret = "diYPHKvQ3VeCt_ky8LFQlvFS";
         private const string TokenPath = "token.txt";
         private const string ProxyPath = "proxy.txt";
         private const string TicketFolderPath = "ticket";
@@ -100,7 +100,7 @@ namespace GoogleCloudPrintApi.Pad
             client.OnXmppDebugLogging += Client_OnXmppLogging;
             client.OnIncomingPrintJobs += Client_OnIncomingPrintJobs;
             client.OnTokenUpdated += Client_OnTokenUpdated;
-            await client.InitXmppAsync("salmonthinlion");
+            await client.InitXmppAsync("lppkarl");
             //client.StopXmppAndCleanup();
         }
 

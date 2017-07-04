@@ -8,6 +8,6 @@
         /// <summary>
         /// Type of duplexing (required).
         /// </summary>
-        public Duplex.Type Type { get; set; }
+        public Duplex.Type? Type { get; set; }
     }
 }

@@ -1,4 +1,7 @@
-﻿namespace GoogleCloudPrintApi.Models.Printer
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+
+namespace GoogleCloudPrintApi.Models.Printer
 {
     /// <summary>
     /// Description of a cloud-enabled device's capabilities and properties. Also known as CDD.
@@ -22,5 +25,15 @@
         /// </summary>
         /// <value>The scanner.</value>
         public ScannerDescriptionSection Scanner { get; set; }
+    }
+
+    public static class CloudDeviceDescriptionExtension
+    {
+        public static string ToCapabilities(this CloudDeviceDescription cdd)
+            => JsonConvert.SerializeObject(cdd, Formatting.None, new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver { NamingStrategy = new SnakeCaseNamingStrategy() },
+                NullValueHandling = NullValueHandling.Ignore
+            });
     }
 }

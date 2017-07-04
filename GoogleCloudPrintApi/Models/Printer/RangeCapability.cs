@@ -1,18 +1,22 @@
-﻿namespace GoogleCloudPrintApi.Models.Printer
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+
+namespace GoogleCloudPrintApi.Models.Printer
 {
 	/// <summary>
 	/// Message that stores capability information specific to range-based capabilities.
 	/// </summary>
 	public class RangeCapability
     {
-        public enum ValueTypeType
+        [JsonConverter(typeof(StringEnumConverter))]
+		public enum ValueTypeType
         {
             FLOAT,
             INTEGER
         }
 
 		// Data type of the value of the range capability (required).
-        public ValueTypeType ValueType { get; set; }
+        public ValueTypeType? ValueType { get; set; }
 
         public string Default { get; set; }
 

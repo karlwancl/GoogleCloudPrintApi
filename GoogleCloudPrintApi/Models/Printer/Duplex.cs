@@ -9,11 +9,6 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class Duplex
     {
-        public Duplex(IList<Option> option)
-        {
-            DuplexOption = option;
-        }
-
         [JsonConverter(typeof(StringEnumConverter))]
         public enum Type
         {
@@ -24,17 +19,11 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public class Option
         {
-            public Option(Type type, bool is_default)
-            {
-                Type = type;
-                IsDefault = is_default;
-            }
+            public Type? Type { get; set; }
 
-            public Type Type { get; private set; } = Type.NO_DUPLEX;
-
-            public bool IsDefault { get; private set; } = false;
+            public bool? IsDefault { get; set; }
         }
 
-        public IList<Option> DuplexOption { get; private set; }
+        public IList<Option> DuplexOption { get; set; }
     }
 }

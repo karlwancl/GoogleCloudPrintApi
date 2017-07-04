@@ -15,13 +15,13 @@ namespace GoogleCloudPrintApi.Models.Printer
 			/// Horizontal resolution in DPI.
 			/// </summary>
 			/// <value>The cross feed dir.</value>
-			public int CrossFeedDir { get; set; }
+			public int? CrossFeedDir { get; set; }
 
 			/// <summary>
 			/// Vertical resolution in DPI.
 			/// </summary>
 			/// <value>The feed dir.</value>
-			public int FeedDir { get; set; }
+			public int? FeedDir { get; set; }
         }
 
 		/// <summary>
@@ -46,13 +46,13 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// Instructs GCP that the printer wants to print pages from the last to the first. In that case GCP will stream PWG-raster pages in that order.
 		/// </summary>
 		/// <value><c>true</c> if reverse order streaming; otherwise, <c>false</c>.</value>
-		public bool ReverseOrderStreaming { get; set; }
+		public bool? ReverseOrderStreaming { get; set; }
 
 		/// <summary>
 		/// Instructs GCP that the printer prefers receiving pages rotated 180 degrees.
 		/// </summary>
 		/// <value><c>true</c> if rotate all pages; otherwise, <c>false</c>.</value>
-		public bool RotateAllPages { get; set; }
+		public bool? RotateAllPages { get; set; }
 
 		/// <summary>
 		///  Describes which transformation needs to be applied to back pages in duplexing in order to have them printed properly.

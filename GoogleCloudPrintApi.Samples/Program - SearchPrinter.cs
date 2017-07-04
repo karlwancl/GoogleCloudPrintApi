@@ -1,7 +1,7 @@
 ﻿using GoogleCloudPrintApi.Models.Application;
 using System;
 
-namespace GoogleCloudPrintApi.Pad
+namespace GoogleCloudPrintApi.Samples
 {
     internal partial class Program
     {

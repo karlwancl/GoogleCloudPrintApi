@@ -3,7 +3,7 @@ using GoogleCloudPrintApi.Models.Share;
 using System;
 using System.Linq;
 
-namespace GoogleCloudPrintApi.Pad
+namespace GoogleCloudPrintApi.Samples
 {
     internal partial class Program
     {

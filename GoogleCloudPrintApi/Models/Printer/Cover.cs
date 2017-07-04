@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
 
 namespace GoogleCloudPrintApi.Models.Printer
 {
@@ -10,6 +12,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// <summary>
 		/// Enumeration of cover types.
 		/// </summary>
+        [JsonConverter(typeof(StringEnumConverter))]
 		public enum TypeType
         {
             CUSTOM,
@@ -27,13 +30,13 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// Type of the cover (required).
 		/// </summary>
 		/// <value>The type.</value>
-		public TypeType Type { get; set; }
+		public TypeType? Type { get; set; }
 
 		/// <summary>
 		/// Index of the cover.
 		/// </summary>
 		/// <value>The index.</value>
-		public long Index { get; set; }
+		public long? Index { get; set; }
 
 		/// <summary>
 		/// Non-localized custom display name of the cover.

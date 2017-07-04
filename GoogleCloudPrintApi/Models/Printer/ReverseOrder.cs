@@ -5,6 +5,6 @@
 	/// </summary>
 	public class ReverseOrder
     {
-        public bool Default { get; set; } = false;
+        public bool? Default { get; set; }
     }
 }

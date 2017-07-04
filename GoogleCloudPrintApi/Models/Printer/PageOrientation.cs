@@ -9,11 +9,6 @@ namespace GoogleCloudPrintApi.Models.Printer
     /// </summary>
     public class PageOrientation
     {
-        public PageOrientation(IList<Option> option)
-        {
-            PageOrientationOption = option;
-        }
-
         [JsonConverter(typeof(StringEnumConverter))]
         public enum Type
         {
@@ -24,20 +19,14 @@ namespace GoogleCloudPrintApi.Models.Printer
 
         public class Option
         {
-            public Option(Type type, bool is_default)
-            {
-                Type = type;
-                IsDefault = is_default;
-            }
-
             /// <summary>
             /// Type of page orientation (required).
             /// </summary>
-            public Type Type { get; private set; }
+            public Type? Type { get; set; }
 
-            public bool IsDefault { get; private set; } = false;
+            public bool? IsDefault { get; set; }
         }
 
-        public IList<Option> PageOrientationOption { get; private set; }
+        public IList<Option> PageOrientationOption { get; set; }
     }
 }

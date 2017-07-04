@@ -28,7 +28,7 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// Type of output bin (required).
 		/// </summary>
 		/// <value>The type.</value>
-		public TypeType Type { get; set; }
+		public TypeType? Type { get; set; }
 
 		/// <summary>
 		/// Non-localized custom display name of the output bin.

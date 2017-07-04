@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleCloudPrintApi", "GoogleCloudPrintApi\GoogleCloudPrintApi.csproj", "{D7084B23-3C4D-472A-BA03-856B7AD0B018}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleCloudPrintApi.Pad", "GoogleCloudPrintApi.Pad\GoogleCloudPrintApi.Pad.csproj", "{4A5542F6-AA01-4364-A32E-424E6F6A13D8}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleCloudPrintApi.Tests", "GoogleCloudPrintApi.Tests\GoogleCloudPrintApi.Tests.csproj", "{037B554C-F005-43AA-97BD-EA6FEE9967FF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleCloudPrintApi.Initializer", "GoogleCloudPrintApi.Initializer\GoogleCloudPrintApi.Initializer.csproj", "{1832C401-7746-438F-94A4-D7007E68D494}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleCloudPrintApi.Samples", "GoogleCloudPrintApi.Samples\GoogleCloudPrintApi.Samples.csproj", "{D916AFFD-88DF-4A26-AC04-2BDF5F435904}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,14 +21,18 @@ Global
 		{D7084B23-3C4D-472A-BA03-856B7AD0B018}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D7084B23-3C4D-472A-BA03-856B7AD0B018}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D7084B23-3C4D-472A-BA03-856B7AD0B018}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4A5542F6-AA01-4364-A32E-424E6F6A13D8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4A5542F6-AA01-4364-A32E-424E6F6A13D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4A5542F6-AA01-4364-A32E-424E6F6A13D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4A5542F6-AA01-4364-A32E-424E6F6A13D8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{037B554C-F005-43AA-97BD-EA6FEE9967FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{037B554C-F005-43AA-97BD-EA6FEE9967FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{037B554C-F005-43AA-97BD-EA6FEE9967FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{037B554C-F005-43AA-97BD-EA6FEE9967FF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1832C401-7746-438F-94A4-D7007E68D494}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1832C401-7746-438F-94A4-D7007E68D494}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1832C401-7746-438F-94A4-D7007E68D494}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1832C401-7746-438F-94A4-D7007E68D494}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D916AFFD-88DF-4A26-AC04-2BDF5F435904}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D916AFFD-88DF-4A26-AC04-2BDF5F435904}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D916AFFD-88DF-4A26-AC04-2BDF5F435904}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D916AFFD-88DF-4A26-AC04-2BDF5F435904}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

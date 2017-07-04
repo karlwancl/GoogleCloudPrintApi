@@ -1,4 +1,8 @@
 # GoogleCloudPrintApi
+[![Build status](https://ci.appveyor.com/api/projects/status/anj9864jo6fhg871?svg=true)](https://ci.appveyor.com/project/lppkarl/googlecloudprintapi)
+[![NuGet](https://img.shields.io/nuget/v/GoogleCloudPrintApi.svg)](https://www.nuget.org/packages/GoogleCloudPrintApi/)
+[![license](https://img.shields.io/github/license/lppkarl/GoogleCloudPrintApi.svg)](https://github.com/lppkarl/GoogleCloudPrintApi/blob/master/LICENSE)
+
 A .NET wrapper for Google Cloud Print API. This library is based on .NET standard 1.4, can be run on .NET Core, .NET Framework, Xamarin.iOS, Xamarin.Android & Universal Windows Platform.
 
 ### Features
@@ -48,6 +52,7 @@ You can find the package through Nuget
 
 * Misc
 	* [Customized Web Call Using Internal Access Token](#CustomizedCall)
+	* [Create Cloud Device Description (CDD) for printer registration](#Cdd)]
 
 <a name="UsingTheLibrary"></a>
 #### Using the Library
@@ -57,9 +62,12 @@ You can find the package through Nuget
 <a name="FirstTimeTokenGeneration"></a>
 #### First-time token generation
 	var provider = new GoogleCloudPrintOAuth2Provider(clientId, clientSecret);
-	var url = provider.BuildAuthorizationUrl( /* Optional redirect uri */ );
+
+	// You should have your redirect uri here if your app is a server application, o.w. leaving blank is ok
+	var url = provider.BuildAuthorizationUrl(redirectUri);
+
 	/* Your method to retrieve authorization code from the above url */
-	var token = await provider.GenerateRefreshTokenAsync(authorizationCode, /* Optional redirect uri */);
+	var token = await provider.GenerateRefreshTokenAsync(authorizationCode, redirectUri);
 	
 <a name="InitializeGoogleCloudPrintClient"></a>
 #### Initialize Google Cloud Print Client
@@ -86,7 +94,8 @@ You can find the package through Nuget
 	{
 		Name = name,
 		Proxy = proxy,
-		Capabilities = capabilities
+		Capabilities = capabilities,
+		UseCdd = true	// If you're using the old xps format, you should ignore this property. o.w. it's required to set true. For more info on cdd format, please refer to "Create Cloud Device Description (CDD) for printer registration" topic
 	};
 	var response = await client.RegisterPrinterAsync(request);
 	
@@ -227,14 +236,71 @@ You can find the package through Nuget
 		}
 	}
 
+<a name="Cdd"></a>
+#### Create Cloud Device Description (CDD) for printer registration
+	// You can define your printer's capabilities by creating a cdd document for it
+	var cdd = new CloudDeviceDescription
+	{
+		Version = "1.0",
+		Printer = new PrinterDescriptionSection
+		{
+			SupportedContentType = new List<SupportedContentType>
+			{
+				new SupportedContentType{ ContentType = "application/pdf", MinVersion = "1.5"},
+				new SupportedContentType{ ContentType = "image/jpeg"},
+				new SupportedContentType{ ContentType = "text/plain"}
+			},
+			InputTrayUnit = new List<InputTrayUnit>
+			{
+				new InputTrayUnit{ VendorId ="tray", Type = InputTrayUnit.TypeType.INPUT_TRAY}
+			},
+			Marker = new List<Marker>
+			{
+				new Marker{ VendorId = "black", Type = Marker.TypeType.INK, Color = new Marker.ColorType{ Type = Marker.ColorType.TypeType.BLACK}},
+				new Marker{ VendorId= "color", Type = Marker.TypeType.INK, Color = new Marker.ColorType{ Type = Marker.ColorType.TypeType.COLOR}}
+			},
+			Cover = new List<Cover>
+			{
+				new Cover{VendorId = "front", Type = Cover.TypeType.CUSTOM, CustomDisplayName = "front cover"}
+			},
+			VendorCapability = new List<VendorCapability>(),
+			Color = new Color
+			{
+				Option = new List<Color.OptionType> {
+					new Color.OptionType {Type = Color.Type.STANDARD_MONOCHROME},
+					new Color.OptionType {Type = Color.Type.STANDARD_COLOR, IsDefault = true},
+					new Color.OptionType{VendorId = "ultra-color", Type = Color.Type.CUSTOM_COLOR, CustomDisplayName = "Best Color"}
+				}
+			},
+			Copies = new Copies { Default = 1, Max = 100 },
+			MediaSize = new MediaSize
+			{
+				Option = new List<MediaSize.OptionType>
+				{
+					new MediaSize.OptionType{ Name = MediaSize.Name.ISO_A4, WidthMicrons = 210000, HeightMicrons = 297000, IsDefault = true},
+					new MediaSize.OptionType{Name = MediaSize.Name.NA_LEGAL, WidthMicrons = 215900, HeightMicrons = 355600},
+					new MediaSize.OptionType{Name = MediaSize.Name.NA_LETTER, WidthMicrons = 215900, HeightMicrons = 279400}
+				}
+			}
+		}
+	} 
+
+	// The above cdd is equivalent to the example found in 
+	https://developers.google.com/cloud-print/docs/cdd#cdd
+
+	// After you get your cdd here, you may register the printer with it using
+	var request = new RegisterRequest
+	{
+		Name = name,
+		Proxy = proxy,
+		Capabilities = cdd.ToCapabilities(),
+		UseCdd = true
+	};
+	var response = await client.RegisterPrinterAsync(request);
+
 
 ### Powered by
 * [Flurl](https://github.com/tmenier/Flurl) ([@tmenier](https://github.com/tmenier)) - A very nice fluent-style rest api library
 
-### License
-This library is under [MIT License](https://github.com/salmonthinlion/GoogleCloudPrintApi/blob/master/LICENSE)
-
 ### Reference
 [Google Cloud Print API Reference](https://developers.google.com/cloud-print/docs/proxyinterfaces)
-	
-	

@@ -31,13 +31,13 @@ namespace GoogleCloudPrintApi.Models.Printer
 		/// Type of input tray (required).
 		/// </summary>
 		/// <value>The type.</value>
-		public TypeType Type { get; set; }
+		public TypeType? Type { get; set; }
 
 		/// <summary>
 		/// Index of the input tray.
 		/// </summary>
 		/// <value>The index.</value>
-		public long Index { get; set; }
+		public long? Index { get; set; }
 
 		/// <summary>
 		/// Non-localized custom display name of the input tray. New CDDs should use custom_display_name_localized instead.
