@@ -3,13 +3,14 @@
     <Description>A .NET wrapper for Google Cloud Print API, based on .NET standard 1.4</Description>
     <Copyright>Copyright (c) 2016-* Karl Wan</Copyright>
     <AssemblyTitle>GoogleCloudPrintApi</AssemblyTitle>
-    <VersionPrefix>1.4.0</VersionPrefix>
+    <VersionPrefix>1.4.1</VersionPrefix>
     <Authors>Karl Wan</Authors>
     <TargetFramework>netstandard1.4</TargetFramework>
     <AssemblyName>GoogleCloudPrintApi</AssemblyName>
     <PackageId>GoogleCloudPrintApi</PackageId>
     <PackageTags>Google;Cloud;Print;API</PackageTags>
     <PackageReleaseNotes>
+[15/07/2017] Minor update on "Save To Google Drive" printer (Thanks to @whttigress)
 [04/07/2017] Added helper class to help cdd capabilities creation for printer registration
 [02/06/2017] Added job submission and printer search (Thanks to @elacy for the implementation), Net452 package is no longer maintained
 [22/02/2017] Added xmpp client for new job notification (Thanks to @Jezternz for the code)
