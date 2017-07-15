@@ -8,6 +8,7 @@ namespace GoogleCloudPrintApi.Models.Share
     {
         USER,
         GROUP,
-        DOMAIN
+        DOMAIN,
+        PUBLIC
     }
 }
