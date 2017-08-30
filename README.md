@@ -46,6 +46,7 @@ You can find the package through Nuget
 * Job Management
 	* [Download Printed Job](#DownloadPrintedJob)
 	* [Submit Print Job](#SubmitPrintJob)
+	* [List Print Job](#ListPrintJob)
 
 * Sharing/Unsharing
 	* [Share Printer to Google User](#SharePrinter)
@@ -203,6 +204,18 @@ You can find the package through Nuget
 
 	// Submit request
 	var response = await client.SubmitJobAsync(request);
+
+<a name="ListPrintJob"></a>
+#### List Print Job
+    // Create a request to list jobs of a printer
+    var listRequest = new JobListRequest
+    {
+        PrinterId = printer.Id,
+        Status = "DONE"
+    };
+    
+    // Submit request
+    var response = await client.ListJobAsync(listRequest);
 
 <a name="SharePrinter"></a>
 #### Share printer to Google User
