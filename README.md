@@ -47,6 +47,7 @@ You can find the package through Nuget
 	* [Download Printed Job](#DownloadPrintedJob)
 	* [Submit Print Job](#SubmitPrintJob)
 	* [List Print Job](#ListPrintJob)
+	* [Delete Print Job](#DeletePrintJob)
 
 * Sharing/Unsharing
 	* [Share Printer to Google User](#SharePrinter)
@@ -216,6 +217,17 @@ You can find the package through Nuget
     
     // Submit request
     var response = await client.ListJobAsync(listRequest);
+
+<a name="DeletePrintJob"></a>
+#### Delete Print Job
+    // Create a request to delete a job in the printing queue
+    var deleteJobRequest = new DeleteJobRequest
+    {
+        JobId = jobId
+    };
+    
+    // Submit request
+    var response = await client.DeleteJobAsync(deleteJobRequest);
 
 <a name="SharePrinter"></a>
 #### Share printer to Google User
