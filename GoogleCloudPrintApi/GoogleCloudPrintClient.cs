@@ -132,6 +132,25 @@ namespace GoogleCloudPrintApi
                 .ReceiveJsonButThrowIfFails<PrinterResponse<UpdateRequest>>()
                 .ConfigureAwait(false);
         }
+
+        /// <summary>
+        /// Delete print job from google cloud
+        /// reference: https://developers.google.com/cloud-print/docs/appInterfaces#deletejob
+        /// </summary>
+        /// <param name="request">Parameters for /deletejob interface</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Response from google cloud</returns>
+        public async Task<JobsResponse<DeleteJobRequest>> DeleteJobAsync(DeleteJobRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        { 
+            await UpdateTokenAsync(cancellationToken);
+ 
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("deletejob")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<JobsResponse<DeleteJobRequest>>()
+                .ConfigureAwait(false);
+        }
  
         /// <summary>
         /// List print jobs from google cloud

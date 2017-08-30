@@ -20,6 +20,8 @@ namespace GoogleCloudPrintApi.Infrastructures
 
         Task<JobResponse<SubmitRequest>> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken));
 
+        Task<JobsResponse<DeleteJobRequest>> DeleteJobAsync(DeleteJobRequest request, CancellationToken cancellationToken = default(CancellationToken));      
+        
         Task<JobsResponse<JobListRequest>> ListJobAsync(JobListRequest request, CancellationToken cancellationToken = default(CancellationToken));        
         
         Task<JobsResponse<FetchRequest>> FetchJobAsync(FetchRequest request, CancellationToken cancellationToken = default(CancellationToken));
