@@ -132,6 +132,25 @@ namespace GoogleCloudPrintApi
                 .ReceiveJsonButThrowIfFails<PrinterResponse<UpdateRequest>>()
                 .ConfigureAwait(false);
         }
+ 
+        /// <summary>
+        /// List print jobs from google cloud
+        /// reference: https://developers.google.com/cloud-print/docs/appInterfaces#jobs
+        /// </summary>
+        /// <param name="request">Parameters for /jobs interface</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Response from google cloud</returns>
+        public async Task<JobsResponse<JobListRequest>> ListJobAsync(JobListRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await UpdateTokenAsync(cancellationToken);
+ 
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("jobs")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<JobsResponse<JobListRequest>>()
+                .ConfigureAwait(false);
+        }
 
         /// <summary>
         /// Fetch pending print jobs from google cloud
