@@ -14,6 +14,7 @@ A .NET wrapper for Google Cloud Print API. This library is based on .NET standar
 * Allows printer sharing to Google Accounts
 * Allows subscribing to new job notification from Google Cloud (Thanks to [@Jezternz](https://github.com/Jezternz) for providing the xmpp implementation)
 * Allows job submission to Google Cloud (Thanks to [@elacy](https://github.com/elacy) for providing the submission implementation)
+* Allows job listing & deletion (Thanks to [@sebthieti](https://github.com/sebthieti) for the implementation)
 
 ### Supported Platforms
 * .NET Core 1.0
