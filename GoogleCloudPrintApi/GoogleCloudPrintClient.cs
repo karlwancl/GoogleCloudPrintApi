@@ -134,6 +134,44 @@ namespace GoogleCloudPrintApi
         }
 
         /// <summary>
+        /// Delete print job from google cloud
+        /// reference: https://developers.google.com/cloud-print/docs/appInterfaces#deletejob
+        /// </summary>
+        /// <param name="request">Parameters for /deletejob interface</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Response from google cloud</returns>
+        public async Task<JobsResponse<DeleteJobRequest>> DeleteJobAsync(DeleteJobRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        { 
+            await UpdateTokenAsync(cancellationToken);
+ 
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("deletejob")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<JobsResponse<DeleteJobRequest>>()
+                .ConfigureAwait(false);
+        }
+ 
+        /// <summary>
+        /// List print jobs from google cloud
+        /// reference: https://developers.google.com/cloud-print/docs/appInterfaces#jobs
+        /// </summary>
+        /// <param name="request">Parameters for /jobs interface</param>
+        /// <param name="cancellationToken">Cancellation token</param>
+        /// <returns>Response from google cloud</returns>
+        public async Task<JobsResponse<JobListRequest>> ListJobAsync(JobListRequest request, CancellationToken cancellationToken = default(CancellationToken))
+        {
+            await UpdateTokenAsync(cancellationToken);
+ 
+            return await GoogleCloudPrintBaseUrl
+                .AppendPathSegment("jobs")
+                .WithOAuthBearerToken(_token.AccessToken)
+                .PostRequestAsync(request, cancellationToken)
+                .ReceiveJsonButThrowIfFails<JobsResponse<JobListRequest>>()
+                .ConfigureAwait(false);
+        }
+
+        /// <summary>
         /// Fetch pending print jobs from google cloud
         /// reference: https://developers.google.com/cloud-print/docs/proxyinterfaces#fetch
         /// </summary>
