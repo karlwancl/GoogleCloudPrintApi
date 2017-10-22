@@ -1,8 +1,11 @@
 ﻿<Properties StartupConfiguration="{1832C401-7746-438F-94A4-D7007E68D494}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="GoogleCloudPrintApi.Tests/Cdds.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="GoogleCloudPrintApi/GoogleCloudPrintApi.csproj">
     <Files>
       <File FileName="GoogleCloudPrintApi.Tests/Test.cs" Line="104" Column="13" />
       <File FileName="GoogleCloudPrintApi.Tests/Cdds.cs" Line="12" Column="26" />
+      <File FileName="GoogleCloudPrintApi/Infrastructures/GoogleClientBase.cs" Line="32" Column="30" />
+      <File FileName="GoogleCloudPrintApi/GoogleCloudPrintClient.cs" Line="360" Column="43" />
+      <File FileName="GoogleCloudPrintApi/GoogleCloudPrintApi.csproj" Line="13" Column="52" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />

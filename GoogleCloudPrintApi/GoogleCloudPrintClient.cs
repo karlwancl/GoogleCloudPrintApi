@@ -41,7 +41,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Result for /control interface</returns>
         public async Task<JobResponse<ControlRequest>> UpdateJobStatusAsync(ControlRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("control")
@@ -60,7 +60,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Result for /delete interface</returns>
         public async Task<Response<DeleteRequest>> DeletePrinterAsync(DeleteRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("delete")
@@ -79,7 +79,7 @@ namespace GoogleCloudPrintApi
         /// <returns></returns>
         public async Task<PrintersResponse<ListRequest>> ListPrinterAsync(ListRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("list")
@@ -98,7 +98,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<RegisterResponse> RegisterPrinterAsync(RegisterRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             // use_cdd parameter must set to true if google cloud print version is 2.0
             request.UseCdd = request.GCPVersion == "2.0" || request.UseCdd;
@@ -120,7 +120,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<PrinterResponse<UpdateRequest>> UpdatePrinterAsync(UpdateRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             // use_cdd parameter must set to true if google cloud print version is 2.0
             request.UseCdd = request.GCPVersion == "2.0" || request.UseCdd;
@@ -142,7 +142,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<JobsResponse<DeleteJobRequest>> DeleteJobAsync(DeleteJobRequest request, CancellationToken cancellationToken = default(CancellationToken))
         { 
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
  
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("deletejob")
@@ -161,7 +161,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<JobsResponse<JobListRequest>> ListJobAsync(JobListRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
  
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("jobs")
@@ -180,7 +180,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<JobsResponse<FetchRequest>> FetchJobAsync(FetchRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("fetch")
@@ -200,7 +200,7 @@ namespace GoogleCloudPrintApi
         /// <returns>The print ticket document</returns>
         public async Task<XDocument> GetTicketAsync(string ticketUrl, string proxy, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             string ticket = await ticketUrl
                 .WithOAuthBearerToken(_token.AccessToken)
@@ -220,7 +220,7 @@ namespace GoogleCloudPrintApi
         /// <returns>The print ticket</returns>
         public async Task<CloudJobTicket> GetCloudJobTicketAsync(TicketRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("ticket")
@@ -240,7 +240,7 @@ namespace GoogleCloudPrintApi
         /// <returns>The downloaded file</returns>
         public async Task<Stream> GetDocumentAsync(string fileUrl, string proxy, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await fileUrl
                 .WithOAuthBearerToken(_token.AccessToken)
@@ -259,7 +259,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<PrintersResponse<PrinterRequest>> GetPrinterAsync(PrinterRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("printer")
@@ -278,7 +278,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<Response<ShareRequest>> SharePrinterAsync(ShareRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("share")
@@ -297,7 +297,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
         public async Task<Response<UnshareRequest>> UnsharePrinterAsync(UnshareRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("unshare")
@@ -315,7 +315,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
 		public async Task<JobResponse<SubmitRequest>> SubmitJobAsync(SubmitRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("submit")
@@ -359,7 +359,7 @@ namespace GoogleCloudPrintApi
         /// <returns>Response from google cloud</returns>
 		public async Task<PrintersResponse<SearchRequest>> SearchPrinterAsync(SearchRequest request, CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudPrintBaseUrl
                 .AppendPathSegment("search")
@@ -371,7 +371,7 @@ namespace GoogleCloudPrintApi
 
         public async Task<UserProfile> GetUserProfileAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
 
             return await GoogleCloudUserProfileUrl
                 .WithOAuthBearerToken(_token.AccessToken)

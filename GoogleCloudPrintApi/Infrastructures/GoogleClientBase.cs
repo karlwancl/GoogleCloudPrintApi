@@ -46,7 +46,7 @@ namespace GoogleCloudPrintApi.Infrastructures
         /// <returns>Get internal token</returns>
         public async Task<Token> GetTokenAsync(CancellationToken cancellationToken = default(CancellationToken))
         {
-            await UpdateTokenAsync(cancellationToken);
+            await UpdateTokenAsync(cancellationToken).ConfigureAwait(false);
             return _token;
         }
     }
